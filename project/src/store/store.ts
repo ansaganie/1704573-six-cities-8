@@ -1,14 +1,20 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import api, { HttpCode } from '../services/api';
-import { setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
+import appReducer, { AppActions, setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
 import { AuthStatus } from '../constants';
+import Token from '../services/token';
+
+const TOKEN_KEY = 'six-cities-8';
 
 const store = configureStore({
-  reducer: [],
+  reducer: [ appReducer ],
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(thunk.withExtraArgument(api)),
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
 });
 
 api.interceptors.response.use(
@@ -31,5 +37,13 @@ api.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+export type RootAction = AppActions;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AsyncAction<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, Action>
+export type AppDispatch = typeof store.dispatch;
+export type AsyncDispatch = ThunkDispatch<RootState, AxiosInstance, Action>;
+export const token = new Token(localStorage, TOKEN_KEY);
 
 export default store;

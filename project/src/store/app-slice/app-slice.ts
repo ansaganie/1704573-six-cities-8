@@ -2,15 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../constants';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
-
-interface IAppState {
-  appStatus: AuthStatus;
-  user: IUser | null;
-  initialized: boolean;
-  serverNotWorking: boolean;
-  favoriteOffers: IOffer[];
-  favoriteOffersLoading: boolean;
-}
+import IAppState from './IAppState';
 
 const initialState: IAppState = {
   appStatus: AuthStatus.Unknown,
@@ -28,7 +20,7 @@ const appSlice = createSlice({
     setAuthStatus: (state, action: PayloadAction<AuthStatus>) => {
       state.appStatus = action.payload;
     },
-    setUser: (state, action: PayloadAction<IUser>) => {
+    setUser: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
     },
     setInitialized: (state) => {
@@ -36,6 +28,12 @@ const appSlice = createSlice({
     },
     setServerNotWorking: (state) => {
       state.serverNotWorking = true;
+    },
+    setFavoriteOffers: (state, action: PayloadAction<IOffer[]>) => {
+      state.favoriteOffers = action.payload;
+    },
+    setFavoriteOffersLoading: (state, action: PayloadAction<boolean>) => {
+      state.favoriteOffersLoading = action.payload;
     },
   },
 });
@@ -45,6 +43,10 @@ export const {
   setUser,
   setInitialized,
   setServerNotWorking,
+  setFavoriteOffers,
+  setFavoriteOffersLoading,
 } = appSlice.actions;
+
+export type AppActions = typeof appSlice.actions;
 
 export default appSlice.reducer;

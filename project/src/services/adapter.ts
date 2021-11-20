@@ -1,28 +1,26 @@
-import IServerUser from '../models/IServerUser';
+import IOffer from '../models/IOffer';
 import IUser from '../models/IUser';
+import convertKeyToCamelCase from '../utils/convert-keys-to-camel-case';
 
-const UserMapping: {
-  [key: string]: string,
-} = {
-  'avatar_url': 'avatarUrl',
-  email: 'email',
-  id: 'id',
-  'is_pro': 'IsPro',
-  name: 'name',
-  token: 'token',
-};
-
-const adaptUser = (user: IServerUser): IUser => {
-  const result = Object.keys(user)
-    .reduce((acc, value) => ({
-      ...acc,
-      [UserMapping[value]]: user[value],
-    }), ({} as IUser));
-
+const adaptUser = (user: IUser): IUser => {
+  const result = convertKeyToCamelCase(user);
   result.id = result.id.toString();
-  result.isPro = Boolean(result.isPro);
 
-  return result;
+  return result as IUser;
 };
 
-export { adaptUser };
+const adaptOffer = (offer: IOffer): IOffer => {
+  const result = convertKeyToCamelCase(offer);
+  result.id = result.id.toString();
+  result.host = result.host as IUser;
+
+  return result as IOffer;
+};
+
+const adaptOffers = (offers: IOffer[]): IOffer[] => offers.map(adaptOffer);
+
+export {
+  adaptUser,
+  adaptOffer,
+  adaptOffers
+};
