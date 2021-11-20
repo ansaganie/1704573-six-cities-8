@@ -5,10 +5,10 @@ export type UserId = string;
 interface IUser {
   id: UserId,
   name: string,
-  avatarUrl: string,
-  isPro: boolean,
   email?: string,
   token?: Token,
+  avatarUrl: string,
+  isPro: boolean,
 }
 
 export default IUser;
