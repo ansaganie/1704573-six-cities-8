@@ -1,4 +1,4 @@
-class Token {
+class TokenKeeper {
   private store: Storage;
 
   private key: string;
@@ -21,4 +21,4 @@ class Token {
   }
 }
 
-export default Token;
+export default TokenKeeper;

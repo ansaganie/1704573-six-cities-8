@@ -3,7 +3,7 @@ import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/too
 import api from '../services/api';
 import appReducer from './app-slice/app-slice';
 import { SlicesNamespace } from '../constants';
-import Token from '../services/token';
+import TokenKeeper from '../services/token';
 import offerReducer from './offer-slice/offer-slice';
 import reviewReducer from './review-slice/review-slice';
 
@@ -24,9 +24,9 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AsyncAction<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, Action>
 export type AppDispatch = typeof store.dispatch;
+export type AsyncAction<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, Action>
 export type AsyncDispatch = ThunkDispatch<RootState, AxiosInstance, Action>;
-export const token = new Token(localStorage, TOKEN_KEY);
+export const tokenKeeper = new TokenKeeper(localStorage, TOKEN_KEY);
 
 export default store;

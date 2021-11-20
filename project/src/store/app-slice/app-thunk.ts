@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { AsyncAction } from '../store';
+import { AsyncAction, tokenKeeper } from '../store';
 import appToast from '../../utils/app-toast';
 import ILoginForm from '../../models/ILoginForm';
 import IOffer from '../../models/IOffer';
@@ -40,6 +40,7 @@ const login = (loginForm: ILoginForm): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
+      tokenKeeper.setToken(data.token);
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);
@@ -53,6 +54,7 @@ const logout = (): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.NoAuth));
       dispatch(setUser(null));
+      tokenKeeper.dropToken();
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

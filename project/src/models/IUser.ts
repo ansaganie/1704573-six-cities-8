@@ -1,14 +1,9 @@
 import { Token } from '../types/Token';
+import IAbstractUser from './IAbstractUser';
 
-export type UserId = string;
-
-interface IUser {
-  id: UserId,
-  name: string,
-  email?: string,
-  token?: Token,
-  avatarUrl: string,
-  isPro: boolean,
+interface IUser extends IAbstractUser {
+  email: string,
+  token: Token,
 }
 
 export default IUser;

@@ -1,6 +1,6 @@
+import IAbstractUser from './IAbstractUser';
 import ICity from './ICity';
 import ILocation from './ILocation';
-import IUser from './IUser';
 
 export type OfferId = string;
 
@@ -19,7 +19,7 @@ interface IOffer {
   title: string;
   type: string;
   city: ICity;
-  host: IUser;
+  host: IAbstractUser;
   location: ILocation;
 }
 
