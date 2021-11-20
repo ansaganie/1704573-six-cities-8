@@ -2,11 +2,11 @@ import { AxiosError, AxiosResponse } from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './components/app/app';
-import { AuthStatus } from './constants';
-import api, { HttpCode } from './services/api';
-import { setAuthStatus, setServerNotWorking } from './store/app-slice/app-slice';
+import { AuthStatus, HttpCode } from './constants';
+import api from './services/api';
 import store from './store/store';
+import { setAuthStatus, setServerNotWorking } from './store/app-slice/app-slice';
+import App from './components/app/app';
 
 api.interceptors.response.use(
   (response: AxiosResponse) => response,

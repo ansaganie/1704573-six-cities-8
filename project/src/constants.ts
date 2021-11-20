@@ -1,5 +1,11 @@
 import { OfferId } from './models/IOffer';
 
+enum HttpCode {
+  Unauthorized = 401,
+  ServerErrorMin = 500,
+  ServerErrorMax = 599,
+}
+
 enum SlicesNamespace {
   App = 'app',
   Offer = 'offer',
@@ -37,6 +43,7 @@ const BackendRoute = {
 };
 
 export {
+  HttpCode,
   AppRoute,
   BackendRoute,
   SlicesNamespace,
