@@ -1,10 +1,11 @@
-import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance } from 'axios';
 import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
-import api, { HttpCode } from '../services/api';
-import appReducer, { AppActions, setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
-import { AuthStatus, SlicesNamespace } from '../constants';
+import api from '../services/api';
+import appReducer from './app-slice/app-slice';
+import { SlicesNamespace } from '../constants';
 import Token from '../services/token';
 import offerReducer from './offer-slice/offer-slice';
+import reviewReducer from './review-slice/review-slice';
 
 const TOKEN_KEY = 'six-cities-8';
 
@@ -12,6 +13,7 @@ const store = configureStore({
   reducer: {
     [SlicesNamespace.App]: appReducer,
     [SlicesNamespace.Offer]: offerReducer,
+    [SlicesNamespace.Review]: reviewReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -20,29 +22,6 @@ const store = configureStore({
       },
     }),
 });
-
-api.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    const { response } = error;
-
-    if (response?.status === HttpCode.Unauthorized) {
-      store.dispatch(setAuthStatus(AuthStatus.NoAuth));
-    }
-
-    if (
-      response?.status
-      && response?.status >= HttpCode.ServerErrorMin
-      && response?.status <= HttpCode.ServerErrorMax
-    ) {
-      store.dispatch(setServerNotWorking());
-    }
-
-    return Promise.reject(error);
-  },
-);
-
-export type RootAction = AppActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AsyncAction<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, Action>
