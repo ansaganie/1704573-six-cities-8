@@ -1,10 +1,18 @@
-import { AuthStatus, BackendRoute } from '../../constants';
-import ILoginForm from '../../models/ILoginForm';
-import IServerData from '../../models/IServerData';
-import { adaptUser } from '../../services/adapter';
-import appToast from '../../utils/app-toast';
+import { AxiosError } from 'axios';
 import { AsyncAction } from '../store';
-import { setAuthStatus, setFavoriteOffersLoading, setInitialized, setUser } from './app-slice';
+import appToast from '../../utils/app-toast';
+import ILoginForm from '../../models/ILoginForm';
+import IOffer from '../../models/IOffer';
+import IUser from '../../models/IUser';
+import { AuthStatus, BackendRoute } from '../../constants';
+import { adaptOffers, adaptUser } from '../../services/adapter';
+import {
+  setAuthStatus,
+  setFavoriteOffers,
+  setFavoriteOffersLoading,
+  setInitialized,
+  setUser
+} from './app-slice';
 
 const AUTH_FAIL_MESSAGE = 'Do not forget to sign in';
 const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
@@ -14,7 +22,7 @@ const FAVORITES_FAIL = 'Could not get your favorite offers';
 const initializeApp = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const { data } = await api.get<IServerData>(BackendRoute.Login);
+      const { data } = await api.get<IUser>(BackendRoute.Login);
 
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
@@ -28,12 +36,13 @@ const initializeApp = (): AsyncAction =>
 const login = (loginForm: ILoginForm): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const { data } = await api.post<IServerData>(BackendRoute.Login, loginForm);
+      const { data } = await api.post<IUser>(BackendRoute.Login, loginForm);
 
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
+      appToast.error((error as AxiosError).message);
     }
   };
 
@@ -46,6 +55,7 @@ const logout = (): AsyncAction =>
       dispatch(setUser(null));
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
+      appToast.error((error as AxiosError).message);
     }
   };
 
@@ -54,10 +64,12 @@ const fetchFavorites = (): AsyncAction =>
     dispatch(setFavoriteOffersLoading(true));
 
     try {
-      await api.get<IServerData>(BackendRoute.Favorite);
+      const { data } = await api.get<IOffer[]>(BackendRoute.Favorite);
 
+      dispatch(setFavoriteOffers(adaptOffers(data)));
     } catch (error) {
       appToast.info(FAVORITES_FAIL);
+      appToast.error((error as AxiosError).message);
     } finally {
       dispatch(setFavoriteOffersLoading(false));
     }

@@ -2,13 +2,17 @@ import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import api, { HttpCode } from '../services/api';
 import appReducer, { AppActions, setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
-import { AuthStatus } from '../constants';
+import { AuthStatus, SlicesNamespace } from '../constants';
 import Token from '../services/token';
+import offerReducer from './offer-slice/offer-slice';
 
 const TOKEN_KEY = 'six-cities-8';
 
 const store = configureStore({
-  reducer: [ appReducer ],
+  reducer: {
+    [SlicesNamespace.App]: appReducer,
+    [SlicesNamespace.Offer]: offerReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
