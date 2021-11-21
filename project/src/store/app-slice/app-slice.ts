@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthStatus } from '../../constants';
+import { AuthStatus } from './types';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
 import IAppState from './IAppState';
+import { SlicesNamespace } from '../types';
 
 const initialState: IAppState = {
   appStatus: AuthStatus.Unknown,
@@ -14,7 +15,7 @@ const initialState: IAppState = {
 };
 
 const appSlice = createSlice({
-  name: 'app',
+  name: SlicesNamespace.App,
   initialState,
   reducers: {
     setAuthStatus: (state, action: PayloadAction<AuthStatus>) => {

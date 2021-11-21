@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IReviewState from './IReviewState';
-import { SlicesNamespace } from '../../constants';
 import { OfferId } from '../../models/IOffer';
 import IReview from '../../models/IReview';
+import { SlicesNamespace } from '../types';
 
 const initialState: IReviewState = {
   reviews: {},

@@ -4,7 +4,8 @@ import appToast from '../../utils/app-toast';
 import ILoginForm from '../../models/ILoginForm';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
-import { AuthStatus, BackendRoute } from '../../constants';
+import { BackendRoute } from '../../constants';
+import { AuthStatus } from './types';
 import { adaptOffers, adaptUser } from '../../services/adapter';
 import {
   setAuthStatus,

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IOfferState from './IOfferState';
 import IOffer, { OfferId } from '../../models/IOffer';
-import { SlicesNamespace } from '../../constants';
+import { SlicesNamespace } from '../types';
 
 const initialState: IOfferState = {
   offers: [],

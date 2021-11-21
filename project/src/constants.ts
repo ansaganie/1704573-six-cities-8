@@ -1,18 +1,5 @@
 import { OfferId } from './models/IOffer';
 
-enum SlicesNamespace {
-  App = 'app',
-  Offer = 'offer',
-  Review = 'review',
-  MainPage = 'mainPage',
-}
-
-enum AuthStatus {
-  Auth = 'auth',
-  NoAuth = 'no-auth',
-  Unknown = 'unknown'
-}
-
 const AppRoute = {
   Main: '/',
   Favorites: '/favorites',
@@ -39,7 +26,5 @@ const BackendRoute = {
 
 export {
   AppRoute,
-  BackendRoute,
-  SlicesNamespace,
-  AuthStatus
+  BackendRoute
 };

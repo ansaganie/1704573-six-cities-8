@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Cities } from '../../types/cities';
+import { Cities } from '../../store/main-page-slice/types';
 
 const LINK_CAP = '';
 

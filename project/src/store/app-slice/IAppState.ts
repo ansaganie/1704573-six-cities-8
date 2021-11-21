@@ -1,4 +1,4 @@
-import { AuthStatus } from '../../constants';
+import { AuthStatus } from './types';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
 

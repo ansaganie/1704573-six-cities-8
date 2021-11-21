@@ -1,7 +1,7 @@
 import React from 'react';
-import { AuthStatus } from '../../constants';
 import { useAppSelector } from '../../hooks/redux';
 import { getAuthStatus, getUser } from '../../store/app-slice/app-selector';
+import { AuthStatus } from '../../store/app-slice/types';
 import Logo from '../logo/logo';
 import User from '../user/user';
 

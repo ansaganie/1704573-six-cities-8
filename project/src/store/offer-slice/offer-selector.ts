@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
 import IOffer from '../../models/IOffer';
-import { getCurrentTab } from '../main-page-slice/main-page-selector';
+import { getCurrentSort, getCurrentTab } from '../main-page-slice/main-page-selector';
+import { SortingType } from '../main-page-slice/types';
 import { RootState } from '../store';
+import { OffersSorter } from './sorting';
 
 const getOffers = (state: RootState): IOffer[] => state.offer.offers;
 const getOffersLoading = (state: RootState): boolean => state.offer.offersLoading;
@@ -11,7 +13,18 @@ const getFavoriteButtonDisabled = (state: RootState): boolean => state.offer.fav
 const getFilteredOffers = createSelector(
   getOffers,
   getCurrentTab,
-  (offers, currentTab) => offers.filter(({city}) => city.name === currentTab ),
+  getCurrentSort,
+  (offers, currentTab, currentSort) => {
+    const result = offers.filter(({city}) => city.name === currentTab);
+
+    if (currentSort) {
+      return currentSort === SortingType.Popular
+        ? result
+        : result.sort(OffersSorter[currentSort]);
+    }
+
+    return result;
+  },
 );
 
 export {
