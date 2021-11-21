@@ -5,10 +5,11 @@ import { AppRoute } from '../../constants';
 type UserProps = {
   authorized: boolean,
   email?: string,
+  avatarUrl?: string,
 };
 
 function User(props: UserProps): JSX.Element {
-  const { authorized, email } = props;
+  const { authorized, email, avatarUrl } = props;
 
   return (
     <nav className="header__nav">
@@ -20,6 +21,12 @@ function User(props: UserProps): JSX.Element {
                 <li className="header__nav-item user">
                   <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      <img
+                        src={avatarUrl}
+                        alt="User's avatar"
+                        width="20"
+                        height="20"
+                      />
                     </div>
                     <span className="header__user-name user__name">{email}</span>
                   </Link>

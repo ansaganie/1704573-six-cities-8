@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
-import { SortingType } from '../../store/main-page-slice/types';
+import { SortingType } from '../../store/main-page-slice/constants';
 
 function Sorting(): JSX.Element {
   const [ sort, setSort ] = useQueryParam('sort', StringParam);

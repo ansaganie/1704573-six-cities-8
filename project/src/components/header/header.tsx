@@ -17,7 +17,11 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo/>
           </div>
-          <User authorized={isAuthorized} email={user?.email}/>
+          <User
+            authorized={isAuthorized}
+            email={user?.email}
+            avatarUrl={user?.avatarUrl}
+          />
         </div>
       </div>
     </header>

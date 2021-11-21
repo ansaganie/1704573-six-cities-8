@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import ILocation from '../../models/ILocation';
 import { SlicesNamespace } from '../types';
 import IMainPageState from './IMainPageState';
-import { Cities, SortingType } from './types';
+import { Cities, CityLocation, SortingType } from './constants';
+import { OfferId } from '../../models/IOffer';
 
 const initialState: IMainPageState = {
   currentTab: null,
   currentSort: null,
+  locationInFocus: CityLocation[Cities.Paris],
+  offerInFocusId: '',
 };
 
 const mainPageSlice = createSlice({
@@ -18,6 +22,12 @@ const mainPageSlice = createSlice({
     setCurrentSort: (state, action: PayloadAction<SortingType>) => {
       state.currentSort = action.payload;
     },
+    setLocationInFocus: (state, action: PayloadAction<ILocation>) => {
+      state.locationInFocus = action.payload;
+    },
+    setOfferInFocusId: (state, action: PayloadAction<OfferId>) => {
+      state.offerInFocusId = action.payload;
+    },
   },
 });
 
@@ -26,6 +36,8 @@ const mainPageReducer = mainPageSlice.reducer;
 export const {
   setCurrentTab,
   setCurrentSort,
+  setLocationInFocus,
+  setOfferInFocusId,
 } = mainPageSlice.actions;
 
 export type AppActions = typeof mainPageSlice.actions;

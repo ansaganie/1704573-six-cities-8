@@ -1,5 +1,5 @@
 import IOffer from '../../models/IOffer';
-import { SortingType } from '../main-page-slice/types';
+import { SortingType } from '../main-page-slice/constants';
 
 const OffersSorter = {
   [SortingType.PriceLowestFirst]: (first: IOffer, second: IOffer): number =>

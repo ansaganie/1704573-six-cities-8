@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import IOffer from '../../models/IOffer';
 import { getCurrentSort, getCurrentTab } from '../main-page-slice/main-page-selector';
-import { SortingType } from '../main-page-slice/types';
 import { RootState } from '../store';
 import { OffersSorter } from './sorting';
 
@@ -18,9 +17,7 @@ const getFilteredOffers = createSelector(
     const result = offers.filter(({city}) => city.name === currentTab);
 
     if (currentSort) {
-      return currentSort === SortingType.Popular
-        ? result
-        : result.sort(OffersSorter[currentSort]);
+      return result.sort(OffersSorter[currentSort]);
     }
 
     return result;

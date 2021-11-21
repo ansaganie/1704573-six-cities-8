@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
+import { useAppDispatch } from '../../hooks/redux';
 import IOffer from '../../models/IOffer';
+import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import { getRatingInPercentage } from '../../utils/offer';
 
 type OfferCardProps = {
@@ -17,14 +19,26 @@ function OfferCard(props: OfferCardProps): JSX.Element {
     price,
     rating,
     type,
+    location,
   } = props.offer;
-
+  const dispatch = useAppDispatch();
   const ratingStyle = {
     width: getRatingInPercentage(rating),
   };
 
+  // eslint-disable-next-line no-console
+  console.log(props.offer);
+
+  const mouseOverHandler = () => {
+    dispatch(setLocationInFocus(location));
+    dispatch(setOfferInFocusId(id));
+  };
+
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      onMouseOver={mouseOverHandler}
+    >
       {
         isPremium && (
           <div className="place-card__mark">
