@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCurrentTab } from '../../store/main-page-slice/main-page-selector';
 import { setCurrentTab } from '../../store/main-page-slice/main-page-slice';
 import { Cities } from '../../types/cities';
+import Catalog from '../catalog/catalog';
 import Header from '../header/header';
 import Tabs from '../tabs/tabs';
 
@@ -29,6 +30,15 @@ function Main(): JSX.Element {
           activeTab={activeTab}
           onTabClick={setTab}
         />
+        <div className="cities">
+          <div className="cities__places-container container">
+            <Catalog/>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+              </section>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
