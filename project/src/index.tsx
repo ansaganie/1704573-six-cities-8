@@ -2,17 +2,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { QueryParamProvider } from 'use-query-params';
 import store from './store/store';
 import App from './components/app/app';
-import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <ToastContainer/>
-        <App />
+        <QueryParamProvider ReactRouterRoute={Route}>
+          <App />
+        </QueryParamProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

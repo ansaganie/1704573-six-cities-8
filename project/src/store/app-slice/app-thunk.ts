@@ -14,23 +14,17 @@ import {
   setUser
 } from './app-slice';
 
-const AUTH_FAIL_MESSAGE = 'Do not forget to sign in';
 const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
 const FAVORITES_FAIL = 'Could not get your favorite offers';
 
 const initializeApp = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    try {
-      const { data } = await api.get<IUser>(BackendRoute.Login);
+    const { data } = await api.get<IUser>(BackendRoute.Login);
 
-      dispatch(setAuthStatus(AuthStatus.Auth));
-      dispatch(setUser(adaptUser(data)));
-    } catch (error) {
-      appToast.info(AUTH_FAIL_MESSAGE);
-    } finally {
-      dispatch(setInitialized());
-    }
+    dispatch(setAuthStatus(AuthStatus.Auth));
+    dispatch(setUser(adaptUser(data)));
+    dispatch(setInitialized());
   };
 
 const login = (loginForm: ILoginForm): AsyncAction =>

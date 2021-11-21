@@ -5,6 +5,7 @@ import { AuthStatus, SlicesNamespace } from '../constants';
 import TokenKeeper from '../services/token';
 import offerReducer from './offer-slice/offer-slice';
 import reviewReducer from './review-slice/review-slice';
+import mainPageReducer from './main-page-slice/main-page-slice';
 
 const TOKEN_KEY = 'six-cities-8';
 const BACKEND_URL = 'https://8.react.pages.academy/six-cities';
@@ -40,6 +41,7 @@ const store = configureStore({
     [SlicesNamespace.App]: appReducer,
     [SlicesNamespace.Offer]: offerReducer,
     [SlicesNamespace.Review]: reviewReducer,
+    [SlicesNamespace.MainPage]: mainPageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
