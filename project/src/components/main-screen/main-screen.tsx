@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useAppDispatch } from '../../hooks/redux';
-import { setCurrentSort, setCurrentTab } from '../../store/main-page-slice/main-page-slice';
-import { Cities, SortingType } from '../../store/main-page-slice/constants';
+import { setCurrentSort, setCurrentTab, setLocationInFocus } from '../../store/main-page-slice/main-page-slice';
+import { Cities, CityLocation, SortingType } from '../../store/main-page-slice/constants';
 import Catalog from '../catalog/catalog';
 import Header from '../header/header';
 import Map from '../map/map';
 import Tabs from '../tabs/tabs';
+import ILocation from '../../models/ILocation';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ function MainScreen(): JSX.Element {
   useEffect(() => {
     if (tab) {
       dispatch(setCurrentTab(tab as Cities));
-
+      dispatch(setLocationInFocus(CityLocation[tab as Cities] as ILocation));
     } else {
       setTab(Cities.Paris);
     }

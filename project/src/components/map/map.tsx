@@ -3,17 +3,24 @@ import L from 'leaflet';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useAppSelector } from '../../hooks/redux';
 import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
-import { getFilteredOffers } from '../../store/offer-slice/offer-selector';
+import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
 import Leaflet from '../leaflet/leaflet';
 
-function Map(): JSX.Element {
+function Map(): JSX.Element | null {
   const locationInFocus = useAppSelector(getLocationInFocus);
   const offerInFocusId = useAppSelector(getOfferInFocusId);
   const offers = useAppSelector(getFilteredOffers);
+  const offersLoading = useAppSelector(getOffersLoading);
   const position = new L.LatLng(
     locationInFocus.latitude,
     locationInFocus?.longitude,
   );
+
+  if (offersLoading) {
+    // eslint-disable-next-line no-debugger
+    debugger;
+    return <section className="cities__map map"/>;
+  }
 
   return (
     <MapContainer

@@ -26,9 +26,6 @@ function OfferCard(props: OfferCardProps): JSX.Element {
     width: getRatingInPercentage(rating),
   };
 
-  // eslint-disable-next-line no-console
-  console.log(props.offer);
-
   const mouseOverHandler = () => {
     dispatch(setLocationInFocus(location));
     dispatch(setOfferInFocusId(id));

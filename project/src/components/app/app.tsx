@@ -5,6 +5,7 @@ import { AppRoute } from '../../constants';
 import { initializeApp } from '../../store/app-slice/app-thunk';
 import MainScreen from '../main-screen/main-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import SignInScreen from '../sign-in-screen/sign-in-screen';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ function App(): JSX.Element {
     <Switch>
       <Route exact path={AppRoute.Main}>
         <MainScreen/>
+      </Route>
+      <Route exact path={AppRoute.SignIn}>
+        <SignInScreen/>
       </Route>
       <NotFoundScreen/>
     </Switch>
