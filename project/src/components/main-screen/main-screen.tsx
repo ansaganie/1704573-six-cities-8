@@ -8,7 +8,7 @@ import Header from '../header/header';
 import Map from '../map/map';
 import Tabs from '../tabs/tabs';
 
-function Main(): JSX.Element {
+function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const [tab, setTab] = useQueryParam('tab', StringParam);
   const [ sort, setSort ] = useQueryParam('sort', StringParam);
@@ -16,6 +16,7 @@ function Main(): JSX.Element {
   useEffect(() => {
     if (tab) {
       dispatch(setCurrentTab(tab as Cities));
+
     } else {
       setTab(Cities.Paris);
     }
@@ -48,4 +49,4 @@ function Main(): JSX.Element {
   );
 }
 
-export default Main;
+export default MainScreen;
