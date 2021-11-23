@@ -5,6 +5,7 @@ interface IOfferState {
   offersLoading: boolean;
   offerLoading: boolean;
   disabledBookmarkId: OfferId;
+  notFoundOfferId: OfferId;
 }
 
 export default IOfferState;

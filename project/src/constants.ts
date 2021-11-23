@@ -1,5 +1,12 @@
 import { OfferId } from './models/IOffer';
 
+enum HttpCode {
+  Unauthorized = 401,
+  ServerErrorMin = 500,
+  ServerErrorMax = 599,
+  NotFound = 404,
+}
+
 const AppRoute = {
   Main: '/',
   Favorites: '/favorites',
@@ -25,6 +32,7 @@ const BackendRoute = {
 };
 
 export {
+  HttpCode,
   AppRoute,
   BackendRoute
 };

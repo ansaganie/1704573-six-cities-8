@@ -3,6 +3,7 @@ import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/too
 import appReducer, { setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
 import { SlicesNamespace } from './types';
 import { AuthStatus } from './app-slice/types';
+import { HttpCode } from '../constants';
 import TokenKeeper from '../services/token';
 import offerReducer from './offer-slice/offer-slice';
 import reviewReducer from './review-slice/review-slice';
@@ -11,12 +12,6 @@ import mainPageReducer from './main-page-slice/main-page-slice';
 const TOKEN_KEY = 'six-cities-8';
 const BACKEND_URL = 'https://8.react.pages.academy/six-cities';
 const TIMEOUT = 5000;
-
-enum HttpCode {
-  Unauthorized = 401,
-  ServerErrorMin = 500,
-  ServerErrorMax = 599,
-}
 
 const tokenKeeper = new TokenKeeper(localStorage, TOKEN_KEY);
 

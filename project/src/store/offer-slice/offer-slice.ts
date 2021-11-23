@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IOfferState from './IOfferState';
+import IOfferState from './types';
 import IOffer, { OfferId } from '../../models/IOffer';
 import { SlicesNamespace } from '../types';
 
@@ -8,6 +8,7 @@ const initialState: IOfferState = {
   offersLoading: false,
   offerLoading: false,
   disabledBookmarkId: '',
+  notFoundOfferId: '',
 };
 
 const offerSlice = createSlice({
@@ -36,6 +37,9 @@ const offerSlice = createSlice({
     setDisabledBookmarkId: (state, action: PayloadAction<OfferId>) => {
       state.disabledBookmarkId = action.payload;
     },
+    setNotFoundOfferId: (state, action: PayloadAction<OfferId>) => {
+      state.disabledBookmarkId = action.payload;
+    },
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   setOffersLoading,
   setOfferLoading,
   setDisabledBookmarkId,
+  setNotFoundOfferId,
 } = offerSlice.actions;
 
 export default offerReducer;

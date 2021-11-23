@@ -8,6 +8,7 @@ const getOffers = (state: RootState): IOffer[] => state.offer.offers;
 const getOffersLoading = (state: RootState): boolean => state.offer.offersLoading;
 const getOfferLoading = (state: RootState): boolean => state.offer.offerLoading;
 const getDisabledBookmarkId = (state: RootState): OfferId => state.offer.disabledBookmarkId;
+const getNotFoundOfferId = (state: RootState): OfferId => state.offer.notFoundOfferId;
 
 const getFilteredOffers = createSelector(
   getOffers,
@@ -36,6 +37,7 @@ export {
   getOffers,
   getOffersLoading,
   getOfferLoading,
+  getNotFoundOfferId,
   getBookmarkDisabled,
   getFilteredOffers
 };

@@ -4,8 +4,8 @@ import { AppRoute } from '../../constants';
 import { useAppDispatch } from '../../hooks/redux';
 import IOffer from '../../models/IOffer';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
-import { getRatingInPercentage } from '../../utils/offer';
 import Bookmark from '../bookmark/bookmark';
+import Rating from '../rating/rating';
 
 type OfferCardProps = {
   offer: IOffer,
@@ -24,9 +24,6 @@ function OfferCard(props: OfferCardProps): JSX.Element {
     isFavorite,
   } = props.offer;
   const dispatch = useAppDispatch();
-  const ratingStyle = {
-    width: getRatingInPercentage(rating),
-  };
 
   const mouseOverHandler = () => {
     dispatch(setLocationInFocus(location));
@@ -68,10 +65,7 @@ function OfferCard(props: OfferCardProps): JSX.Element {
           />
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={ratingStyle}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <Rating rating={rating} offerCard/>
         </div>
         <h2 className="place-card__name">
           <Link to={AppRoute.getOfferLink(id)}>{title}</Link>
