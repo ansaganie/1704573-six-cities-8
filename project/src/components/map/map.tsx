@@ -17,9 +17,11 @@ function Map(): JSX.Element | null {
   );
 
   if (offersLoading) {
-    // eslint-disable-next-line no-debugger
-    debugger;
     return <section className="cities__map map"/>;
+  }
+
+  if (offers.length === 0) {
+    return null;
   }
 
   return (

@@ -7,7 +7,7 @@ import OfferCard from '../offer-card/offer-card';
 import Sorting from '../sorting/sorting';
 import Spinner from '../spinner/spinner';
 
-function Catalog(): JSX.Element {
+function Catalog(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const cityName = useAppSelector(getCurrentTab);
   const offers = useAppSelector(getFilteredOffers);
@@ -18,6 +18,10 @@ function Catalog(): JSX.Element {
       dispatch(fetchOffers());
     }
   }, [dispatch, offers.length]);
+
+  if(offers.length === 0 && !offersLoading) {
+    return null;
+  }
 
   return (
     <section className="cities__places places">
