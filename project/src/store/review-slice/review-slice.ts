@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IReviewState from './IReviewState';
+import IReviewState from './types';
 import { OfferId } from '../../models/IOffer';
 import IReview from '../../models/IReview';
 import { SlicesNamespace } from '../types';

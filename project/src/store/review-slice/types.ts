@@ -9,4 +9,8 @@ interface IReviewState {
   submittingReview: boolean;
 }
 
+export type ReviewsByOfferId =  {
+  [key: OfferId]: IReview[],
+};
+
 export default IReviewState;
