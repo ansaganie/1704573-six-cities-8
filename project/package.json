@@ -5,6 +5,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "1.5.0",
     "axios": "0.21.1",
+    "classnames": "^2.3.1",
     "formik": "^2.2.9",
     "history": "4.10.1",
     "leaflet": "^1.7.1",
@@ -17,7 +18,8 @@
     "react-scripts": "4.0.3",
     "react-toastify": "^8.1.0",
     "reselect": "4.0.0",
-    "use-query-params": "^1.2.3"
+    "use-query-params": "^1.2.3",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

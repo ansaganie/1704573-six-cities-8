@@ -17,6 +17,7 @@ import {
 
 const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
+const LOGOUT_SUCCESS_MESSAGE = 'Successfully logged out';
 const FAVORITES_FAIL = 'Could not get your favorite offers';
 
 const initializeApp = (): AsyncAction =>
@@ -50,6 +51,7 @@ const logout = (): AsyncAction =>
       dispatch(setAuthStatus(AuthStatus.NoAuth));
       dispatch(setUser(null));
       tokenKeeper.dropToken();
+      appToast.success(LOGOUT_SUCCESS_MESSAGE);
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

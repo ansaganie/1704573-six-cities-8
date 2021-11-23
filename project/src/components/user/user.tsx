@@ -1,7 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../constants';
+import { useAppDispatch } from '../../hooks/redux';
 import { useLoginLink } from '../../hooks/use-login-link';
+import { logout } from '../../store/app-slice/app-thunk';
 
 type UserProps = {
   authorized: boolean,
@@ -11,9 +13,14 @@ type UserProps = {
 
 function User(props: UserProps): JSX.Element {
   const { authorized, email, avatarUrl } = props;
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const onLoginClick = useLoginLink();
+  const loginClickHandler = useLoginLink();
+  const signOutClickHandler = useCallback((evt: MouseEvent) => {
+    evt.preventDefault();
+    dispatch(logout());
+  }, [ dispatch ]);
 
   return (
     <nav className="header__nav">
@@ -24,7 +31,8 @@ function User(props: UserProps): JSX.Element {
               <li className="header__nav-item user">
                 <a
                   className="header__nav-link header__nav-link--profile"
-                  onClick={onLoginClick}
+                  onClick={loginClickHandler}
+                  href="/"
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
@@ -40,6 +48,7 @@ function User(props: UserProps): JSX.Element {
                 <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                     <img
+                      className="user__avatar"
                       src={avatarUrl}
                       alt="User's avatar"
                       width="20"
@@ -50,9 +59,13 @@ function User(props: UserProps): JSX.Element {
                 </Link>
               </li>
               <li className="header__nav-item">
-                <span className="header__nav-link">
+                <a
+                  onClick={signOutClickHandler}
+                  className="header__nav-link"
+                  href="/"
+                >
                   <span className="header__signout">Sign out</span>
-                </span>
+                </a>
               </li>
             </>
           )

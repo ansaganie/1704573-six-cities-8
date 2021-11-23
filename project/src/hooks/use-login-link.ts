@@ -1,17 +1,18 @@
+import { MouseEvent, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoute } from '../constants';
-import { LoginState } from '../types/login-state';
 
-export const useLoginLink = (): () => void => {
+export const useLoginLink = (): (evt: MouseEvent) => void => {
   const history = useHistory();
+  const { pathname, search } = history.location;
 
-  const onLoginClick = () => {
-    const state: LoginState = {
-      from: history.location.pathname,
-    };
+  const onLoginClick = useCallback((evt: MouseEvent) => {
+    evt.preventDefault();
 
-    history.push(AppRoute.SignIn, state);
-  };
+    history.push(AppRoute.SignIn, {
+      from: `${pathname}${search}`,
+    });
+  }, [history, pathname, search]) ;
 
   return onLoginClick;
 };
