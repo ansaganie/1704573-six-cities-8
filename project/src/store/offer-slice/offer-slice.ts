@@ -7,7 +7,7 @@ const initialState: IOfferState = {
   offers: [],
   offersLoading: false,
   offerLoading: false,
-  favoriteButtonDisabled: false,
+  disabledBookmarkId: '',
 };
 
 const offerSlice = createSlice({
@@ -33,8 +33,8 @@ const offerSlice = createSlice({
     setOfferLoading: (state, action: PayloadAction<boolean>) => {
       state.offerLoading = action.payload;
     },
-    setFavoriteButtonDisabled: (state, action: PayloadAction<boolean>) => {
-      state.favoriteButtonDisabled = action.payload;
+    setDisabledBookmarkId: (state, action: PayloadAction<OfferId>) => {
+      state.disabledBookmarkId = action.payload;
     },
   },
 });
@@ -47,7 +47,7 @@ export const {
   updateIsFavorite,
   setOffersLoading,
   setOfferLoading,
-  setFavoriteButtonDisabled,
+  setDisabledBookmarkId,
 } = offerSlice.actions;
 
 export default offerReducer;

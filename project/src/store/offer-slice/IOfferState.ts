@@ -1,10 +1,10 @@
-import IOffer from '../../models/IOffer';
+import IOffer, { OfferId } from '../../models/IOffer';
 
 interface IOfferState {
   offers: IOffer[];
   offersLoading: boolean;
   offerLoading: boolean;
-  favoriteButtonDisabled: boolean;
+  disabledBookmarkId: OfferId;
 }
 
 export default IOfferState;

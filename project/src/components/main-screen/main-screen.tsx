@@ -11,6 +11,8 @@ import ILocation from '../../models/ILocation';
 import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
 import classNames from 'classnames';
 
+const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
+
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const [tab, setTab] = useQueryParam('tab', StringParam);
@@ -18,6 +20,10 @@ function MainScreen(): JSX.Element {
   const offers = useAppSelector(getFilteredOffers);
   const offersLoading = useAppSelector(getOffersLoading);
   const isNothing = !offers.length && !offersLoading;
+
+  useEffect(() => {
+    document.title = MAIN_PAGE_TITLE;
+  }, []);
 
   useEffect(() => {
     if (tab) {

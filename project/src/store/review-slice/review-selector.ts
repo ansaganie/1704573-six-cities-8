@@ -1,14 +1,13 @@
-import IOffer from '../../models/IOffer';
+import { OfferId } from '../../models/IOffer';
+import IReview from '../../models/IReview';
 import { RootState } from '../store';
 
-const getOffers = (state: RootState): IOffer[] => state.offer.offers;
-const getOffersLoading = (state: RootState): boolean => state.offer.offersLoading;
-const getOfferLoading = (state: RootState): boolean => state.offer.offerLoading;
-const getFavoriteButtonDisabled = (state: RootState): boolean => state.offer.favoriteButtonDisabled;
+const getReviews = (state: RootState): { [key: OfferId]: IReview[] } => state.review.reviews;
+const getReviewsLoading = (state: RootState): boolean => state.review.reviewsLoading;
+const getSubmittingReview = (state: RootState): boolean => state.review.submittingReview;
 
 export {
-  getOffers,
-  getOffersLoading,
-  getOfferLoading,
-  getFavoriteButtonDisabled
+  getReviews,
+  getReviewsLoading,
+  getSubmittingReview
 };

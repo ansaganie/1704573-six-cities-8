@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import Header from '../header/header';
 import SignInForm from '../sign-in-form/sign-in-form';
 
+const SIGN_IN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
+
 function SignInScreen(): JSX.Element {
+
+  useEffect(() => {
+    document.title = SIGN_IN_PAGE_TITLE;
+  }, []);
+
   return (
     <div className="page page--gray page--login">
       <Header/>

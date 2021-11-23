@@ -7,7 +7,7 @@ import appToast from '../../utils/app-toast';
 import { setServerNotWorking } from '../app-slice/app-slice';
 import {
   addOffer,
-  setFavoriteButtonDisabled,
+  setDisabledBookmarkId,
   setOfferLoading,
   setOffers,
   setOffersLoading,
@@ -53,20 +53,20 @@ const fetchOffer = (offerId: OfferId): AsyncAction =>
 
 const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFavoriteButtonDisabled(true));
+    dispatch(setDisabledBookmarkId(offerId));
 
     try {
-      const { data } = await api.get<IOffer>(BackendRoute.getFavoriteToggleLink(offerId, status));
+      const { data } = await api.post<IOffer>(BackendRoute.getFavoriteToggleLink(offerId, status));
 
       dispatch(updateIsFavorite({
         offerId,
-        status: data.isFavorite,
+        status: adaptOffer(data).isFavorite,
       }));
     } catch (error) {
       appToast.info(IS_FAVORITE_CHANGE_FAILS);
       appToast.error((error as AxiosError).message);
     } finally {
-      dispatch(setFavoriteButtonDisabled(false));
+      dispatch(setDisabledBookmarkId(''));
     }
   };
 
