@@ -1,24 +1,26 @@
 import React from 'react';
+import styles from './map.module.css';
 import L from 'leaflet';
 import { MapContainer, TileLayer } from 'react-leaflet';
-import { useAppSelector } from '../../hooks/redux';
-import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
-import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
+import IOffer, { OfferId } from '../../models/IOffer';
+import ILocation from '../../models/ILocation';
 import Leaflet from '../leaflet/leaflet';
 
-function Map(): JSX.Element | null {
-  const locationInFocus = useAppSelector(getLocationInFocus);
-  const offerInFocusId = useAppSelector(getOfferInFocusId);
-  const offers = useAppSelector(getFilteredOffers);
-  const offersLoading = useAppSelector(getOffersLoading);
+type MapProps = {
+  offerInFocusId: OfferId,
+  locationInFocus: ILocation,
+  offers: IOffer[],
+}
+
+function Map({
+  offerInFocusId,
+  locationInFocus,
+  offers,
+}: MapProps): JSX.Element | null {
   const position = new L.LatLng(
     locationInFocus.latitude,
     locationInFocus?.longitude,
   );
-
-  if (offersLoading) {
-    return <section className="cities__map map"/>;
-  }
 
   if (offers.length === 0) {
     return null;
@@ -26,7 +28,7 @@ function Map(): JSX.Element | null {
 
   return (
     <MapContainer
-      className="cities__map map"
+      className={styles.map}
       center={position}
       zoom={locationInFocus.zoom}
       scrollWheelZoom={false}

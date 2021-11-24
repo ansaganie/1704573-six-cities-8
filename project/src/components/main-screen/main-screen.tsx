@@ -10,6 +10,7 @@ import Tabs from '../tabs/tabs';
 import ILocation from '../../models/ILocation';
 import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
 import classNames from 'classnames';
+import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
 
 const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
 
@@ -19,6 +20,8 @@ function MainScreen(): JSX.Element {
   const [ sort, setSort ] = useQueryParam('sort', StringParam);
   const offers = useAppSelector(getFilteredOffers);
   const offersLoading = useAppSelector(getOffersLoading);
+  const offerInFocusId = useAppSelector(getOfferInFocusId);
+  const locationInFocus = useAppSelector(getLocationInFocus);
   const isNothing = !offers.length && !offersLoading;
 
   useEffect(() => {
@@ -70,7 +73,13 @@ function MainScreen(): JSX.Element {
             )}
             <Catalog/>
             <div className="cities__right-section">
-              <Map/>
+              <section className="cities__map map">
+                <Map
+                  offers={offers}
+                  offerInFocusId={offerInFocusId}
+                  locationInFocus={locationInFocus}
+                />
+              </section>
             </div>
           </div>
         </div>

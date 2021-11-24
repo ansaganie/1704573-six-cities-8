@@ -3,6 +3,15 @@ import IOffer from '../../models/IOffer';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingStarsType } from '../rating/rating';
 
+const AccommodationType: {
+  [key: string]: string,
+} = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
+
 type OverviewProps = {
   offer: IOffer,
 }
@@ -37,13 +46,13 @@ function Overview({ offer }: OverviewProps): JSX.Element {
       </div>
       <ul className="property__features">
         <li className="property__feature property__feature--entire">
-          {type}
+          {AccommodationType[type]}
         </li>
         <li className="property__feature property__feature--bedrooms">
-          {bedrooms}
+          {bedrooms} Bedrooms
         </li>
         <li className="property__feature property__feature--adults">
-          {maxAdults}
+          Max {maxAdults} adults
         </li>
       </ul>
       <div className="property__price">

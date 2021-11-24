@@ -1,25 +1,16 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { OfferId } from '../../models/IOffer';
-import { getNearbyOffersLoading, getNearbyOffersById } from '../../store/offer-slice/offer-selector';
-import { fetchNearbyOffers } from '../../store/offer-slice/offer-thunk';
+import React from 'react';
+import IOffer from '../../models/IOffer';
 import OfferCard, { OfferCardType } from '../offer-card/offer-card';
 import Spinner from '../spinner/spinner';
 
 const MAX_NEARBY_COUNT = 3;
 
 type NearbyProps = {
-  offerId: OfferId;
+  nearByOffers: IOffer[],
+  loading: boolean,
 };
 
-function Nearby({ offerId }: NearbyProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const nearByOffers = useAppSelector((state) => getNearbyOffersById(state, offerId));
-  const loading = useAppSelector(getNearbyOffersLoading);
-
-  useEffect(() => {
-    dispatch(fetchNearbyOffers(offerId));
-  }, [ dispatch, offerId ]);
+function Nearby({ nearByOffers, loading }: NearbyProps): JSX.Element {
 
   return (
     <section className="near-places places">
