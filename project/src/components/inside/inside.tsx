@@ -1,7 +1,8 @@
 import React from 'react';
+import { NumberStringObject } from '../../models/IOffer';
 
 type InsideProps = {
-  inside: string[],
+  inside: NumberStringObject,
 }
 
 function Inside({ inside }: InsideProps): JSX.Element {
@@ -9,8 +10,8 @@ function Inside({ inside }: InsideProps): JSX.Element {
     <div className="property__inside">
       <h2 className="property__inside-title">What&apos;s inside</h2>
       <ul className="property__inside-list">
-        {inside.map((value) => (
-          <li key={value} className="property__inside-item">
+        {Object.entries(inside).map(([index, value]) => (
+          <li key={index} className="property__inside-item">
             {value}
           </li>
         ))}

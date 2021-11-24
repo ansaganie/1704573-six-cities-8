@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import IOffer from '../../models/IOffer';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
-import Rating from '../rating/rating';
+import Rating, { RatingStarsType } from '../rating/rating';
 
 type OfferCardProps = {
   offer: IOffer,
@@ -61,11 +61,11 @@ function OfferCard(props: OfferCardProps): JSX.Element {
           </div>
           <Bookmark
             offerId={id}
-            isFavorite={isFavorite}
+            isFavorite={isFavorite} big={false}
           />
         </div>
         <div className="place-card__rating rating">
-          <Rating rating={rating} offerCard/>
+          <Rating rating={rating} type={RatingStarsType.OfferCard}/>
         </div>
         <h2 className="place-card__name">
           <Link to={AppRoute.getOfferLink(id)}>{title}</Link>

@@ -1,16 +1,19 @@
 import React from 'react';
+import { NumberStringObject } from '../../models/IOffer';
+
+const MAX_IMAGE_COUNT = 6;
 
 type GalleryProps = {
   title: string,
-  images: string[],
+  images: NumberStringObject,
 }
 
 function Gallery({ title, images }: GalleryProps): JSX.Element {
   return (
     <div className="property__gallery-container container">
       <div className="property__gallery">
-        {images.map((src) => (
-          <div key={src} className="property__image-wrapper">
+        {Object.entries(images).slice(0, MAX_IMAGE_COUNT).map(([index, src]) => (
+          <div key={index} className="property__image-wrapper">
             <img className="property__image" src={src} alt={title}/>
           </div>
         ))}

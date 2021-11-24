@@ -2,13 +2,18 @@ import classNames from 'classnames';
 import React from 'react';
 import { getRatingInPercentage } from '../../utils/offer';
 
-type RatingProps = {
-  rating: number,
-  offerCard?: boolean,
-  reviewItem?: boolean,
+export enum RatingStarsType {
+  OfferCard = 'offer-card',
+  ReviewItem = 'review-item',
+  OfferPage = 'offer-page',
 }
 
-function Rating({ rating, offerCard, reviewItem }: RatingProps): JSX.Element {
+type RatingProps = {
+  rating: number,
+  type: RatingStarsType,
+}
+
+function Rating({ rating, type }: RatingProps): JSX.Element {
   const ratingStyle = {
     width: getRatingInPercentage(rating),
   };
@@ -16,9 +21,10 @@ function Rating({ rating, offerCard, reviewItem }: RatingProps): JSX.Element {
   return (
     <div
       className={classNames({
-        'place-card__stars': offerCard,
         'rating__stars': true,
-        'reviews__stars': reviewItem,
+        'place-card__stars': type === RatingStarsType.OfferCard,
+        'reviews__stars': type === RatingStarsType.ReviewItem,
+        'property__stars': type === RatingStarsType.OfferPage,
       })}
     >
       <span style={ratingStyle}></span>

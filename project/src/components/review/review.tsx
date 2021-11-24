@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { OfferId } from '../../models/IOffer';
+import { getAuthStatus } from '../../store/app-slice/app-selector';
+import { AuthStatus } from '../../store/app-slice/types';
 import { getReviewByOfferId, getReviewsLoading } from '../../store/review-slice/review-selector';
 import { fetchReviews } from '../../store/review-slice/review-thunk';
 import ReviewForm from '../review-form/review-form';
@@ -15,6 +17,8 @@ function Review({ offerId }: ReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
   const reviews = useAppSelector((state) => getReviewByOfferId(state, offerId));
   const loading = useAppSelector(getReviewsLoading);
+  const authStatus = useAppSelector(getAuthStatus);
+  const authorized = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
     if (reviews.length === 0) {
@@ -26,7 +30,7 @@ function Review({ offerId }: ReviewProps): JSX.Element {
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
       {loading ? <Spinner/> : <ReviewList reviews={reviews}/>}
-      <ReviewForm/>
+      {authorized && <ReviewForm offerId={offerId}/>}
     </section>
   );
 }

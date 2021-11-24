@@ -8,9 +8,14 @@ import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
 type BookmarkProps = {
   offerId: OfferId,
   isFavorite: boolean,
+  big: boolean,
 }
 
-function Bookmark({ offerId, isFavorite}: BookmarkProps):JSX.Element {
+function Bookmark({
+  offerId,
+  isFavorite,
+  big,
+}: BookmarkProps):JSX.Element {
   const dispatch = useAppDispatch();
   const disabled = useAppSelector((state) => getBookmarkDisabled(state, offerId));
 
@@ -25,14 +30,23 @@ function Bookmark({ offerId, isFavorite}: BookmarkProps):JSX.Element {
   return (
     <button
       className={classNames({
-        'place-card__bookmark-button button': true,
-        'place-card__bookmark-button--active': isFavorite,
+        'button': true,
+        'place-card__bookmark-button': !big,
+        'property__bookmark-button': big,
+        'bookmark-button--active': isFavorite,
       })}
       type="button"
       disabled={disabled}
       onClick={bookmarkClickHandler}
     >
-      <svg className="place-card__bookmark-icon" width="18" height="19">
+      <svg
+        className={classNames({
+          'place-card__bookmark-icon': !big,
+          'property__bookmark-icon': big,
+        })}
+        width={big ? '31' : '18'}
+        height={big ? '33' : '19'}
+      >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>
