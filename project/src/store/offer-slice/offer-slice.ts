@@ -3,12 +3,19 @@ import IOfferState from './types';
 import IOffer, { OfferId } from '../../models/IOffer';
 import { SlicesNamespace } from '../types';
 
+type NearbyOffersPayloadType = {
+  offerId: OfferId,
+  offers: IOffer[],
+}
+
 const initialState: IOfferState = {
   offers: [],
   offersLoading: false,
   offerLoading: false,
   disabledBookmarkId: '',
   notFoundOfferId: '',
+  nearbyOffers: {},
+  nearbyOffersLoading: false,
 };
 
 const offerSlice = createSlice({
@@ -40,6 +47,13 @@ const offerSlice = createSlice({
     setNotFoundOfferId: (state, action: PayloadAction<OfferId>) => {
       state.disabledBookmarkId = action.payload;
     },
+    setNearbyOffers: (state, action: PayloadAction<NearbyOffersPayloadType>) => {
+      const { offerId, offers } = action.payload;
+      state.nearbyOffers[offerId] = offers;
+    },
+    setNearbyOffersLoading: (state, action: PayloadAction<boolean>) => {
+      state.nearbyOffersLoading = action.payload;
+    },
   },
 });
 
@@ -53,6 +67,8 @@ export const {
   setOfferLoading,
   setDisabledBookmarkId,
   setNotFoundOfferId,
+  setNearbyOffers,
+  setNearbyOffersLoading,
 } = offerSlice.actions;
 
 export default offerReducer;

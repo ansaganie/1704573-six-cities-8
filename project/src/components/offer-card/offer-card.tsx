@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
@@ -7,11 +8,19 @@ import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-sli
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingStarsType } from '../rating/rating';
 
-type OfferCardProps = {
-  offer: IOffer,
+export enum OfferCardType {
+  MainPage = 'main-page',
+  OfferPage = 'offer-page',
+  FavoritesPage = 'favorites-page',
 }
 
-function OfferCard(props: OfferCardProps): JSX.Element {
+
+type OfferCardProps = {
+  offer: IOffer,
+  type: OfferCardType,
+}
+
+function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
   const {
     id,
     isPremium,
@@ -19,10 +28,10 @@ function OfferCard(props: OfferCardProps): JSX.Element {
     title,
     price,
     rating,
-    type,
+    type: roomType,
     location,
     isFavorite,
-  } = props.offer;
+  } = offer;
   const dispatch = useAppDispatch();
 
   const mouseOverHandler = () => {
@@ -32,7 +41,11 @@ function OfferCard(props: OfferCardProps): JSX.Element {
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={classNames({
+        'place-card': true,
+        'cities__place-card': type === OfferCardType.MainPage,
+        'near-places__card': type === OfferCardType.OfferPage,
+      })}
       onMouseOver={mouseOverHandler}
     >
       {
@@ -70,7 +83,7 @@ function OfferCard(props: OfferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={AppRoute.getOfferLink(id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{roomType}</p>
       </div>
     </article>
   );

@@ -6,7 +6,7 @@ import Gallery from '../gallery/gallery';
 import Header from '../header/header';
 import Host from '../host/host';
 import Inside from '../inside/inside';
-// import Nearby from '../nearby/nearby';
+import Nearby from '../nearby/nearby';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Overview from '../overview/overview';
 import Review from '../review/review';
@@ -56,7 +56,7 @@ function OfferScreen():JSX.Element {
           <section className="property__map map"></section>
         </section>
         <div className="container">
-          {/* <Nearby/> */}
+          <Nearby offerId={id}/>
         </div>
       </main>
     </div>

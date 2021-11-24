@@ -1,9 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, MouseEvent } from 'react';
 import classNames from 'classnames';
 import { OfferId } from '../../models/IOffer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getBookmarkDisabled } from '../../store/offer-slice/offer-selector';
 import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
+import { getAuthStatus } from '../../store/app-slice/app-selector';
+import { useLoginLink } from '../../hooks/use-login-link';
+import { AuthStatus } from '../../store/app-slice/types';
 
 type BookmarkProps = {
   offerId: OfferId,
@@ -17,14 +20,17 @@ function Bookmark({
   big,
 }: BookmarkProps):JSX.Element {
   const dispatch = useAppDispatch();
+  const redirectToLogin = useLoginLink();
   const disabled = useAppSelector((state) => getBookmarkDisabled(state, offerId));
+  const authStatus = useAppSelector(getAuthStatus);
 
-  const bookmarkClickHandler = useCallback(
-    () => {
+  const bookmarkClickHandler = useCallback((evt: MouseEvent) => {
+    if (authStatus === AuthStatus.Auth) {
       dispatch(changeIsFavorite(offerId, !isFavorite));
-    },
-    [dispatch, isFavorite, offerId],
-  );
+    } else {
+      redirectToLogin(evt);
+    }
+  }, [ authStatus, dispatch, isFavorite, offerId, redirectToLogin ]);
 
 
   return (

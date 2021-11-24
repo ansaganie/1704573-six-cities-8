@@ -14,6 +14,7 @@ import {
   setInitialized,
   setUser
 } from './app-slice';
+import { fetchOffers } from '../offer-slice/offer-thunk';
 
 const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
@@ -50,8 +51,11 @@ const logout = (): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.NoAuth));
       dispatch(setUser(null));
+
       tokenKeeper.dropToken();
       appToast.success(LOGOUT_SUCCESS_MESSAGE);
+
+      dispatch(fetchOffers());
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

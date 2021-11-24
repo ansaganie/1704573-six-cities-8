@@ -6,7 +6,7 @@ import IAppState from './IAppState';
 import { SlicesNamespace } from '../types';
 
 const initialState: IAppState = {
-  appStatus: AuthStatus.Unknown,
+  authStatus: AuthStatus.Unknown,
   user: null,
   initialized: false,
   serverNotWorking: false,
@@ -19,7 +19,7 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setAuthStatus: (state, action: PayloadAction<AuthStatus>) => {
-      state.appStatus = action.payload;
+      state.authStatus = action.payload;
     },
     setUser: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;

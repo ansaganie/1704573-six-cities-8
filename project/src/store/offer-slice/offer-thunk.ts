@@ -8,6 +8,8 @@ import { setServerNotWorking } from '../app-slice/app-slice';
 import {
   addOffer,
   setDisabledBookmarkId,
+  setNearbyOffers,
+  setNearbyOffersLoading,
   setNotFoundOfferId,
   setOfferLoading,
   setOffers,
@@ -16,7 +18,7 @@ import {
 } from './offer-slice';
 
 const OFFERS_FETCH_FAILS = 'Could get offers, please try again later';
-const IS_FAVORITE_CHANGE_FAILS = 'Could update "favorite" status';
+const IS_FAVORITE_CHANGE_FAILS = 'Could not update "favorite" status';
 
 const fetchOffers = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -59,7 +61,9 @@ const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
     dispatch(setDisabledBookmarkId(offerId));
 
     try {
-      const { data } = await api.post<IOffer>(BackendRoute.getFavoriteToggleLink(offerId, status));
+      const { data } = await api.post<IOffer>(
+        BackendRoute.getFavoriteToggleLink(offerId, status),
+      );
 
       dispatch(updateIsFavorite({
         offerId,
@@ -73,8 +77,30 @@ const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
     }
   };
 
+const fetchNearbyOffers =  (offerId: OfferId): AsyncAction =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setNearbyOffersLoading(true));
+
+    try {
+      const { data } = await api.get<IOffer[]>(
+        BackendRoute.getNearbyOffersLink(offerId),
+      );
+
+      dispatch(setNearbyOffers({
+        offerId,
+        offers: adaptOffers(data),
+      }));
+    } catch (error) {
+      appToast.error((error as AxiosError).message);
+      dispatch(setServerNotWorking());
+    } finally {
+      dispatch(setNearbyOffersLoading(false));
+    }
+  };
+
 export {
   fetchOffers,
   fetchOffer,
-  changeIsFavorite
+  changeIsFavorite,
+  fetchNearbyOffers
 };

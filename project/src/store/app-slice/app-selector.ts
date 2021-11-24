@@ -3,7 +3,7 @@ import IUser from '../../models/IUser';
 import { RootState } from '../store';
 import { AuthStatus } from './types';
 
-const getAuthStatus = (state: RootState): AuthStatus => state.app.appStatus;
+const getAuthStatus = (state: RootState): AuthStatus => state.app.authStatus;
 const getUser = (state: RootState): IUser | null => state.app.user;
 const getInitialized = (state: RootState): boolean => state.app.initialized;
 const getServerNotWorking = (state: RootState): boolean => state.app.serverNotWorking;

@@ -3,7 +3,7 @@ import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
 
 interface IAppState {
-  appStatus: AuthStatus;
+  authStatus: AuthStatus;
   user: IUser | null;
   initialized: boolean;
   serverNotWorking: boolean;
