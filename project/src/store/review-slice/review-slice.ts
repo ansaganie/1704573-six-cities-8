@@ -24,15 +24,6 @@ const reviewSlice = createSlice({
       const { offerId, reviews } = action.payload;
       state.reviews[offerId] = reviews;
     },
-    addReview: (
-      state,
-      action: PayloadAction<{
-        offerId: OfferId,
-        review: IReview,
-      }>) => {
-      const { offerId, review } = action.payload;
-      state.reviews[offerId].push(review);
-    },
     setReviewsLoading: (state, action: PayloadAction<boolean>) => {
       state.reviewsLoading = action.payload;
     },
@@ -46,7 +37,6 @@ const reviewReducer = reviewSlice.reducer;
 
 export const {
   setReviews,
-  addReview,
   setReviewsLoading,
   setSubmittingReview,
 } = reviewSlice.actions;

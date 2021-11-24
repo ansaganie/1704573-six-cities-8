@@ -1,5 +1,6 @@
-import { Field, Form, Formik, FormikProps } from 'formik';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, Fragment } from 'react';
+import { Field, Form, Formik, FormikProps, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 import { useAppDispatch } from '../../hooks/redux';
 import { OfferId } from '../../models/IOffer';
 import IReviewForm from '../../models/IReviewForm';
@@ -8,7 +9,7 @@ import { postReview } from '../../store/review-slice/review-thunk';
 const starValues = [ 5, 4, 3, 2, 1 ];
 
 const initialValues = {
-  rating: 0,
+  rating: 1,
   comment: '',
 };
 
@@ -19,25 +20,39 @@ type ReviewFormProps = {
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const formSubmitHandler = useCallback((values: IReviewForm) => {
-    dispatch(postReview(offerId, values));
+  const validation = useMemo(() => Yup.object({
+    rating: Yup.number()
+      .required()
+      .min(1)
+      .max(5),
+    comment: Yup.string()
+      .required()
+      .min(50)
+      .max(300),
+  }), []);
+
+  const formSubmitHandler = useCallback(async (values: IReviewForm, formikHelpers: FormikHelpers<IReviewForm>) => {
+    await dispatch(postReview(offerId, values));
+    formikHelpers.resetForm();
   }, [dispatch, offerId]);
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={formSubmitHandler}
+      validationSchema={validation}
     >
-      {({ isValid, isSubmitting }: FormikProps<IReviewForm>) => (
+      {({ isValid, isSubmitting, handleChange }: FormikProps<IReviewForm>) => (
         <Form className="reviews__form form">
           <label className="reviews__label form__label" htmlFor="comment">Your review</label>
           <div className="reviews__rating-form form__rating">
             {starValues.map((value) => (
-              <>
-                <Field
+              <Fragment key={value}>
+                <input
                   type="radio"
                   className="form__rating-input visually-hidden"
                   name="rating"
+                  onChange={handleChange}
                   value={value}
                   id={`${value}-stars`}
                   disabled={isSubmitting}
@@ -51,7 +66,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
                     <use xlinkHref="#icon-star"/>
                   </svg>
                 </label>
-              </>
+              </Fragment>
             ))}
           </div>
           <Field

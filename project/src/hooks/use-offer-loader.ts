@@ -22,8 +22,7 @@ const useOfferLoader = (offerId: OfferId): UseOfferLoader => {
       dispatch(fetchOffer(offerId));
     }
   }, [ offers, offerId, dispatch ]);
-  // eslint-disable-next-line no-console
-  console.log(offer);
+
   return [ offer, loading, notFoundOfferId === offerId ];
 };
 

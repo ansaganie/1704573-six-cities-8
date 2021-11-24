@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { OfferId } from '../../models/IOffer';
+import { adaptReviews } from '../../services/adapter';
 import { RootState } from '../store';
 import { ReviewsByOfferId } from './types';
 
@@ -12,7 +13,7 @@ const getReviewByOfferId = createSelector(
     getReviews,
     (_state: RootState, offerId: OfferId) => offerId,
   ],
-  (reviews, offerId) => reviews[offerId] || [],
+  (reviews, offerId) => adaptReviews(reviews[offerId] || []),
 );
 
 export {
