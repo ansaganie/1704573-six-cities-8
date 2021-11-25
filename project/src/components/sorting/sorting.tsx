@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { SortingType } from '../../store/main-page-slice/constants';
+import combineClass from '../../utils/combine-class';
 
 function Sorting(): JSX.Element {
   const [ sort, setSort ] = useQueryParam('sort', StringParam);
@@ -34,20 +35,19 @@ function Sorting(): JSX.Element {
         </svg>
       </span>
       <ul
-        className={`
-          places__options
-          places__options--custom
-          ${isSelectOpen ? 'places__options--opened' : ''}
-        `}
+        className={combineClass({
+          'places__options places__options--custom': true,
+          'places__options--opened': isSelectOpen,
+        })}
       >
         {
           Object.values(SortingType).map((value) => (
             <li
               key={value}
-              className={`
-                places__option
-                ${value === sort ? 'places__option--active' : ''}
-              `}
+              className={combineClass({
+                'places__option': true,
+                'places__option--active': value === sort,
+              })}
               tabIndex={0}
               onClick={optionClickHandler(value)}
             >

@@ -5,6 +5,11 @@ import pin from '../../assets/pin.svg';
 import activePin from '../../assets/pin-active.svg';
 import IOffer, { OfferId } from '../../models/IOffer';
 
+const ICON_SIZE_X = 40;
+const ICON_SIZE_Y = 50;
+const ICON_ANCHOR_X = 40;
+const ICON_ANCHOR_Y = 25;
+
 type LeafletProps = {
   offers: IOffer[],
   offerInFocusId: OfferId,
@@ -28,14 +33,15 @@ function Leaflet(props: LeafletProps): JSX.Element {
             icon={
               new L.Icon({
                 iconUrl: id === offerInFocusId ? activePin : pin,
-                iconSize: new L.Point(40, 50),
-                iconAnchor: new L.Point(40, 25),
+                iconSize: new L.Point(ICON_SIZE_X, ICON_SIZE_Y),
+                iconAnchor: new L.Point(ICON_ANCHOR_X, ICON_ANCHOR_Y),
                 zoom: location.zoom,
               })
             }
             position={
               new L.LatLng(
-                location.latitude, location.longitude,
+                location.latitude,
+                location.longitude,
               )
             }
           />

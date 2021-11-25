@@ -24,8 +24,13 @@ const getFavoriteOffers = createSelector(
   }, {} as CityOffersType),
 );
 
-export {
+const getAuthorized = createSelector(
   getAuthStatus,
+  (authStatus) => authStatus === AuthStatus.Auth,
+);
+
+export {
+  getAuthorized,
   getUser,
   getInitialized,
   getServerNotWorking,

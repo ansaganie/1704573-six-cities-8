@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
+import { LINK_CAP } from '../../constants';
 import { Cities } from '../../store/main-page-slice/constants';
-
-const LINK_CAP = '';
+import combineClass from '../../utils/combine-class';
 
 type TabsItemProps = {
   name: Cities,
@@ -9,10 +9,7 @@ type TabsItemProps = {
   onClick: (cityName: Cities) => void;
 }
 
-function TabsItem(props: TabsItemProps): JSX.Element {
-  const { name, active, onClick} = props;
-  const activeClass = active ? 'tabs__item--active' : '';
-
+function TabsItem({ name, active, onClick }: TabsItemProps): JSX.Element {
   const tabClickHandler = (evt: React.MouseEvent) => {
     evt.preventDefault();
 
@@ -20,12 +17,13 @@ function TabsItem(props: TabsItemProps): JSX.Element {
   };
 
   return (
-    <li
-      className="locations__item"
-    >
+    <li className="locations__item">
       <a
         onClick={tabClickHandler}
-        className={`locations__item-link tabs__item ${activeClass}`}
+        className={combineClass({
+          'locations__item-link tabs__item': true,
+          'tabs__item--active': active,
+        })}
         href={LINK_CAP}
       >
         <span>{name}</span>

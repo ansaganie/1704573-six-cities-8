@@ -7,7 +7,10 @@ type FavoritesItemProps = {
   offers: IOffer[],
 }
 
-function FavoritesItem({ cityName, offers }: FavoritesItemProps): JSX.Element | null {
+function FavoritesItem({
+  cityName,
+  offers,
+}: FavoritesItemProps): JSX.Element | null {
   if (offers.length === 0) {
     return null;
   }

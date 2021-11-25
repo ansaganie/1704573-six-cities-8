@@ -11,6 +11,7 @@ import Header from '../header/header';
 import Map from '../map/map';
 import Tabs from '../tabs/tabs';
 import ILocation from '../../models/ILocation';
+import useTitleUpdate from '../../hooks/use-title-update';
 
 const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
 
@@ -22,11 +23,9 @@ function MainScreen(): JSX.Element {
   const offersLoading = useAppSelector(getOffersLoading);
   const offerInFocusId = useAppSelector(getOfferInFocusId);
   const locationInFocus = useAppSelector(getLocationInFocus);
-  const isNothing = !offers.length && !offersLoading;
+  const nothingToShow = !offers.length && !offersLoading;
 
-  useEffect(() => {
-    document.title = MAIN_PAGE_TITLE;
-  }, []);
+  useTitleUpdate(MAIN_PAGE_TITLE);
 
   useEffect(() => {
     if (tab) {
@@ -49,7 +48,7 @@ function MainScreen(): JSX.Element {
     <div
       className={combineClass({
         'page page--gray page--main': true,
-        'page__main--index-empty': isNothing,
+        'page__main--index-empty': nothingToShow,
       })}
     >
       <Header/>
@@ -59,15 +58,17 @@ function MainScreen(): JSX.Element {
         <div className="cities">
           <div
             className={combineClass({
-              'cities__places-container--empty': isNothing,
+              'cities__places-container--empty': nothingToShow,
               'cities__places-container container': true,
             })}
           >
-            {isNothing && (
+            {nothingToShow && (
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                  <p className="cities__status-description">
+                    We could not find any property available at the moment in {tab}
+                  </p>
                 </div>
               </section>
             )}

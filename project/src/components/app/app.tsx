@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router';
 import { AppRoute } from '../../constants';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getInitialized } from '../../store/app-slice/app-selector';
 import { initializeApp } from '../../store/app-slice/app-thunk';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -14,12 +13,12 @@ import SignInScreen from '../sign-in-screen/sign-in-screen';
 import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const initialized = useAppSelector(getInitialized);
 
   useEffect(() => {
     dispatch(initializeApp());
-  }, [dispatch]);
+  }, [ dispatch ]);
 
   if (!initialized) {
     return <Spinner/>;

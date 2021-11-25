@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import useTitleUpdate from '../../hooks/use-title-update';
 import { getFavoriteOffers, getFavoriteOffersLoading } from '../../store/app-slice/app-selector';
 import { fetchFavorites } from '../../store/app-slice/app-thunk';
 import combineClass from '../../utils/combine-class';
@@ -8,10 +9,14 @@ import Header from '../header/header';
 import Logo, { LogoType } from '../logo/logo';
 import Spinner from '../spinner/spinner';
 
+const FAVORITES_PAGE_TITLE = '6 cities | Favorite Offers';
+
 function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const loading = useAppSelector(getFavoriteOffersLoading);
+
+  useTitleUpdate(FAVORITES_PAGE_TITLE);
 
   useEffect(() => {
     dispatch(fetchFavorites());

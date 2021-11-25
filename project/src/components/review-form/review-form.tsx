@@ -1,12 +1,16 @@
-import React, { useCallback, useMemo, Fragment } from 'react';
+import React, { useCallback, Fragment } from 'react';
 import { Field, Form, Formik, FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../hooks/redux';
 import { OfferId } from '../../models/IOffer';
-import IReviewForm from '../../models/IReviewForm';
 import { postReview } from '../../store/review-slice/review-thunk';
+import IReviewForm from '../../models/IReviewForm';
 
-const starValues = [ 5, 4, 3, 2, 1 ];
+const STAR_VALUES = [ 5, 4, 3, 2, 1 ];
+const MIN_RATING_VALUE = 1;
+const MAX_RATING_VALUE = 5;
+const MIN_COMMENT_VALUE = 50;
+const MAX_COMMENT_VALUE = 300;
 
 const initialValues = {
   rating: 1,
@@ -20,21 +24,24 @@ type ReviewFormProps = {
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const validation = useMemo(() => Yup.object({
+  const validation = useCallback(() => Yup.object({
     rating: Yup.number()
       .required()
-      .min(1)
-      .max(5),
+      .min(MIN_RATING_VALUE)
+      .max(MAX_RATING_VALUE),
     comment: Yup.string()
       .required()
-      .min(50)
-      .max(300),
+      .min(MIN_COMMENT_VALUE)
+      .max(MAX_COMMENT_VALUE),
   }), []);
 
-  const formSubmitHandler = useCallback(async (values: IReviewForm, formikHelpers: FormikHelpers<IReviewForm>) => {
-    await dispatch(postReview(offerId, values));
+  const formSubmitHandler = useCallback((
+    values: IReviewForm,
+    formikHelpers: FormikHelpers<IReviewForm>,
+  ) => {
+    dispatch(postReview(offerId, values));
     formikHelpers.resetForm();
-  }, [dispatch, offerId]);
+  }, [ dispatch, offerId ]);
 
   return (
     <Formik
@@ -44,9 +51,11 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     >
       {({ isValid, isSubmitting, handleChange }: FormikProps<IReviewForm>) => (
         <Form className="reviews__form form">
-          <label className="reviews__label form__label" htmlFor="comment">Your review</label>
+          <label className="reviews__label form__label" htmlFor="comment">
+            Your review
+          </label>
           <div className="reviews__rating-form form__rating">
-            {starValues.map((value) => (
+            {STAR_VALUES.map((value) => (
               <Fragment key={value}>
                 <input
                   type="radio"
@@ -79,7 +88,9 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
           />
           <div className="reviews__button-wrapper">
             <p className="reviews__help">
-              To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+              To submit review please make sure to set
+              <span className="reviews__star">rating</span> and describe your stay with
+              at least <b className="reviews__text-amount">50 characters</b>.
             </p>
             <button
               className="reviews__submit form__submit button"

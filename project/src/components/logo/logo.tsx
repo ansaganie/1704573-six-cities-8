@@ -32,7 +32,8 @@ function Logo({ type }: LogoProps): JSX.Element {
     <Link
       to={AppRoute.Main}
       className={combineClass({
-        'header__logo-link header__logo-link--active': type === LogoType.Header,
+        'header__logo-link header__logo-link--active':
+          type === LogoType.Header,
         'footer__logo-link': type === LogoType.Footer,
       })}
     >

@@ -1,5 +1,7 @@
 import { OfferId } from './models/IOffer';
 
+const LINK_CAP = '';
+
 enum HttpCode {
   Unauthorized = 401,
   ServerErrorMin = 500,
@@ -32,6 +34,7 @@ const BackendRoute = {
 };
 
 export {
+  LINK_CAP,
   HttpCode,
   AppRoute,
   BackendRoute

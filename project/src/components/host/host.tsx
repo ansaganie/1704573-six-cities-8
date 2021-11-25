@@ -7,9 +7,10 @@ type HostProps = {
   description: string,
 }
 
-function Host({ host, description }: HostProps): JSX.Element {
-  const { isPro, name, avatarUrl } = host;
-
+function Host({
+  host: { isPro, name, avatarUrl },
+  description,
+}: HostProps): JSX.Element {
   return (
     <div className="property__host">
       <h2 className="property__host-title">Meet the host</h2>
@@ -20,7 +21,13 @@ function Host({ host, description }: HostProps): JSX.Element {
             'property__avatar-wrapper--pro': isPro,
           })}
         >
-          <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
+          <img
+            className="property__avatar user__avatar"
+            src={avatarUrl}
+            width="74"
+            height="74"
+            alt="Host avatar"
+          />
         </div>
         <span className="property__user-name">{name}</span>
         {isPro && <span className="property__user-status">Pro</span>}

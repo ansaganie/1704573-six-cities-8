@@ -14,10 +14,6 @@ type RatingProps = {
 }
 
 function Rating({ rating, type }: RatingProps): JSX.Element {
-  const ratingStyle = {
-    width: getRatingInPercentage(rating),
-  };
-
   return (
     <div
       className={combineClass({
@@ -27,7 +23,12 @@ function Rating({ rating, type }: RatingProps): JSX.Element {
         'property__stars': type === RatingStarsType.OfferPage,
       })}
     >
-      <span style={ratingStyle}></span>
+      <span
+        style={{
+          width: getRatingInPercentage(rating),
+        }}
+      >
+      </span>
       <span className="visually-hidden">Rating</span>
     </div>
   );

@@ -34,7 +34,8 @@ function ReviewList({ reviews }: ReviewListPops): JSX.Element | null {
             </div>
             <p className="reviews__text">{comment}</p>
             <time
-              className="reviews__time" dateTime={formatDate(date, 'YYYY-MM-DD')}
+              className="reviews__time"
+              dateTime={formatDate(date, 'YYYY-MM-DD')}
             >
               {formatDate(date, 'MMMM YYYY')}
             </time>

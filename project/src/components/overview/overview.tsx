@@ -42,7 +42,9 @@ function Overview({ offer }: OverviewProps): JSX.Element {
       </div>
       <div className="property__rating rating">
         <Rating rating={rating} type={RatingStarsType.OfferPage}/>
-        <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>
+        <span className="property__rating-value rating__value">
+          {rating.toFixed(1)}
+        </span>
       </div>
       <ul className="property__features">
         <li className="property__feature property__feature--entire">

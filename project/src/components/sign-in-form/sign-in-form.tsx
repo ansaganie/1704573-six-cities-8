@@ -7,8 +7,11 @@ import { useAppDispatch } from '../../hooks/redux';
 import combineClass from '../../utils/combine-class';
 import { LoginState } from '../../types/login-state';
 import { login } from '../../store/app-slice/app-thunk';
-import ILoginForm from '../../models/ILoginForm';
 import { AppRoute } from '../../constants';
+import ILoginForm from '../../models/ILoginForm';
+
+const MIN_PASSWORD_VALUE = 2;
+const PASSWORD_PATTERN = /^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i;
 
 const initialValues: ILoginForm = {
   email: '',
@@ -26,8 +29,8 @@ function SignInForm(): JSX.Element {
       .required('No email provided'),
     password: Yup.string()
       .required('No password provided')
-      .min(2, 'Password is too short - should be 8 chars minimum')
-      .matches(/^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i, 'Password should contain minimum one Latin letter and one number.'),
+      .min(MIN_PASSWORD_VALUE, 'Password is too short - should be 8 chars minimum')
+      .matches(PASSWORD_PATTERN, 'Password should contain minimum one Latin letter and one number.'),
   }), []);
 
   const formSubmitHandler = (values: ILoginForm) => {
@@ -46,7 +49,7 @@ function SignInForm(): JSX.Element {
       validationSchema={validation}
     >
       {
-        ({ errors, isSubmitting}: FormikProps<ILoginForm>) => (
+        ({ errors, isSubmitting }: FormikProps<ILoginForm>) => (
           <Form
             className="login__form form"
           >
@@ -89,7 +92,7 @@ function SignInForm(): JSX.Element {
               type="submit"
               disabled={isSubmitting}
             >
-          Sign in
+              Sign in
             </button>
           </Form>
         )

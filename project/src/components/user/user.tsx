@@ -1,8 +1,8 @@
-import React, { memo, useCallback, MouseEvent } from 'react';
+import React, { memo, MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../constants';
+import { AppRoute, LINK_CAP } from '../../constants';
 import { useAppDispatch } from '../../hooks/redux';
-import { useLoginLink } from '../../hooks/use-login-link';
+import { useLoginRedirect } from '../../hooks/use-login-link';
 import { logout } from '../../store/app-slice/app-thunk';
 
 type UserProps = {
@@ -11,16 +11,22 @@ type UserProps = {
   avatarUrl?: string,
 };
 
-function User(props: UserProps): JSX.Element {
-  const { authorized, email, avatarUrl } = props;
+function User({ authorized, email, avatarUrl }: UserProps): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const redirectToLogin = useLoginRedirect();
 
-  const loginClickHandler = useLoginLink();
-  const signOutClickHandler = useCallback((evt: MouseEvent) => {
+  const loginClickHandler = (evt: MouseEvent) => {
     evt.preventDefault();
+
+    redirectToLogin();
+  };
+
+  const signOutClickHandler = (evt: MouseEvent) => {
+    evt.preventDefault();
+
     dispatch(logout());
-  }, [ dispatch ]);
+  };
 
   return (
     <nav className="header__nav">
@@ -32,7 +38,7 @@ function User(props: UserProps): JSX.Element {
                 <a
                   className="header__nav-link header__nav-link--profile"
                   onClick={loginClickHandler}
-                  href="/"
+                  href={LINK_CAP}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
@@ -45,7 +51,10 @@ function User(props: UserProps): JSX.Element {
           authorized && (
             <>
               <li className="header__nav-item user">
-                <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
+                <Link
+                  to={AppRoute.Favorites}
+                  className="header__nav-link header__nav-link--profile"
+                >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                     <img
                       className="user__avatar"
@@ -62,7 +71,7 @@ function User(props: UserProps): JSX.Element {
                 <a
                   onClick={signOutClickHandler}
                   className="header__nav-link"
-                  href="/"
+                  href={LINK_CAP}
                 >
                   <span className="header__signout">Sign out</span>
                 </a>

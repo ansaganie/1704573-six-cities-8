@@ -1,14 +1,12 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import { getAuthStatus, getUser } from '../../store/app-slice/app-selector';
-import { AuthStatus } from '../../store/app-slice/types';
+import { getAuthorized, getUser } from '../../store/app-slice/app-selector';
 import Logo, { LogoType } from '../logo/logo';
 import User from '../user/user';
 
 function Header(): JSX.Element {
-  const authStatus = useAppSelector(getAuthStatus);
+  const isAuthorized = useAppSelector(getAuthorized);
   const user = useAppSelector(getUser);
-  const isAuthorized = !!user && (authStatus === AuthStatus.Auth);
 
   return (
     <header className="header">

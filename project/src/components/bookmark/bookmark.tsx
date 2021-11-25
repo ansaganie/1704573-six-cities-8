@@ -1,12 +1,11 @@
-import React, { useCallback, MouseEvent } from 'react';
+import React from 'react';
 import { OfferId } from '../../models/IOffer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import combineClass from '../../utils/combine-class';
 import { getBookmarkDisabled } from '../../store/offer-slice/offer-selector';
 import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
-import { getAuthStatus } from '../../store/app-slice/app-selector';
-import { useLoginLink } from '../../hooks/use-login-link';
-import { AuthStatus } from '../../store/app-slice/types';
+import { getAuthorized } from '../../store/app-slice/app-selector';
+import { useLoginRedirect } from '../../hooks/use-login-link';
 
 type BookmarkProps = {
   offerId: OfferId,
@@ -20,17 +19,17 @@ function Bookmark({
   big,
 }: BookmarkProps):JSX.Element {
   const dispatch = useAppDispatch();
-  const redirectToLogin = useLoginLink();
+  const redirectToLogin = useLoginRedirect();
   const disabled = useAppSelector((state) => getBookmarkDisabled(state, offerId));
-  const authStatus = useAppSelector(getAuthStatus);
+  const authorized = useAppSelector(getAuthorized);
 
-  const bookmarkClickHandler = useCallback((evt: MouseEvent) => {
-    if (authStatus === AuthStatus.Auth) {
+  const bookmarkClickHandler = () => {
+    if (authorized) {
       dispatch(changeIsFavorite(offerId, !isFavorite));
     } else {
-      redirectToLogin(evt);
+      redirectToLogin();
     }
-  }, [ authStatus, dispatch, isFavorite, offerId, redirectToLogin ]);
+  };
 
 
   return (

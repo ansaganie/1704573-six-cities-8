@@ -17,7 +17,7 @@ function Catalog(): JSX.Element | null {
     if (!offers.length) {
       dispatch(fetchOffers());
     }
-  }, [ dispatch, offers.length ]);
+  }, [ dispatch, offers ]);
 
   if(offers.length === 0 && !offersLoading) {
     return null;
