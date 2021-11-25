@@ -4,7 +4,8 @@ import appToast from '../../utils/app-toast';
 import ILoginForm from '../../models/ILoginForm';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
-import { AuthStatus, BackendRoute } from '../../constants';
+import { BackendRoute } from '../../constants';
+import { AuthStatus } from './types';
 import { adaptOffers, adaptUser } from '../../services/adapter';
 import {
   setAuthStatus,
@@ -13,10 +14,11 @@ import {
   setInitialized,
   setUser
 } from './app-slice';
+import { fetchOffers } from '../offer-slice/offer-thunk';
 
-const AUTH_FAIL_MESSAGE = 'Do not forget to sign in';
 const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
+const LOGOUT_SUCCESS_MESSAGE = 'Successfully logged out';
 const FAVORITES_FAIL = 'Could not get your favorite offers';
 
 const initializeApp = (): AsyncAction =>
@@ -26,8 +28,6 @@ const initializeApp = (): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
-    } catch (error) {
-      appToast.info(AUTH_FAIL_MESSAGE);
     } finally {
       dispatch(setInitialized());
     }
@@ -41,6 +41,9 @@ const login = (loginForm: ILoginForm): AsyncAction =>
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
       tokenKeeper.setToken(data.token);
+
+      await dispatch(fetchOffers());
+      dispatch(setFavoriteOffers([]));
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);
@@ -54,7 +57,11 @@ const logout = (): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.NoAuth));
       dispatch(setUser(null));
+
       tokenKeeper.dropToken();
+      appToast.success(LOGOUT_SUCCESS_MESSAGE);
+
+      await dispatch(fetchOffers());
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

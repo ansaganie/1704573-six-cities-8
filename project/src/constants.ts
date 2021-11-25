@@ -1,21 +1,12 @@
 import { OfferId } from './models/IOffer';
 
+const LINK_CAP = '';
+
 enum HttpCode {
   Unauthorized = 401,
   ServerErrorMin = 500,
   ServerErrorMax = 599,
-}
-
-enum SlicesNamespace {
-  App = 'app',
-  Offer = 'offer',
-  Review = 'review',
-}
-
-enum AuthStatus {
-  Auth = 'auth',
-  NoAuth = 'no-auth',
-  Unknown = 'unknown'
+  NotFound = 404,
 }
 
 const AppRoute = {
@@ -43,9 +34,8 @@ const BackendRoute = {
 };
 
 export {
+  LINK_CAP,
   HttpCode,
   AppRoute,
-  BackendRoute,
-  SlicesNamespace,
-  AuthStatus
+  BackendRoute
 };

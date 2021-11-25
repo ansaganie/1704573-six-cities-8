@@ -4,13 +4,10 @@ import IReview from '../../models/IReview';
 import IReviewForm from '../../models/IReviewForm';
 import { OfferId } from '../../models/IOffer';
 import { BackendRoute } from '../../constants';
-import { adaptReview, adaptReviews } from '../../services/adapter';
 import appToast from '../../utils/app-toast';
 import {
-  addReview,
   setReviews,
-  setReviewsLoading,
-  setSubmittingReview
+  setReviewsLoading
 } from './review-slice';
 
 const REVIEWS_FETCH_FAIL = 'Could get reviews, please try again later';
@@ -28,7 +25,7 @@ const fetchReviews = (offerId: OfferId): AsyncAction =>
 
       dispatch(setReviews({
         offerId,
-        reviews: adaptReviews(data),
+        reviews: data,
       }));
     } catch (error) {
       appToast.info(REVIEWS_FETCH_FAIL);
@@ -40,23 +37,19 @@ const fetchReviews = (offerId: OfferId): AsyncAction =>
 
 const postReview = (offerId: OfferId, reviewForm: IReviewForm): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setSubmittingReview(true));
-
     try {
-      const { data } = await api.post<IReview>(
+      const { data } = await api.post<IReview[]>(
         BackendRoute.getReviewsLink(offerId), reviewForm,
       );
 
-      dispatch(addReview({
+      dispatch(setReviews({
         offerId,
-        review: adaptReview(data),
+        reviews: data,
       }));
       appToast.success(REVIEW_POST_SUCCESS);
     } catch (error) {
       appToast.info(REVIEW_POST_FAIL);
       appToast.error((error as AxiosError).message);
-    } finally {
-      dispatch(setSubmittingReview(false));
     }
   };
 

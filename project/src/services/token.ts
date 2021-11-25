@@ -1,7 +1,7 @@
 class TokenKeeper {
   private store: Storage;
 
-  private key: string;
+  private readonly key: string;
 
   constructor(store: Storage, key: string) {
     this.store = store;

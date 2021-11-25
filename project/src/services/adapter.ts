@@ -1,7 +1,7 @@
 import IOffer from '../models/IOffer';
 import IReview from '../models/IReview';
 import IUser from '../models/IUser';
-import convertKeyToCamelCase from '../utils/convert-keys-to-camel-case';
+import { convertKeyToCamelCase } from '../utils/common';
 
 const adaptUser = (user: IUser): IUser => {
   const result = convertKeyToCamelCase(user);
