@@ -38,6 +38,8 @@ const login = (loginForm: ILoginForm): AsyncAction =>
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
       tokenKeeper.setToken(data.token);
+
+      dispatch(fetchOffers());
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

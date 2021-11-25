@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import combineClass from '../../utils/combine-class';
 import { setCurrentSort, setCurrentTab, setLocationInFocus } from '../../store/main-page-slice/main-page-slice';
 import { Cities, CityLocation, SortingType } from '../../store/main-page-slice/constants';
+import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
+import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
 import Catalog from '../catalog/catalog';
 import Header from '../header/header';
 import Map from '../map/map';
 import Tabs from '../tabs/tabs';
 import ILocation from '../../models/ILocation';
-import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
-import classNames from 'classnames';
-import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
 
 const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
 
@@ -47,7 +47,7 @@ function MainScreen(): JSX.Element {
 
   return (
     <div
-      className={classNames({
+      className={combineClass({
         'page page--gray page--main': true,
         'page__main--index-empty': isNothing,
       })}
@@ -58,7 +58,7 @@ function MainScreen(): JSX.Element {
         <Tabs/>
         <div className="cities">
           <div
-            className={classNames({
+            className={combineClass({
               'cities__places-container--empty': isNothing,
               'cities__places-container container': true,
             })}

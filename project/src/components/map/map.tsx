@@ -19,7 +19,7 @@ function Map({
 }: MapProps): JSX.Element | null {
   const position = new L.LatLng(
     locationInFocus.latitude,
-    locationInFocus?.longitude,
+    locationInFocus.longitude,
   );
 
   if (offers.length === 0) {

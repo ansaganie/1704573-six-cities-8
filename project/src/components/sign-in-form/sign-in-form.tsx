@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import styles from './sign-in-form.module.css';
+import { useHistory } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import classNames from 'classnames';
-import { useHistory } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
+import combineClass from '../../utils/combine-class';
 import { LoginState } from '../../types/login-state';
-import ILoginForm from '../../models/ILoginForm';
 import { login } from '../../store/app-slice/app-thunk';
+import ILoginForm from '../../models/ILoginForm';
 
 const initialValues: ILoginForm = {
   email: '',
@@ -55,7 +55,7 @@ function SignInForm(): JSX.Element {
               </div>
               <Field
                 placeholder="Email"
-                className={classNames({
+                className={combineClass({
                   'login__input form__input': true,
                   [styles.errorBorder]: !!errors.email,
                 })}
@@ -70,7 +70,7 @@ function SignInForm(): JSX.Element {
                 <ErrorMessage name="password"/>
               </div>
               <Field
-                className={classNames({
+                className={combineClass({
                   'login__input form__input': true,
                   [styles.errorBorder]: !!errors.password,
                 })}

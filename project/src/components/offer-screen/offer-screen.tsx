@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useOfferLoader from '../../hooks/use-offer-loader';
+import useScrollToTop from '../../hooks/use-scroll-to-top';
 import { OfferId } from '../../models/IOffer';
 import { getNearbyOffersById, getNearbyOffersLoading } from '../../store/offer-slice/offer-selector';
 import { fetchNearbyOffers } from '../../store/offer-slice/offer-thunk';
@@ -28,6 +29,8 @@ function OfferScreen():JSX.Element {
   useEffect(() => {
     document.title = `${OFFER_PAGE_TITLE}${offer?.title}`;
   }, [offer?.title]);
+
+  useScrollToTop(offerId);
 
   useEffect(() => {
     dispatch(fetchNearbyOffers(offerId));

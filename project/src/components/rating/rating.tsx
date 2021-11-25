@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import combineClass from '../../utils/combine-class';
 import { getRatingInPercentage } from '../../utils/offer';
 
 export enum RatingStarsType {
@@ -20,7 +20,7 @@ function Rating({ rating, type }: RatingProps): JSX.Element {
 
   return (
     <div
-      className={classNames({
+      className={combineClass({
         'rating__stars': true,
         'place-card__stars': type === RatingStarsType.OfferCard,
         'reviews__stars': type === RatingStarsType.ReviewItem,

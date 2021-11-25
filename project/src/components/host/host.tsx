@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import React from 'react';
 import IAbstractUser from '../../models/IAbstractUser';
+import combineClass from '../../utils/combine-class';
 
 type HostProps = {
   host: IAbstractUser,
@@ -15,7 +15,7 @@ function Host({ host, description }: HostProps): JSX.Element {
       <h2 className="property__host-title">Meet the host</h2>
       <div className="property__host-user user">
         <div
-          className={classNames({
+          className={combineClass({
             'property__avatar-wrapper user__avatar-wrapper': true,
             'property__avatar-wrapper--pro': isPro,
           })}

@@ -1,9 +1,9 @@
-import classNames from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../constants';
 import { useAppDispatch } from '../../hooks/redux';
+import { AppRoute } from '../../constants';
 import IOffer from '../../models/IOffer';
+import combineClass from '../../utils/combine-class';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingStarsType } from '../rating/rating';
@@ -41,7 +41,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
 
   return (
     <article
-      className={classNames({
+      className={combineClass({
         'place-card': true,
         'cities__place-card': type === OfferCardType.MainPage,
         'near-places__card': type === OfferCardType.OfferPage,
