@@ -7,7 +7,6 @@ import { SlicesNamespace } from '../types';
 const initialState: IReviewState = {
   reviews: {},
   reviewsLoading: false,
-  submittingReview: false,
 };
 
 const reviewSlice = createSlice({
@@ -27,9 +26,6 @@ const reviewSlice = createSlice({
     setReviewsLoading: (state, action: PayloadAction<boolean>) => {
       state.reviewsLoading = action.payload;
     },
-    setSubmittingReview: (state, action: PayloadAction<boolean>) => {
-      state.submittingReview = action.payload;
-    },
   },
 });
 
@@ -38,7 +34,6 @@ const reviewReducer = reviewSlice.reducer;
 export const {
   setReviews,
   setReviewsLoading,
-  setSubmittingReview,
 } = reviewSlice.actions;
 
 export default reviewReducer;

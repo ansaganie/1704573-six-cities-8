@@ -6,7 +6,6 @@ import { ReviewsByOfferId } from './types';
 
 const getReviews = (state: RootState): ReviewsByOfferId => state.review.reviews;
 const getReviewsLoading = (state: RootState): boolean => state.review.reviewsLoading;
-const getSubmittingReview = (state: RootState): boolean => state.review.submittingReview;
 
 const getReviewByOfferId = createSelector(
   [
@@ -18,6 +17,5 @@ const getReviewByOfferId = createSelector(
 
 export {
   getReviewsLoading,
-  getSubmittingReview,
   getReviewByOfferId
 };

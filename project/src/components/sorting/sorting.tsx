@@ -31,7 +31,7 @@ function Sorting(): JSX.Element {
       >
         {sort}
         <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
+          <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
       <ul

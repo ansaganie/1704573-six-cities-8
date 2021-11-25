@@ -42,7 +42,7 @@ const login = (loginForm: ILoginForm): AsyncAction =>
       dispatch(setUser(adaptUser(data)));
       tokenKeeper.setToken(data.token);
 
-      dispatch(fetchOffers());
+      await dispatch(fetchOffers());
       dispatch(setFavoriteOffers([]));
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
@@ -61,7 +61,7 @@ const logout = (): AsyncAction =>
       tokenKeeper.dropToken();
       appToast.success(LOGOUT_SUCCESS_MESSAGE);
 
-      dispatch(fetchOffers());
+      await dispatch(fetchOffers());
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

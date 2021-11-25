@@ -6,7 +6,6 @@ interface IReviewState {
     [key: OfferId]: IReview[],
   };
   reviewsLoading: boolean;
-  submittingReview: boolean;
 }
 
 export type ReviewsByOfferId =  {

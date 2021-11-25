@@ -7,8 +7,7 @@ import { BackendRoute } from '../../constants';
 import appToast from '../../utils/app-toast';
 import {
   setReviews,
-  setReviewsLoading,
-  setSubmittingReview
+  setReviewsLoading
 } from './review-slice';
 
 const REVIEWS_FETCH_FAIL = 'Could get reviews, please try again later';
@@ -38,8 +37,6 @@ const fetchReviews = (offerId: OfferId): AsyncAction =>
 
 const postReview = (offerId: OfferId, reviewForm: IReviewForm): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setSubmittingReview(true));
-
     try {
       const { data } = await api.post<IReview[]>(
         BackendRoute.getReviewsLink(offerId), reviewForm,
@@ -53,8 +50,6 @@ const postReview = (offerId: OfferId, reviewForm: IReviewForm): AsyncAction =>
     } catch (error) {
       appToast.info(REVIEW_POST_FAIL);
       appToast.error((error as AxiosError).message);
-    } finally {
-      dispatch(setSubmittingReview(false));
     }
   };
 

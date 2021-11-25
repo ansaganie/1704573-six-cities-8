@@ -52,7 +52,7 @@ function Bookmark({
         width={big ? '31' : '18'}
         height={big ? '33' : '19'}
       >
-        <use xlinkHref="#icon-bookmark"></use>
+        <use xlinkHref="#icon-bookmark"/>
       </svg>
       <span className="visually-hidden">To bookmarks</span>
     </button>

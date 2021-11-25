@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { AppRoute } from '../constants';
+import {useCallback} from 'react';
+import {useHistory} from 'react-router-dom';
+import {AppRoute} from '../constants';
 
 type UseLoginRedirect = () => void;
 
@@ -8,11 +8,9 @@ export const useLoginRedirect = (): UseLoginRedirect => {
   const history = useHistory();
   const { pathname, search } = history.location;
 
-  const onLoginClick = useCallback(() => {
+  return useCallback(() => {
     history.push(AppRoute.SignIn, {
       from: `${pathname}${search}`,
     });
-  }, [ history, pathname, search ]) ;
-
-  return onLoginClick;
+  }, [history, pathname, search]);
 };
