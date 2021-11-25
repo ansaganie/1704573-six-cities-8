@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../hooks/redux';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 import { LoginState } from '../../types/login-state';
 import { login } from '../../store/app-slice/app-thunk';
 import { AppRoute } from '../../constants';
@@ -62,7 +62,7 @@ function SignInForm(): JSX.Element {
               </div>
               <Field
                 placeholder="Email"
-                className={combineClass({
+                className={combineClasses({
                   'login__input form__input': true,
                   [styles.errorBorder]: !!errors.email,
                 })}
@@ -77,7 +77,7 @@ function SignInForm(): JSX.Element {
                 <ErrorMessage name="password"/>
               </div>
               <Field
-                className={combineClass({
+                className={combineClasses({
                   'login__input form__input': true,
                   [styles.errorBorder]: !!errors.password,
                 })}

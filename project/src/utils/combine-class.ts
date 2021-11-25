@@ -4,7 +4,7 @@ type ClassnamesType = {
   [className: string]: boolean,
 }
 
-const combineClass = (obj: ClassnamesType): string =>
+const combineClasses = (obj: ClassnamesType): string =>
   classnames(obj);
 
-export default combineClass;
+export default combineClasses;

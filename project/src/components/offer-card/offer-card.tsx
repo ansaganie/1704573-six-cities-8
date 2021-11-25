@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { AppRoute } from '../../constants';
 import IOffer from '../../models/IOffer';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingStarsType } from '../rating/rating';
@@ -54,7 +54,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
 
   return (
     <article
-      className={combineClass({
+      className={combineClasses({
         'place-card': true,
         'cities__place-card': type === OfferCardType.MainPage,
         'near-places__card': type === OfferCardType.OfferPage,
@@ -70,7 +70,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
         )
       }
       <div
-        className={combineClass({
+        className={combineClasses({
           'place-card__image-wrapper': true,
           'favorites__image-wrapper': type === OfferCardType.FavoritesPage,
           'cities__image-wrapper': type === OfferCardType.MainPage,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 import { setCurrentSort, setCurrentTab, setLocationInFocus } from '../../store/main-page-slice/main-page-slice';
 import { Cities, CityLocation, SortingType } from '../../store/main-page-slice/constants';
 import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
@@ -46,7 +46,7 @@ function MainScreen(): JSX.Element {
 
   return (
     <div
-      className={combineClass({
+      className={combineClasses({
         'page page--gray page--main': true,
         'page__main--index-empty': nothingToShow,
       })}
@@ -57,7 +57,7 @@ function MainScreen(): JSX.Element {
         <Tabs/>
         <div className="cities">
           <div
-            className={combineClass({
+            className={combineClasses({
               'cities__places-container--empty': nothingToShow,
               'cities__places-container container': true,
             })}

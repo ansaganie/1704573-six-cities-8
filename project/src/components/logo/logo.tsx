@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import logo from '../../assets/logo.svg';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 
 export enum LogoType {
   Header = 'header',
@@ -31,14 +31,14 @@ function Logo({ type }: LogoProps): JSX.Element {
   return (
     <Link
       to={AppRoute.Main}
-      className={combineClass({
+      className={combineClasses({
         'header__logo-link header__logo-link--active':
           type === LogoType.Header,
         'footer__logo-link': type === LogoType.Footer,
       })}
     >
       <img
-        className={combineClass({
+        className={combineClasses({
           'header__logo': type === LogoType.Header,
           'footer__logo': type === LogoType.Footer,
         })}

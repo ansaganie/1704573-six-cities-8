@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useTitleUpdate from '../../hooks/use-title-update';
 import { getFavoriteOffers, getFavoriteOffersLoading } from '../../store/app-slice/app-selector';
 import { fetchFavorites } from '../../store/app-slice/app-thunk';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 import FavoritesList from '../favorites-list/favorites-list';
 import Header from '../header/header';
 import Logo, { LogoType } from '../logo/logo';
@@ -28,7 +28,7 @@ function FavoritesScreen(): JSX.Element {
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section
-            className={combineClass({
+            className={combineClasses({
               'favorites': true,
               'favorites--empty': !favoriteOffers.length,
             })}

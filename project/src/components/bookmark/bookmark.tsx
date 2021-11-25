@@ -1,7 +1,7 @@
 import React from 'react';
 import { OfferId } from '../../models/IOffer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 import { getBookmarkDisabled } from '../../store/offer-slice/offer-selector';
 import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
 import { getAuthorized } from '../../store/app-slice/app-selector';
@@ -34,7 +34,7 @@ function Bookmark({
 
   return (
     <button
-      className={combineClass({
+      className={combineClasses({
         'button': true,
         'place-card__bookmark-button': !big,
         'property__bookmark-button': big,
@@ -45,7 +45,7 @@ function Bookmark({
       onClick={bookmarkClickHandler}
     >
       <svg
-        className={combineClass({
+        className={combineClasses({
           'place-card__bookmark-icon': !big,
           'property__bookmark-icon': big,
         })}

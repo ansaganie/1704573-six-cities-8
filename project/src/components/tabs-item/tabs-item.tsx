@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { LINK_CAP } from '../../constants';
 import { Cities } from '../../store/main-page-slice/constants';
-import combineClass from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-class';
 
 type TabsItemProps = {
   name: Cities,
@@ -20,7 +20,7 @@ function TabsItem({ name, active, onClick }: TabsItemProps): JSX.Element {
     <li className="locations__item">
       <a
         onClick={tabClickHandler}
-        className={combineClass({
+        className={combineClasses({
           'locations__item-link tabs__item': true,
           'tabs__item--active': active,
         })}
