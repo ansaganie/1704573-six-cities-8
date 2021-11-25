@@ -3,7 +3,7 @@ import IOffer from '../../models/IOffer';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingStarsType } from '../rating/rating';
 
-const AccommodationType: {
+export const AccommodationType: {
   [key: string]: string,
 } = {
   apartment: 'Apartment',

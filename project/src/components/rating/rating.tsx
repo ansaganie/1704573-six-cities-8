@@ -27,8 +27,7 @@ function Rating({ rating, type }: RatingProps): JSX.Element {
         style={{
           width: getRatingInPercentage(rating),
         }}
-      >
-      </span>
+      />
       <span className="visually-hidden">Rating</span>
     </div>
   );

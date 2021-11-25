@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } f
 import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import appReducer, { setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
 import { SlicesNamespace } from './types';
-import { AuthStatus } from './app-slice/types';
+import { AuthStatus } from './app-slice/constants';
 import { HttpCode } from '../constants';
 import TokenKeeper from '../services/token';
 import offerReducer from './offer-slice/offer-slice';
