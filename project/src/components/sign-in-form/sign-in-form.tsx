@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styles from './sign-in-form.module.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../hooks/redux';
@@ -8,6 +8,7 @@ import combineClass from '../../utils/combine-class';
 import { LoginState } from '../../types/login-state';
 import { login } from '../../store/app-slice/app-thunk';
 import ILoginForm from '../../models/ILoginForm';
+import { AppRoute } from '../../constants';
 
 const initialValues: ILoginForm = {
   email: '',
@@ -17,6 +18,7 @@ const initialValues: ILoginForm = {
 function SignInForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const validation = useMemo(() => Yup.object({
     email: Yup.string()
@@ -29,9 +31,11 @@ function SignInForm(): JSX.Element {
   }), []);
 
   const formSubmitHandler = (values: ILoginForm) => {
+    const from = (location.state as LoginState).from || AppRoute.Main;
+
     dispatch(login(values))
       .then(() => {
-        history.replace((history.location.state as LoginState).from);
+        history.replace(from);
       });
   };
 

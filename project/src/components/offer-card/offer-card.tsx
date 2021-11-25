@@ -14,6 +14,19 @@ export enum OfferCardType {
   FavoritesPage = 'favorites-page',
 }
 
+type PosterWidthHeightType = {
+  [key: string]: number,
+}
+
+const PosterWidth: PosterWidthHeightType = {
+  [OfferCardType.MainPage]: 260,
+  [OfferCardType.FavoritesPage]: 150,
+};
+
+const PosterHeight: PosterWidthHeightType = {
+  [OfferCardType.MainPage]: 200,
+  [OfferCardType.FavoritesPage]: 110,
+};
 
 type OfferCardProps = {
   offer: IOffer,
@@ -45,6 +58,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
         'place-card': true,
         'cities__place-card': type === OfferCardType.MainPage,
         'near-places__card': type === OfferCardType.OfferPage,
+        'favorites__card': type === OfferCardType.FavoritesPage,
       })}
       onMouseOver={mouseOverHandler}
     >
@@ -55,13 +69,19 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
           </div>
         )
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div
+        className={combineClass({
+          'place-card__image-wrapper': true,
+          'favorites__image-wrapper': type === OfferCardType.FavoritesPage,
+          'cities__image-wrapper': type === OfferCardType.MainPage,
+        })}
+      >
         <Link to={AppRoute.getOfferLink(id)}>
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={PosterWidth[type]}
+            height={PosterHeight[type]}
             alt={title}
           />
         </Link>

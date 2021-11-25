@@ -2,11 +2,50 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import logo from '../../assets/logo.svg';
+import combineClass from '../../utils/combine-class';
 
-function Logo(): JSX.Element {
+export enum LogoType {
+  Header = 'header',
+  Footer = 'footer',
+}
+
+type LogoWidthHeightType = {
+  [key: string]: number,
+}
+
+const LogoWidth: LogoWidthHeightType = {
+  [LogoType.Header]: 81,
+  [LogoType.Footer]: 64,
+};
+
+const LogoHeight: LogoWidthHeightType = {
+  [LogoType.Header]: 41,
+  [LogoType.Footer]: 33,
+};
+
+type LogoProps = {
+  type: LogoType,
+}
+
+function Logo({ type }: LogoProps): JSX.Element {
   return (
-    <Link to={AppRoute.Main} className="header__logo-link header__logo-link--active">
-      <img className="header__logo" src={logo} alt="6 cities logo" width="81" height="41"/>
+    <Link
+      to={AppRoute.Main}
+      className={combineClass({
+        'header__logo-link header__logo-link--active': type === LogoType.Header,
+        'footer__logo-link': type === LogoType.Footer,
+      })}
+    >
+      <img
+        className={combineClass({
+          'header__logo': type === LogoType.Header,
+          'footer__logo': type === LogoType.Footer,
+        })}
+        src={logo}
+        alt="6 cities logo"
+        width={LogoWidth[type]}
+        height={LogoHeight[type]}
+      />
     </Link>
   );
 }

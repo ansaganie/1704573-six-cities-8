@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { AppRoute } from '../../constants';
+import { useAppSelector } from '../../hooks/redux';
+import { getAuthStatus } from '../../store/app-slice/app-selector';
+import { AuthStatus } from '../../store/app-slice/types';
 import Header from '../header/header';
 import SignInForm from '../sign-in-form/sign-in-form';
 
 const SIGN_IN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
 
 function SignInScreen(): JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
     document.title = SIGN_IN_PAGE_TITLE;
   }, []);
+
+  if (authStatus === AuthStatus.Auth) {
+    return <Redirect to={AppRoute.Main}/>;
+  }
 
   return (
     <div className="page page--gray page--login">

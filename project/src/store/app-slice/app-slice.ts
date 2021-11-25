@@ -5,6 +5,11 @@ import IUser from '../../models/IUser';
 import IAppState from './IAppState';
 import { SlicesNamespace } from '../types';
 
+type UpdatesFavoriteOffersPayload = {
+  offer: IOffer,
+  status: boolean,
+}
+
 const initialState: IAppState = {
   authStatus: AuthStatus.Unknown,
   user: null,
@@ -33,6 +38,15 @@ const appSlice = createSlice({
     setFavoriteOffers: (state, action: PayloadAction<IOffer[]>) => {
       state.favoriteOffers = action.payload;
     },
+    updateFavoriteOffers: (state, action: PayloadAction<UpdatesFavoriteOffersPayload>) => {
+      const { offer, status } = action.payload;
+
+      if (status) {
+        state.favoriteOffers.push(offer);
+      } else {
+        state.favoriteOffers = state.favoriteOffers.filter(({id}) => id !== offer.id);
+      }
+    },
     setFavoriteOffersLoading: (state, action: PayloadAction<boolean>) => {
       state.favoriteOffersLoading = action.payload;
     },
@@ -46,6 +60,7 @@ export const {
   setServerNotWorking,
   setFavoriteOffers,
   setFavoriteOffersLoading,
+  updateFavoriteOffers,
 } = appSlice.actions;
 
 export type AppActions = typeof appSlice.actions;

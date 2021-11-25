@@ -23,11 +23,14 @@ const FAVORITES_FAIL = 'Could not get your favorite offers';
 
 const initializeApp = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    const { data } = await api.get<IUser>(BackendRoute.Login);
+    try {
+      const { data } = await api.get<IUser>(BackendRoute.Login);
 
-    dispatch(setAuthStatus(AuthStatus.Auth));
-    dispatch(setUser(adaptUser(data)));
-    dispatch(setInitialized());
+      dispatch(setAuthStatus(AuthStatus.Auth));
+      dispatch(setUser(adaptUser(data)));
+    } finally {
+      dispatch(setInitialized());
+    }
   };
 
 const login = (loginForm: ILoginForm): AsyncAction =>
@@ -40,6 +43,7 @@ const login = (loginForm: ILoginForm): AsyncAction =>
       tokenKeeper.setToken(data.token);
 
       dispatch(fetchOffers());
+      dispatch(setFavoriteOffers([]));
     } catch (error) {
       appToast.error(LOGIN_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

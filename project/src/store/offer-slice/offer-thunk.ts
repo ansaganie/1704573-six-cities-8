@@ -4,7 +4,7 @@ import { AsyncAction } from '../store';
 import { BackendRoute, HttpCode } from '../../constants';
 import { adaptOffer, adaptOffers } from '../../services/adapter';
 import appToast from '../../utils/app-toast';
-import { setServerNotWorking } from '../app-slice/app-slice';
+import { setServerNotWorking, updateFavoriteOffers } from '../app-slice/app-slice';
 import {
   addOffer,
   setDisabledBookmarkId,
@@ -65,9 +65,16 @@ const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
         BackendRoute.getFavoriteToggleLink(offerId, status),
       );
 
+      const adapted = adaptOffer(data);
+
       dispatch(updateIsFavorite({
         offerId,
-        status: adaptOffer(data).isFavorite,
+        status: adapted.isFavorite,
+      }));
+
+      dispatch(updateFavoriteOffers({
+        offer: adapted,
+        status: adapted.isFavorite,
       }));
     } catch (error) {
       appToast.info(IS_FAVORITE_CHANGE_FAILS);
