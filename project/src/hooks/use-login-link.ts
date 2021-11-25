@@ -2,7 +2,9 @@ import { MouseEvent, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoute } from '../constants';
 
-export const useLoginLink = (): (evt: MouseEvent) => void => {
+type UseLoginLink = (evt: MouseEvent) => void;
+
+export const useLoginLink = (): UseLoginLink => {
   const history = useHistory();
   const { pathname, search } = history.location;
 
