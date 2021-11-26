@@ -34,7 +34,7 @@ function SignInForm(): JSX.Element {
   }), []);
 
   const formSubmitHandler = (values: ILoginForm) => {
-    const from = (location.state as LoginState).from || AppRoute.Main;
+    const from = (location.state as LoginState)?.from || AppRoute.Main;
 
     dispatch(login(values))
       .then(() => {

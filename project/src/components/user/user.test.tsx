@@ -43,6 +43,7 @@ describe('Component: User', () => {
     );
 
     render(markup);
+
     expect(screen.getByAltText(userAvatarsAltText))
       .toBeInTheDocument();
     expect(screen.getByText(signOutText))
@@ -67,6 +68,7 @@ describe('Component: User', () => {
     );
 
     render(markup);
+
     expect(screen.queryByAltText(userAvatarsAltText))
       .not.toBeInTheDocument();
     expect(screen.getByText(signInText))

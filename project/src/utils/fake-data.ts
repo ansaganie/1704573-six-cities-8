@@ -1,4 +1,4 @@
-import faker, { image, datatype, lorem } from 'faker';
+import faker, { image, datatype, lorem, internet } from 'faker';
 import IAbstractUser from '../models/IAbstractUser';
 import ICity from '../models/ICity';
 import ILocation from '../models/ILocation';
@@ -40,7 +40,7 @@ const getFakeInsides = (): NumberStringObject => new Array(FAKE_GOODS_COUNT)
 
 const getFakeHost = (): IAbstractUser => ({
   id: datatype.uuid(),
-  name: datatype.string(),
+  name: internet.userName(),
   avatarUrl: image.avatar(),
   isPro: datatype.boolean(),
 });
@@ -102,5 +102,6 @@ export {
   getFakeInsides,
   getFakeOffer,
   getFakeUser,
-  getFakeReview
+  getFakeReview,
+  getRandomElement
 };
