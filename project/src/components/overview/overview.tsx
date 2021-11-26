@@ -1,7 +1,7 @@
 import React from 'react';
 import IOffer from '../../models/IOffer';
 import Bookmark from '../bookmark/bookmark';
-import Rating, { RatingStarsType } from '../rating/rating';
+import Rating, { RatingType } from '../rating/rating';
 
 export const AccommodationType: {
   [key: string]: string,
@@ -41,7 +41,7 @@ function Overview({ offer }: OverviewProps): JSX.Element {
         <Bookmark offerId={id} isFavorite={isFavorite} big/>
       </div>
       <div className="property__rating rating">
-        <Rating rating={rating} type={RatingStarsType.OfferPage}/>
+        <Rating rating={rating} type={RatingType.OfferPage}/>
         <span className="property__rating-value rating__value">
           {rating.toFixed(1)}
         </span>

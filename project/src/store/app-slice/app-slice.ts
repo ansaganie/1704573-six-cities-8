@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthStatus } from './constants';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
-import IAppState from './IAppState';
+import IAppState from './types';
 import { SlicesNamespace } from '../types';
 
 type UpdatesFavoriteOffersPayload = {

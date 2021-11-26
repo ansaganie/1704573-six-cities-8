@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
-import { SortingType } from '../../store/main-page-slice/constants';
+import { SortType } from '../../store/main-page-slice/constants';
 import combineClasses from '../../utils/combine-class';
 
 function Sorting(): JSX.Element {
@@ -11,7 +11,7 @@ function Sorting(): JSX.Element {
     setIsSelectOpen((prev) => !prev);
   };
 
-  const optionClickHandler = (sortType: SortingType) => () => {
+  const optionClickHandler = (sortType: SortType) => () => {
     setSort(sortType);
     setIsSelectOpen(false);
   };
@@ -41,7 +41,7 @@ function Sorting(): JSX.Element {
         })}
       >
         {
-          Object.values(SortingType).map((value) => (
+          Object.values(SortType).map((value) => (
             <li
               key={value}
               className={combineClasses({

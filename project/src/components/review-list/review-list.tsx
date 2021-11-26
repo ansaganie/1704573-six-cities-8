@@ -1,7 +1,7 @@
 import React from 'react';
 import IReview from '../../models/IReview';
 import { formatDate } from '../../utils/date';
-import Rating, { RatingStarsType } from '../rating/rating';
+import Rating, { RatingType } from '../rating/rating';
 
 type ReviewListPops = {
   reviews: IReview[],
@@ -30,7 +30,7 @@ function ReviewList({ reviews }: ReviewListPops): JSX.Element | null {
           </div>
           <div className="reviews__info">
             <div className="reviews__rating rating">
-              <Rating rating={rating} type={RatingStarsType.ReviewItem}/>
+              <Rating rating={rating} type={RatingType.ReviewItem}/>
             </div>
             <p className="reviews__text">{comment}</p>
             <time

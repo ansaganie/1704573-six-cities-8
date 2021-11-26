@@ -9,7 +9,7 @@ enum Cities {
   Dusseldorf = 'Dusseldorf',
 }
 
-enum SortingType {
+enum SortType {
   Popular = 'Popular',
   PriceLowestFirst = 'Price: low to high',
   PriceHighestFirst = 'Price: high to low',
@@ -51,6 +51,6 @@ const CityLocation = {
 
 export {
   Cities,
-  SortingType,
+  SortType,
   CityLocation
 };

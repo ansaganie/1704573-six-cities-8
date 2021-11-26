@@ -7,6 +7,7 @@ import IUser from '../../models/IUser';
 import { BackendRoute } from '../../constants';
 import { AuthStatus } from './constants';
 import { adaptOffers, adaptUser } from '../../services/adapter';
+import { fetchOffers } from '../offer-slice/offer-thunk';
 import {
   setAuthStatus,
   setFavoriteOffers,
@@ -14,9 +15,7 @@ import {
   setInitialized,
   setUser
 } from './app-slice';
-import { fetchOffers } from '../offer-slice/offer-thunk';
 
-const LOGIN_FAIL_MESSAGE = 'Please check you enter correct email address';
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
 const LOGOUT_SUCCESS_MESSAGE = 'Successfully logged out';
 const FAVORITES_FAIL = 'Could not get your favorite offers';
@@ -45,7 +44,6 @@ const login = (loginForm: ILoginForm): AsyncAction =>
       await dispatch(fetchOffers());
       dispatch(setFavoriteOffers([]));
     } catch (error) {
-      appToast.error(LOGIN_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);
     }
   };

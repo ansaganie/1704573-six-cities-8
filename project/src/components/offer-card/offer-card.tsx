@@ -6,7 +6,7 @@ import IOffer from '../../models/IOffer';
 import combineClasses from '../../utils/combine-class';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
-import Rating, { RatingStarsType } from '../rating/rating';
+import Rating, { RatingType } from '../rating/rating';
 
 export enum OfferCardType {
   MainPage = 'main-page',
@@ -98,7 +98,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
           />
         </div>
         <div className="place-card__rating rating">
-          <Rating rating={rating} type={RatingStarsType.OfferCard}/>
+          <Rating rating={rating} type={RatingType.OfferCard}/>
         </div>
         <h2 className="place-card__name">
           <Link to={AppRoute.getOfferLink(id)}>{title}</Link>
