@@ -1,4 +1,4 @@
-import faker, { image, datatype, lorem, internet } from 'faker';
+import faker, { image, datatype, lorem, internet, date } from 'faker';
 import IAbstractUser from '../models/IAbstractUser';
 import ICity from '../models/ICity';
 import ILocation from '../models/ILocation';
@@ -93,7 +93,7 @@ const getFakeReview = (): IReview => ({
   rating: getRating(),
   comment: lorem.paragraph(),
   user: getFakeHost(),
-  date: datatype.datetime(),
+  date: date.past(),
 });
 
 const getFakeReviews = (

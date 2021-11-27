@@ -9,7 +9,8 @@ import { api, AsyncDispatch, RootState } from '../../store/store';
 import { INITIAL_STATE } from '../../setupTests';
 import { getFakeOffer } from '../../utils/fake-data';
 import { Router } from 'react-router';
-import Overview, { AccommodationType } from './overview';
+import Overview from './overview';
+import { AccommodationType } from '../../constants';
 
 const middleware = [ thunk.withExtraArgument(api) ];
 const mockStore = configureMockStore<
@@ -21,7 +22,7 @@ const mockStore = configureMockStore<
 const history = createMemoryHistory();
 
 describe('Component: Overview', () => {
-  it('should redirect to login page when auth=false', () => {
+  it('should render correctly', () => {
     const offer = getFakeOffer();
 
     const store = mockStore(INITIAL_STATE);

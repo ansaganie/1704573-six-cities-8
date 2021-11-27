@@ -6,14 +6,18 @@ import { Action } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
 import { AuthStatus } from './store/app-slice/constants';
 import { Cities, CityLocation, SortType } from './store/main-page-slice/constants';
+import { RootState } from './store/store';
 import { SlicesNamespace } from './store/types';
 import { getFakeOffers, getFakeUser } from './utils/fake-data';
 
 const OFFERS_COUNT = 30;
 
 const offers = getFakeOffers(OFFERS_COUNT);
+const offer = offers[0];
 
-const INITIAL_STATE = {
+offer.city.name = Cities.Paris;
+
+const INITIAL_STATE: RootState = {
   [SlicesNamespace.App]: {
     authStatus: AuthStatus.Auth,
     user: getFakeUser(),
@@ -39,7 +43,7 @@ const INITIAL_STATE = {
     currentTab: Cities.Paris,
     currentSort: SortType.Popular,
     locationInFocus: CityLocation[Cities.Paris],
-    offerInFocusId: offers.find(({ city }) => city.name === Cities.Paris)?.id,
+    offerInFocusId: offer.id,
   },
 };
 
