@@ -12,6 +12,11 @@ import ILoginForm from '../../models/ILoginForm';
 
 const MIN_PASSWORD_VALUE = 2;
 const PASSWORD_PATTERN = /^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i;
+const INVALID_EMAIL = 'Invalid email address';
+const EMAIL_REQUIRED = 'No email provided';
+const PASSWORD_REQUIRED = 'No password provided';
+const SHORT_PASSWORD = 'Password is too short - should be 8 chars minimum';
+const PASSWORD_MATCH = 'Password should contain minimum one Latin letter and one number';
 
 const initialValues: ILoginForm = {
   email: '',
@@ -25,12 +30,12 @@ function SignInForm(): JSX.Element {
 
   const validation = useMemo(() => Yup.object({
     email: Yup.string()
-      .email('Invalid email address')
-      .required('No email provided'),
+      .email(INVALID_EMAIL)
+      .required(EMAIL_REQUIRED),
     password: Yup.string()
-      .required('No password provided')
-      .min(MIN_PASSWORD_VALUE, 'Password is too short - should be 8 chars minimum')
-      .matches(PASSWORD_PATTERN, 'Password should contain minimum one Latin letter and one number.'),
+      .required(PASSWORD_REQUIRED)
+      .min(MIN_PASSWORD_VALUE, SHORT_PASSWORD)
+      .matches(PASSWORD_PATTERN, PASSWORD_MATCH),
   }), []);
 
   const formSubmitHandler = (values: ILoginForm) => {

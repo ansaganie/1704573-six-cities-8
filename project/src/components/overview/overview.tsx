@@ -1,16 +1,8 @@
 import React from 'react';
+import { AccommodationType } from '../../constants';
 import IOffer from '../../models/IOffer';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingType } from '../rating/rating';
-
-export const AccommodationType: {
-  [key: string]: string,
-} = {
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-  hotel: 'Hotel',
-};
 
 type OverviewProps = {
   offer: IOffer,

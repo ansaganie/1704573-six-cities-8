@@ -33,9 +33,19 @@ const BackendRoute = {
     `/comments/${offerId}`,
 };
 
+const AccommodationType: {
+  [ type: string ]: string,
+} = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
+
 export {
   LINK_CAP,
   HttpCode,
   AppRoute,
-  BackendRoute
+  BackendRoute,
+  AccommodationType
 };

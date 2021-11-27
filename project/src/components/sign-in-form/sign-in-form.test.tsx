@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import thunk from 'redux-thunk';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
@@ -14,17 +15,24 @@ import { api, AsyncDispatch, RootState } from '../../store/store';
 import { INITIAL_STATE } from '../../setupTests';
 import { AuthStatus } from '../../store/app-slice/constants';
 import { AppRoute, BackendRoute } from '../../constants';
-import { getFakeUser } from '../../utils/fake-data';
+import { getFakeOffers, getFakeUser } from '../../utils/fake-data';
 import SignInForm from './sign-in-form';
-import userEvent from '@testing-library/user-event';
 
 const BACKEND_URL = 'https://8.react.pages.academy/six-cities';
 const user = getFakeUser();
+const offers = getFakeOffers();
 
 const server = setupServer(
   rest.post(`${BACKEND_URL}${BackendRoute.Login}`, (_req, res, ctx) => res(
     ctx.json(user),
-    ctx.status(200, 'OK'),
+    ctx.status(200),
+  )),
+  rest.get(`${BACKEND_URL}${BackendRoute.Login}`, (_req, res, ctx) => res(
+    ctx.status(401),
+  )),
+  rest.get(`${BACKEND_URL}${BackendRoute.Offers}`, (_req, res, ctx) => res(
+    ctx.json(offers),
+    ctx.status(200),
   )),
 );
 
@@ -85,11 +93,13 @@ describe('Component: SignIn Form', () => {
   });
 
   it('should login  successfully and render main page', async () => {
+    const tokenKeyName = 'six-cities-8';
     const mainScreenMessage = 'This is main page';
     const signInText = 'Sign in';
     const emailPlaceholder = 'Email';
     const passwordPlaceholder = 'Password';
     const validPassword = 'aa11';
+    const setItemCallCount = 3;
     const setItem =  jest.fn();
 
     const state = { ...INITIAL_STATE };
@@ -109,11 +119,13 @@ describe('Component: SignIn Form', () => {
           <Router history={history}>
             <QueryParamProvider ReactRouterRoute={Route}>
               <Switch>
-                <Route>
+                <Route exact path={AppRoute.Main}>
                   <span>{mainScreenMessage}</span>
                 </Route>
+                <Route exact path={AppRoute.SignIn}>
+                  <SignInForm/>
+                </Route>
               </Switch>
-              <SignInForm/>
             </QueryParamProvider>
           </Router>
         </Provider>
@@ -139,6 +151,7 @@ describe('Component: SignIn Form', () => {
 
     expect(screen.getByText(mainScreenMessage)).toBeInTheDocument();
     expect(setItem).toBeCalled();
-    expect(setItem).toBeCalledTimes(1);
+    expect(setItem).toBeCalledTimes(setItemCallCount);
+    expect(setItem).toHaveBeenCalledWith(tokenKeyName, user.token);
   });
 });

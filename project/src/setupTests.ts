@@ -2,6 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
+import { Action } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
 import { AuthStatus } from './store/app-slice/constants';
 import { Cities, CityLocation } from './store/main-page-slice/constants';
@@ -40,7 +41,15 @@ const INITIAL_STATE = {
   },
 };
 
+const scrollTo = jest.fn();
+
+const unknownAction = (): Action => ({ type: 'UNKNOWN_ACTION'} as Action);
+
+window.scrollTo = scrollTo;
+
 export {
-  INITIAL_STATE
+  INITIAL_STATE,
+  scrollTo,
+  unknownAction
 };
 

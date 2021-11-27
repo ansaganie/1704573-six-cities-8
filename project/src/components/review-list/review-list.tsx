@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import IReview from '../../models/IReview';
 import { formatDate } from '../../utils/date';
 import Rating, { RatingType } from '../rating/rating';
@@ -46,4 +46,4 @@ function ReviewList({ reviews }: ReviewListPops): JSX.Element | null {
   );
 }
 
-export default ReviewList;
+export default memo(ReviewList);

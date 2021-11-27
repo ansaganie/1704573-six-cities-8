@@ -10,6 +10,7 @@ import { Cities } from '../store/main-page-slice/constants';
 const FAKE_IMAGES_COUNT = 10;
 const FAKE_GOODS_COUNT = 6;
 const FAKE_OFFERS_COUNT = 10;
+const FAKE_REVIEWS_COUNT = 10;
 const ROOM_TYPES = [ 'apartment', 'room', 'house', 'hotel' ];
 
 const getRandomElement = <T>(array: T[]): T =>
@@ -95,6 +96,12 @@ const getFakeReview = (): IReview => ({
   date: datatype.datetime(),
 });
 
+const getFakeReviews = (
+  length: number = FAKE_REVIEWS_COUNT,
+): IReview[] => new Array(length)
+  .fill(null)
+  .map(() => getFakeReview());
+
 export {
   getFakeImages,
   getFakeHost,
@@ -103,5 +110,6 @@ export {
   getFakeOffer,
   getFakeUser,
   getFakeReview,
-  getRandomElement
+  getRandomElement,
+  getFakeReviews
 };
