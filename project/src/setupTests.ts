@@ -5,11 +5,13 @@
 import { Action } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
 import { AuthStatus } from './store/app-slice/constants';
-import { Cities, CityLocation } from './store/main-page-slice/constants';
+import { Cities, CityLocation, SortType } from './store/main-page-slice/constants';
 import { SlicesNamespace } from './store/types';
 import { getFakeOffers, getFakeUser } from './utils/fake-data';
 
 const OFFERS_COUNT = 30;
+
+const offers = getFakeOffers(OFFERS_COUNT);
 
 const INITIAL_STATE = {
   [SlicesNamespace.App]: {
@@ -21,7 +23,7 @@ const INITIAL_STATE = {
     favoriteOffersLoading: false,
   },
   [SlicesNamespace.Offer]: {
-    offers: getFakeOffers(OFFERS_COUNT),
+    offers: offers,
     offersLoading: false,
     offerLoading: false,
     disabledBookmarkId: '',
@@ -34,10 +36,10 @@ const INITIAL_STATE = {
     reviewsLoading: false,
   },
   [SlicesNamespace.MainPage]: {
-    currentTab: null,
-    currentSort: null,
+    currentTab: Cities.Paris,
+    currentSort: SortType.Popular,
     locationInFocus: CityLocation[Cities.Paris],
-    offerInFocusId: '',
+    offerInFocusId: offers.find(({ city }) => city.name === Cities.Paris)?.id,
   },
 };
 

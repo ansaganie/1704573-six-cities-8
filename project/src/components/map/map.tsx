@@ -32,6 +32,7 @@ function Map({
       center={position}
       zoom={locationInFocus.zoom}
       scrollWheelZoom={false}
+      data-testid="map-component"
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
