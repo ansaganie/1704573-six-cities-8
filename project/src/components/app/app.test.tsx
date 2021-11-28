@@ -11,8 +11,16 @@ import { api, AsyncDispatch, RootState } from '../../store/store';
 import { deepClone, INITIAL_STATE } from '../../setupTests';
 import { Cities } from '../../store/main-page-slice/constants';
 import { AuthStatus } from '../../store/app-slice/constants';
-import { AppRoute } from '../../constants';
+import { AppRoute, BackendRoute } from '../../constants';
 import App from './app';
+import IOffer from '../../models/IOffer';
+import MockAdapter from 'axios-mock-adapter';
+import { getFakeUser } from '../../utils/fake-data';
+
+const axios = new MockAdapter(api);
+
+axios.onGet(BackendRoute.Login)
+  .reply(200, getFakeUser());
 
 const middleware = [ thunk.withExtraArgument(api) ];
 const mockStore = configureMockStore<
@@ -26,9 +34,7 @@ const history = createMemoryHistory();
 describe('Component: App', () => {
   it('should render Main Page', () => {
     const index = 0;
-    const parisOffers = INITIAL_STATE
-      .offer
-      .offers
+    const parisOffers = Object.values(INITIAL_STATE.offer.offers)
       .filter(({ city }) => city.name === Cities.Paris);
 
     const store = mockStore(INITIAL_STATE);
@@ -50,7 +56,6 @@ describe('Component: App', () => {
 
   it('should render Sign In Page', () => {
     const signInText = 'Sign in';
-    const chosenOption = 'Amsterdam';
     const expectedLength = 2;
 
     const state: RootState = deepClone(INITIAL_STATE);
@@ -73,11 +78,17 @@ describe('Component: App', () => {
     render(markup);
 
     expect(screen.getAllByText(signInText).length).toBe(expectedLength);
-    expect(screen.getByText(chosenOption)).toBeInTheDocument();
   });
 
   it('should render Favorites Page', () => {
-    const favoriteOffers = INITIAL_STATE.app.favoriteOffers.slice();
+    const favoriteOffers: IOffer[] = [];
+    const offers = { ...INITIAL_STATE.offer.offers };
+    INITIAL_STATE.app.favoriteOffers.forEach((id) => {
+      if (offers[id].city.name === Cities.Paris) {
+        favoriteOffers.push(offers[id]);
+      }
+    });
+
     const offersExpectedLength = favoriteOffers.length;
     const store = mockStore(INITIAL_STATE);
     history.push(AppRoute.Favorites);
@@ -94,11 +105,10 @@ describe('Component: App', () => {
 
     render(markup);
 
-    const offers = [];
+    const result = [];
+    favoriteOffers.forEach(({ title }) => result.push(screen.getByText(title)));
 
-    favoriteOffers.forEach(({ title }) => offers.push(screen.getByText(title)));
-
-    expect(offers.length).toBe(offersExpectedLength);
+    expect(result.length).toBe(offersExpectedLength);
   });
 
   it('should render NotFound Page', () => {

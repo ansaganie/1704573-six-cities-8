@@ -6,10 +6,11 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Action } from '@reduxjs/toolkit';
 import { api, AsyncDispatch, RootState } from '../../store/store';
-import { INITIAL_STATE } from '../../setupTests';
+import { deepClone, INITIAL_STATE } from '../../setupTests';
 import { Router } from 'react-router';
 import { AccommodationType } from '../../constants';
 import OfferCard, { OfferCardType } from './offer-card';
+import { getFakeOffer } from '../../utils/fake-data';
 
 const middleware = [ thunk.withExtraArgument(api) ];
 const mockStore = configureMockStore<
@@ -22,10 +23,12 @@ const history = createMemoryHistory();
 
 describe('Component: OfferCard', () => {
   it('should render correctly', () => {
-    const offerIndex = 5;
-    const offer = INITIAL_STATE.offer.offers[offerIndex];
+    const offer = getFakeOffer();
 
-    const store = mockStore(INITIAL_STATE);
+    const state: RootState = deepClone(INITIAL_STATE);
+    state.offer.offers[offer.id] = offer;
+
+    const store = mockStore(state);
 
     const { getByText, getByAltText } = render(
       <Provider store={store}>

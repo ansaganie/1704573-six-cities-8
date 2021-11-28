@@ -25,9 +25,7 @@ const history = createMemoryHistory();
 describe('Component: Catalog', () => {
   it('should render correctly', async () => {
     const cityName = Cities.Paris;
-    const parisOffers = INITIAL_STATE
-      .offer
-      .offers
+    const parisOffers = Object.values(INITIAL_STATE.offer.offers)
       .filter(({city}) => city.name === cityName);
     const expectedLength = parisOffers.length;
 

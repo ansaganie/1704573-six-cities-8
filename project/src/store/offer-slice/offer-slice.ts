@@ -1,15 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IOfferState from './types';
+import IOfferState, { NearbyOffersPayloadType } from './types';
 import IOffer, { OfferId } from '../../models/IOffer';
 import { SlicesNamespace } from '../types';
-
-type NearbyOffersPayloadType = {
-  offerId: OfferId,
-  offers: IOffer[],
-}
+import { reduceOffers } from '../../utils/offer';
 
 const initialState: IOfferState = {
-  offers: [],
+  offers: {},
   offersLoading: false,
   offerLoading: false,
   disabledBookmarkId: '',
@@ -23,17 +19,23 @@ const offerSlice = createSlice({
   initialState,
   reducers: {
     setOffers: (state, action: PayloadAction<IOffer[]>) => {
-      state.offers = action.payload;
+      state.offers = action.payload.reduce(reduceOffers, {});
     },
     addOffer: (state, action: PayloadAction<IOffer>) => {
-      state.offers.push(action.payload);
+      state.offers[action.payload.id] = (action.payload);
+    },
+    addOffers: (state, action: PayloadAction<IOffer[]>) => {
+      state.offers = action.payload.reduce(
+        reduceOffers,
+        { ...state.offers },
+      );
     },
     updateIsFavorite: (
       state,
       action: PayloadAction<{offerId: OfferId, status: boolean}>,
     ) => {
-      const offer = state.offers.find(({id}) => id === action.payload.offerId);
-      offer && (offer.isFavorite = action.payload.status);
+      const { offerId, status } = action.payload;
+      state.offers[offerId].isFavorite = status;
     },
     setOffersLoading: (state, action: PayloadAction<boolean>) => {
       state.offersLoading = action.payload;
@@ -49,7 +51,7 @@ const offerSlice = createSlice({
     },
     setNearbyOffers: (state, action: PayloadAction<NearbyOffersPayloadType>) => {
       const { offerId, offers } = action.payload;
-      state.nearbyOffers[offerId] = offers;
+      state.nearbyOffers[offerId] = offers.map(({ id }) => id);
     },
     setNearbyOffersLoading: (state, action: PayloadAction<boolean>) => {
       state.nearbyOffersLoading = action.payload;
@@ -62,6 +64,7 @@ const offerReducer = offerSlice.reducer;
 export const {
   setOffers,
   addOffer,
+  addOffers,
   updateIsFavorite,
   setOffersLoading,
   setOfferLoading,

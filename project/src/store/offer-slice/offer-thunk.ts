@@ -7,6 +7,7 @@ import appToast from '../../utils/app-toast';
 import { setServerNotWorking, updateFavoriteOffers } from '../app-slice/app-slice';
 import {
   addOffer,
+  addOffers,
   setDisabledBookmarkId,
   setNearbyOffers,
   setNearbyOffersLoading,
@@ -73,7 +74,7 @@ const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
       }));
 
       dispatch(updateFavoriteOffers({
-        offer: adapted,
+        offerId: adapted.id,
         status: adapted.isFavorite,
       }));
     } catch (error) {
@@ -93,6 +94,7 @@ const fetchNearbyOffers =  (offerId: OfferId): AsyncAction =>
         BackendRoute.getNearbyOffersLink(offerId),
       );
 
+      dispatch(addOffers(adaptOffers(data)));
       dispatch(setNearbyOffers({
         offerId,
         offers: adaptOffers(data),

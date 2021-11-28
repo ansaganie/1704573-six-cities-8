@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import logo from '../../assets/logo.svg';
@@ -51,4 +51,4 @@ function Logo({ type }: LogoProps): JSX.Element {
   );
 }
 
-export default Logo;
+export default memo(Logo);

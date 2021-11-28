@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthStatus } from './constants';
-import IOffer from '../../models/IOffer';
+import IOffer, { OfferId } from '../../models/IOffer';
 import IUser from '../../models/IUser';
 import IAppState from './types';
 import { SlicesNamespace } from '../types';
 
 type UpdatesFavoriteOffersPayload = {
-  offer: IOffer,
+  offerId: OfferId,
   status: boolean,
 }
 
@@ -36,15 +36,15 @@ const appSlice = createSlice({
       state.serverNotWorking = true;
     },
     setFavoriteOffers: (state, action: PayloadAction<IOffer[]>) => {
-      state.favoriteOffers = action.payload;
+      state.favoriteOffers = action.payload.map(({ id }) => id);
     },
     updateFavoriteOffers: (state, action: PayloadAction<UpdatesFavoriteOffersPayload>) => {
-      const { offer, status } = action.payload;
+      const { offerId, status } = action.payload;
 
       if (status) {
-        state.favoriteOffers.push(offer);
+        state.favoriteOffers.push(offerId);
       } else {
-        state.favoriteOffers = state.favoriteOffers.filter(({id}) => id !== offer.id);
+        state.favoriteOffers = state.favoriteOffers.filter((id) => id !== offerId);
       }
     },
     setFavoriteOffersLoading: (state, action: PayloadAction<boolean>) => {

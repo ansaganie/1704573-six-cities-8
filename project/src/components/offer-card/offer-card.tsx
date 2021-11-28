@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { AccommodationType, AppRoute } from '../../constants';
@@ -116,4 +116,4 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

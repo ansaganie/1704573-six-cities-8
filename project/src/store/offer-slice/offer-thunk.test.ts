@@ -7,6 +7,7 @@ import { getFakeOffer, getFakeOffers } from '../../utils/fake-data';
 import { BackendRoute } from '../../constants';
 import {
   addOffer,
+  addOffers,
   setDisabledBookmarkId,
   setNearbyOffers,
   setNearbyOffersLoading,
@@ -91,7 +92,7 @@ describe('Thunk: Offer', () => {
         status: changedOffer.isFavorite,
       }),
       updateFavoriteOffers({
-        offer: changedOffer,
+        offerId: changedOffer.id,
         status: changedOffer.isFavorite,
       }),
       setDisabledBookmarkId(''),
@@ -111,6 +112,7 @@ describe('Thunk: Offer', () => {
 
     expect(store.getActions()).toEqual([
       setNearbyOffersLoading(true),
+      addOffers(offers),
       setNearbyOffers({ offerId, offers }),
       setNearbyOffersLoading(false),
     ]);

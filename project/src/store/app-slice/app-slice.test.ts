@@ -54,7 +54,7 @@ describe('Reducer: App', () => {
   it('should set favorite offers', () => {
     const offers = getFakeOffers();
     const expected = { ...appState };
-    expected.favoriteOffers = offers;
+    expected.favoriteOffers = offers.map(({ id }) => id);
 
     expect(appReducer(appState, setFavoriteOffers(offers.slice()))).toEqual(expected);
   });
@@ -69,8 +69,11 @@ describe('Reducer: App', () => {
   it('should update favorite offers', () => {
     const offer = getFakeOffer();
     const expected = { ...appState };
-    expected.favoriteOffers = [ ...expected.favoriteOffers, offer ];
+    expected.favoriteOffers = [ ...expected.favoriteOffers, offer.id ];
 
-    expect(appReducer(appState, updateFavoriteOffers({ offer, status: true }))).toEqual(expected);
+    expect(appReducer(appState, updateFavoriteOffers({
+      offerId: offer.id,
+      status: true,
+    }))).toEqual(expected);
   });
 });

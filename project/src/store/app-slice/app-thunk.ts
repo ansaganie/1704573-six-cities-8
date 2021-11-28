@@ -15,6 +15,7 @@ import {
   setInitialized,
   setUser
 } from './app-slice';
+import { addOffers } from '../offer-slice/offer-slice';
 
 const LOGOUT_FAIL_MESSAGE = 'Logout failed, please try again later';
 const LOGOUT_SUCCESS_MESSAGE = 'Successfully logged out';
@@ -72,8 +73,10 @@ const fetchFavorites = (): AsyncAction =>
 
     try {
       const { data } = await api.get<IOffer[]>(BackendRoute.Favorite);
+      const adapted = adaptOffers(data);
 
-      dispatch(setFavoriteOffers(adaptOffers(data)));
+      dispatch(addOffers(adapted));
+      dispatch(setFavoriteOffers(adapted));
     } catch (error) {
       appToast.info(FAVORITES_FAIL);
       appToast.error((error as AxiosError).message);

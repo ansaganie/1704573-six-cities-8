@@ -24,7 +24,7 @@ const history = createMemoryHistory();
 
 describe('Screen: Main', () => {
   it('should render correctly', async () => {
-    const parisOffers = INITIAL_STATE.offer.offers.filter(({ city }) =>
+    const parisOffers = Object.values(INITIAL_STATE.offer.offers).filter(({ city }) =>
       city.name === Cities.Paris);
     const offersExpectedLength = parisOffers.length;
     const tabsExpectedLength = Object.values(Cities).length;

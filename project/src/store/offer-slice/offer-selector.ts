@@ -1,13 +1,13 @@
 import { createSelector } from 'reselect';
-import IOffer, { OfferId } from '../../models/IOffer';
+import { OfferId } from '../../models/IOffer';
 import { getCurrentSort, getCurrentTab } from '../main-page-slice/main-page-selector';
 import { RootState } from '../store';
 import { OffersSorter } from './sorting';
-import { NearbyOffers } from './types';
+import { NearbyOffers, OffersById } from './types';
 
 const getOfferId = (_state: RootState, offerId: OfferId) => offerId;
 
-const getOffers = (state: RootState): IOffer[] => state.offer.offers;
+const getOffers = (state: RootState): OffersById => state.offer.offers;
 const getOffersLoading = (state: RootState): boolean => state.offer.offersLoading;
 const getOfferLoading = (state: RootState): boolean => state.offer.offerLoading;
 const getDisabledBookmarkId = (state: RootState): OfferId => state.offer.disabledBookmarkId;
@@ -20,7 +20,8 @@ const getFilteredOffers = createSelector(
   getCurrentTab,
   getCurrentSort,
   (offers, currentTab, currentSort) => {
-    const result = offers.filter(({city}) => city.name === currentTab);
+    const result = Object.values(offers).filter(({city}) =>
+      city.name === currentTab);
 
     if (currentSort) {
       return result.sort(OffersSorter[currentSort]);
@@ -41,9 +42,18 @@ const getBookmarkDisabled = createSelector(
 const getNearbyOffersById = createSelector(
   [
     getNearbyOffers,
+    getOffers,
     getOfferId,
   ],
-  ( nearByOffers, offerId) => nearByOffers[offerId] || [],
+  ( nearByOffers, offers, offerId) => {
+    const ids = nearByOffers[offerId];
+
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    return ids.map((id) => offers[id]);
+  },
 );
 
 export {

@@ -14,7 +14,7 @@ const useOfferLoader = (offerId: OfferId): UseOfferLoader => {
   const [ offer, setOffer ] = useState<IOffer | null>(null);
 
   useEffect(() => {
-    const result = offers.find(({ id }) => id === offerId);
+    const result = Object.values(offers).find(({ id }) => id === offerId);
 
     if (result) {
       setOffer(result);

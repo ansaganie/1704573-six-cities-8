@@ -1,4 +1,4 @@
-import IOffer from '../../models/IOffer';
+import IOffer, { OfferId } from '../../models/IOffer';
 import IUser from '../../models/IUser';
 import { AuthStatus } from './constants';
 
@@ -7,7 +7,7 @@ interface IAppState {
   user: IUser | null;
   initialized: boolean;
   serverNotWorking: boolean;
-  favoriteOffers: IOffer[];
+  favoriteOffers: OfferId[];
   favoriteOffersLoading: boolean;
 }
 

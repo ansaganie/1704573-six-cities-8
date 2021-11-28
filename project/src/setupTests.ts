@@ -9,6 +9,7 @@ import { Cities, CityLocation, SortType } from './store/main-page-slice/constant
 import { RootState } from './store/store';
 import { SlicesNamespace } from './store/types';
 import { getFakeOffers, getFakeUser } from './utils/fake-data';
+import { reduceOffers } from './utils/offer';
 
 const OFFERS_COUNT = 30;
 
@@ -24,11 +25,11 @@ const INITIAL_STATE: RootState = {
     user: getFakeUser(),
     initialized: true,
     serverNotWorking: false,
-    favoriteOffers: getFakeOffers(),
+    favoriteOffers: offers.map(({ id }) => id),
     favoriteOffersLoading: false,
   },
   [SlicesNamespace.Offer]: {
-    offers: offers,
+    offers: offers.reduce(reduceOffers, {}),
     offersLoading: false,
     offerLoading: false,
     disabledBookmarkId: '',

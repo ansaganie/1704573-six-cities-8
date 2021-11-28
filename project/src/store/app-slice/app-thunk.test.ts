@@ -7,8 +7,13 @@ import { getFakeOffers, getFakeUser } from '../../utils/fake-data';
 import { BackendRoute } from '../../constants';
 import { AuthStatus } from './constants';
 import ILoginForm from '../../models/ILoginForm';
-import { setOffers, setOffersLoading } from '../offer-slice/offer-slice';
-import { initializeApp, login, logout, fetchFavorites } from './app-thunk';
+import { addOffers, setOffers, setOffersLoading } from '../offer-slice/offer-slice';
+import {
+  initializeApp,
+  login,
+  logout,
+  fetchFavorites
+} from './app-thunk';
 import {
   setAuthStatus,
   setFavoriteOffers,
@@ -121,6 +126,7 @@ describe('Thunk: AppThunk', () => {
 
     expect(store.getActions()).toEqual([
       setFavoriteOffersLoading(true),
+      addOffers(offers),
       setFavoriteOffers(offers),
       setFavoriteOffersLoading(false),
     ]);

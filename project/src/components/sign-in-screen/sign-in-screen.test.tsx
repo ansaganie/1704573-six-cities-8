@@ -26,7 +26,8 @@ const history = createMemoryHistory();
 describe('Screen: SignIn', () => {
   it('should render correctly', () => {
     const signInText = 'Sign in';
-    const chosenOption = 'Amsterdam';
+    const emailPlaceholder = 'Email';
+    const passwordPlaceholder = 'Password';
     const expectedLength = 2;
 
     const state = { ...INITIAL_STATE };
@@ -54,6 +55,7 @@ describe('Screen: SignIn', () => {
     render(markup);
 
     expect(screen.getAllByText(signInText).length).toBe(expectedLength);
-    expect(screen.getByText(chosenOption)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(emailPlaceholder)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(passwordPlaceholder)).toBeInTheDocument();
   });
 });

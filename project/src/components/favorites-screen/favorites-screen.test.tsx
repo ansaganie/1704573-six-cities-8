@@ -10,6 +10,8 @@ import { api, AsyncDispatch, RootState } from '../../store/store';
 import { INITIAL_STATE } from '../../setupTests';
 import { AppRoute } from '../../constants';
 import FavoritesScreen from './favorites-screen';
+import IOffer from '../../models/IOffer';
+import { Cities } from '../../store/main-page-slice/constants';
 
 const middleware = [ thunk.withExtraArgument(api) ];
 const mockStore = configureMockStore<
@@ -22,7 +24,13 @@ const history = createMemoryHistory();
 
 describe('Screen: Favorite', () => {
   it('should render correctly', async () => {
-    const favoriteOffers = INITIAL_STATE.app.favoriteOffers.slice();
+    const favoriteOffers: IOffer[] = [];
+    const offers = { ...INITIAL_STATE.offer.offers };
+    INITIAL_STATE.app.favoriteOffers.forEach((id) => {
+      if (offers[id].city.name === Cities.Paris) {
+        favoriteOffers.push(offers[id]);
+      }
+    });
     const offersExpectedLength = favoriteOffers.length;
 
     const store = mockStore(INITIAL_STATE);
@@ -42,10 +50,10 @@ describe('Screen: Favorite', () => {
       </Provider>,
     ));
 
-    const offers = [];
+    const result = [];
 
-    favoriteOffers.forEach(({ title }) => offers.push(screen.getByText(title)));
+    favoriteOffers.forEach(({ title }) => result.push(screen.getByText(title)));
 
-    expect(offers.length).toBe(offersExpectedLength);
+    expect(result.length).toBe(offersExpectedLength);
   });
 });

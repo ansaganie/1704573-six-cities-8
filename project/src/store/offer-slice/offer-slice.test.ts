@@ -2,6 +2,7 @@ import { deepClone, INITIAL_STATE, unknownAction } from '../../setupTests';
 import appReducer, {
   setOffers,
   addOffer,
+  addOffers,
   updateIsFavorite,
   setOffersLoading,
   setOfferLoading,
@@ -13,6 +14,7 @@ import appReducer, {
 import IOfferState from './types';
 import { getFakeOffer, getFakeOffers } from '../../utils/fake-data';
 import { OfferId } from '../../models/IOffer';
+import { reduceOffers } from '../../utils/offer';
 
 
 const offerState: IOfferState = deepClone(INITIAL_STATE.offer);
@@ -26,7 +28,7 @@ describe('Reducer: Offer', () => {
   it('should set offers', () => {
     const offers = getFakeOffers();
     const expected = { ...offerState };
-    expected.offers = offers;
+    expected.offers = offers.reduce(reduceOffers, {});
 
     expect(appReducer(offerState, setOffers(offers))).toEqual(expected);
   });
@@ -34,23 +36,36 @@ describe('Reducer: Offer', () => {
   it('should add offer', () => {
     const offer = getFakeOffer();
     const expected = { ...offerState };
-    expected.offers = [ ...expected.offers, offer ];
+    expected.offers[offer.id] = offer;
 
     expect(appReducer(offerState, addOffer(offer))).toEqual(expected);
   });
 
+  it('should add offers', () => {
+    const offers = getFakeOffers();
+    const expected = { ...offerState };
+    expected.offers = {
+      ...expected.offers,
+      ...offers.reduce(reduceOffers, {}),
+    };
+
+    expect(appReducer(offerState, addOffers(offers))).toEqual(expected);
+  });
+
   it('should update isFavorite', () => {
     const offerIndex = 5;
+    const offers = getFakeOffers();
+    const offer = offers[offerIndex];
     const initial = {
-      offers: getFakeOffers(),
+      offers: offers.reduce(reduceOffers, {}),
     };
-    initial.offers[offerIndex].isFavorite = false;
+    initial.offers[offer.id].isFavorite = false;
 
     const expected = deepClone(initial);
-    expected.offers[offerIndex].isFavorite = true;
+    expected.offers[offer.id].isFavorite = true;
 
     const payload = {
-      offerId: expected.offers[offerIndex].id,
+      offerId: offer.id,
       status: true,
     };
 
@@ -92,7 +107,7 @@ describe('Reducer: Offer', () => {
     const offers = getFakeOffers();
     const expected = { ...offerState };
     expected.nearbyOffers = {};
-    expected.nearbyOffers[offerId] = offers;
+    expected.nearbyOffers[offerId] = offers.map(({ id }) => id);
 
     const payload = { offerId, offers };
 
