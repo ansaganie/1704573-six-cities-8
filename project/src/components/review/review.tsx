@@ -14,7 +14,8 @@ type ReviewProps = {
 
 function Review({ offerId }: ReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const reviews = useAppSelector((state) => getReviewByOfferId(state, offerId));
+  const reviews = useAppSelector((state) =>
+    getReviewByOfferId(state, offerId));
   const loading = useAppSelector(getReviewsLoading);
   const authorized = useAppSelector(getAuthorized);
 
@@ -27,7 +28,8 @@ function Review({ offerId }: ReviewProps): JSX.Element {
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
-        Reviews &middot; <span className="reviews__amount">{reviews.length}</span>
+        Reviews &middot;
+        <span className="reviews__amount">{reviews.length}</span>
       </h2>
       {loading ? <Spinner/> : <ReviewList reviews={reviews}/>}
       {authorized && <ReviewForm offerId={offerId}/>}

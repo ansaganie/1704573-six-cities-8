@@ -26,7 +26,9 @@ describe('Component: Nearby', () => {
     const nearbyTitle = /Other places in the neighborhood/;
     const maxOffersCount = 3;
     const offers = getFakeOffers();
-    const expectedLength = offers.length > maxOffersCount ? maxOffersCount : offers.length;
+    const expectedLength = offers.length > maxOffersCount
+      ? maxOffersCount
+      : offers.length;
 
     const store = mockStore(INITIAL_STATE);
 

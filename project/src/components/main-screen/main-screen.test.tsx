@@ -7,7 +7,7 @@ import { Route, Router, Switch } from 'react-router';
 import { Action } from 'redux';
 import { createMemoryHistory } from 'history';
 import { QueryParamProvider } from 'use-query-params';
-import { Cities } from '../../store/main-page-slice/constants';
+import { Cities, MainSearchParam } from '../../store/main-page-slice/constants';
 import { api, AsyncDispatch, RootState } from '../../store/store';
 import { INITIAL_STATE } from '../../setupTests';
 import MainScreen from './main-screen';
@@ -32,7 +32,7 @@ describe('Screen: Main', () => {
     const store = mockStore(INITIAL_STATE);
     history.push({
       pathname: AppRoute.Main,
-      search: `?tab=${Cities.Paris}`,
+      search: `?${MainSearchParam.Tab}=${Cities.Paris}`,
     });
 
     const markup = (

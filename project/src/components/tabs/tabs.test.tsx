@@ -9,7 +9,7 @@ import { Route, Router } from 'react-router';
 import { Action } from 'redux';
 import { createMemoryHistory } from 'history';
 import { QueryParamProvider } from 'use-query-params';
-import { Cities } from '../../store/main-page-slice/constants';
+import { Cities, MainSearchParam } from '../../store/main-page-slice/constants';
 import { api, AsyncDispatch, RootState } from '../../store/store';
 import { INITIAL_STATE } from '../../setupTests';
 import Tabs from './tabs';
@@ -27,7 +27,7 @@ describe('Component: Tabs', () => {
   it('should render correctly', () => {
     const store = mockStore(INITIAL_STATE);
     const expectedLength = Object.values(Cities).length;
-    const tabQueryName = 'tab';
+    const tabQueryName = MainSearchParam.Tab;
 
     const markup = (
       <StrictMode>

@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import { useHistory } from 'react-router';
 import { AppRoute, LINK_CAP } from '../../constants';
-import { Cities } from '../../store/main-page-slice/constants';
+import { Cities, MainSearchParam } from '../../store/main-page-slice/constants';
 import { shuffleArray } from '../../utils/common';
 
 const INDEX = 3;
@@ -12,7 +12,8 @@ function RandomCity(): JSX.Element {
 
   const cityClickHandler = (evt: MouseEvent) => {
     evt.preventDefault();
-    history.push(`${AppRoute.Main}?tab=${cityName}`);
+
+    history.push(`${AppRoute.Main}?${MainSearchParam.Tab}=${cityName}`);
   };
 
   return (

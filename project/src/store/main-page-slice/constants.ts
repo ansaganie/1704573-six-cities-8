@@ -1,5 +1,10 @@
 const CITY_ZOOM = 13;
 
+enum MainSearchParam {
+  Tab = 'tab',
+  Sort = 'sort',
+}
+
 enum Cities {
   Paris = 'Paris',
   Cologne= 'Cologne',
@@ -52,5 +57,6 @@ const CityLocation = {
 export {
   Cities,
   SortType,
-  CityLocation
+  CityLocation,
+  MainSearchParam
 };

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useTitleUpdate from '../../hooks/use-title-update';
 import { getFavoriteOffers, getFavoriteOffersLoading } from '../../store/app-slice/app-selector';
 import { fetchFavorites } from '../../store/app-slice/app-thunk';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 import FavoritesList from '../favorites-list/favorites-list';
 import Header from '../header/header';
 import Logo, { LogoType } from '../logo/logo';

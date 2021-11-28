@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { LINK_CAP } from '../../constants';
 import { Cities } from '../../store/main-page-slice/constants';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 
 type TabsItemProps = {
   name: Cities,

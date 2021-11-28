@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 import { setCurrentSort, setCurrentTab, setLocationInFocus } from '../../store/main-page-slice/main-page-slice';
-import { Cities, CityLocation, SortType } from '../../store/main-page-slice/constants';
+import { Cities, CityLocation, MainSearchParam, SortType } from '../../store/main-page-slice/constants';
 import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
 import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
 import Catalog from '../catalog/catalog';
@@ -13,19 +13,19 @@ import Tabs from '../tabs/tabs';
 import ILocation from '../../models/ILocation';
 import useTitleUpdate from '../../hooks/use-title-update';
 
-const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
+const MAIN_PAGE_TITLE = '6 cities | Find best place to stay in ';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [tab, setTab] = useQueryParam('tab', StringParam);
-  const [ sort, setSort ] = useQueryParam('sort', StringParam);
+  const [ tab, setTab ] = useQueryParam(MainSearchParam.Tab, StringParam);
+  const [ sort, setSort ] = useQueryParam(MainSearchParam.Sort, StringParam);
   const offers = useAppSelector(getFilteredOffers);
   const offersLoading = useAppSelector(getOffersLoading);
   const offerInFocusId = useAppSelector(getOfferInFocusId);
   const locationInFocus = useAppSelector(getLocationInFocus);
   const nothingToShow = !offers.length && !offersLoading;
 
-  useTitleUpdate(MAIN_PAGE_TITLE);
+  useTitleUpdate(`${MAIN_PAGE_TITLE}${tab}`);
 
   useEffect(() => {
     if (tab) {
@@ -34,7 +34,7 @@ function MainScreen(): JSX.Element {
     } else {
       setTab(Cities.Paris);
     }
-  }, [dispatch, setTab, tab]);
+  }, [ dispatch, setTab, tab ]);
 
   useEffect(() => {
     if (sort) {
@@ -42,7 +42,7 @@ function MainScreen(): JSX.Element {
     } else {
       setSort(SortType.Popular);
     }
-  }, [dispatch, setSort, sort]);
+  }, [ dispatch, setSort, sort ]);
 
   return (
     <div

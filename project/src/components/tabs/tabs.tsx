@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
-import { Cities } from '../../store/main-page-slice/constants';
+import { Cities, MainSearchParam } from '../../store/main-page-slice/constants';
 import TabsItem from '../tabs-item/tabs-item';
 
 function Tabs(): JSX.Element {
-  const [ tab, setTab ] = useQueryParam('tab', StringParam);
+  const [ tab, setTab ] = useQueryParam(MainSearchParam.Tab, StringParam);
 
   const tabClickHandler = useCallback((cityName: Cities) => {
     setTab(cityName);

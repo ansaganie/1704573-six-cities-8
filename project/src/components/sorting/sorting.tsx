@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
-import { SortType } from '../../store/main-page-slice/constants';
-import combineClasses from '../../utils/combine-class';
+import { MainSearchParam, SortType } from '../../store/main-page-slice/constants';
+import combineClasses from '../../utils/combine-classes';
 
 function Sorting(): JSX.Element {
-  const [ sort, setSort ] = useQueryParam('sort', StringParam);
+  const [ sort, setSort ] = useQueryParam(MainSearchParam.Sort, StringParam);
   const [ isSelectOpen, setIsSelectOpen ] = useState(false);
 
   const selectClickHandler = () => {

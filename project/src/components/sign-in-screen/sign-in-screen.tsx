@@ -3,7 +3,7 @@ import Header from '../header/header';
 import RandomCity from '../random-city/random-city';
 import SignInForm from '../sign-in-form/sign-in-form';
 
-const SIGN_IN_PAGE_TITLE = '6 cities | Find best place to stay in your favorite city';
+const SIGN_IN_PAGE_TITLE = '6 cities | Sign in';
 
 function SignInScreen(): JSX.Element {
   useEffect(() => {

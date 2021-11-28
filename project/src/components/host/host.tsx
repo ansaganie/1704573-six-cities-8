@@ -1,6 +1,6 @@
 import React from 'react';
 import IAbstractUser from '../../models/IAbstractUser';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 
 type HostProps = {
   host: IAbstractUser,

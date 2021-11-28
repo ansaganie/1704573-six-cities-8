@@ -25,7 +25,7 @@ const history = createMemoryHistory();
 
 describe('Component: App', () => {
   it('should render Main Page', () => {
-
+    const index = 0;
     const parisOffers = INITIAL_STATE
       .offer
       .offers
@@ -45,7 +45,7 @@ describe('Component: App', () => {
 
     render(markup);
 
-    expect(screen.getByText(parisOffers[0].title)).toBeInTheDocument();
+    expect(screen.getByText(parisOffers[index].title)).toBeInTheDocument();
   });
 
   it('should render Sign In Page', () => {
@@ -56,6 +56,7 @@ describe('Component: App', () => {
     const state: RootState = deepClone(INITIAL_STATE);
     state.app.authStatus = AuthStatus.NoAuth;
     state.app.user = null;
+
     const store = mockStore(state);
     history.push(AppRoute.SignIn);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import logo from '../../assets/logo.svg';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 
 export enum LogoType {
   Header = 'header',

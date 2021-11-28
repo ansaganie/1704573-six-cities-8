@@ -37,10 +37,10 @@ describe('Component: Rating', () => {
     expect(screen.getByTestId(TEST_ID).style.width).toBe(expectedWidth);
   });
 
-  it('should render stars with width 50% when rating=2.5', async () => {
+  it('should render stars with width 40% when rating=2.5', async () => {
     const TEST_ID = 'rating__stars';
     const RATING = 2.5;
-    const expectedWidth = '50%';
+    const expectedWidth = '40%';
 
     render(
       <Rating rating={RATING} type={RatingType.OfferCard}/>,

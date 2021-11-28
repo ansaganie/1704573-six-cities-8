@@ -31,11 +31,19 @@ function Catalog(): JSX.Element | null {
           : (
             <>
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offers.length} places to stay in ${cityName}`}</b>
+              <b className="places__found">
+                {`${offers.length} places to stay in ${cityName}`}
+              </b>
               <Sorting/>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) =>
-                  <OfferCard offer={offer} key={offer.id} type={OfferCardType.MainPage}/>)}
+                {offers.map(
+                  (offer) => (
+                    <OfferCard
+                      offer={offer}
+                      key={offer.id}
+                      type={OfferCardType.MainPage}
+                    />
+                  ))}
               </div>
             </>
           )

@@ -6,6 +6,8 @@ import IOffer, { OfferId } from '../../models/IOffer';
 import ILocation from '../../models/ILocation';
 import Leaflet from '../leaflet/leaflet';
 
+const ATTRIBUTION = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
+
 type MapProps = {
   offerInFocusId: OfferId,
   locationInFocus: ILocation,
@@ -34,7 +36,7 @@ function Map({
       scrollWheelZoom={false}
     >
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution={ATTRIBUTION}
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         data-testid="map-component"
       />

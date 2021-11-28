@@ -1,5 +1,5 @@
 import React from 'react';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 import { getRatingInPercentage } from '../../utils/offer';
 
 export enum RatingType {

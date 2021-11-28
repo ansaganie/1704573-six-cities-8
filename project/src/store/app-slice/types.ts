@@ -15,4 +15,6 @@ export type CityOffersType = {
   [ cityName: string ]: IOffer[],
 }
 
+export type Token = string;
+
 export default IAppState;

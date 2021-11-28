@@ -4,12 +4,15 @@ import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import combineClasses from '../../utils/combine-class';
-import { LoginState } from '../../types/login-state';
+import combineClasses from '../../utils/combine-classes';
 import { login } from '../../store/app-slice/app-thunk';
 import { AppRoute } from '../../constants';
 import ILoginForm from '../../models/ILoginForm';
 import { getAuthorized } from '../../store/app-slice/app-selector';
+
+type LoginState = {
+  from: string,
+};
 
 const MIN_PASSWORD_VALUE = 2;
 const PASSWORD_PATTERN = /^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i;

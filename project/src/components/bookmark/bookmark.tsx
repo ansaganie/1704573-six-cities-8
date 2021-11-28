@@ -1,7 +1,7 @@
 import React from 'react';
 import { OfferId } from '../../models/IOffer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 import { getBookmarkDisabled } from '../../store/offer-slice/offer-selector';
 import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
 import { getAuthorized } from '../../store/app-slice/app-selector';
@@ -20,7 +20,8 @@ function Bookmark({
 }: BookmarkProps):JSX.Element {
   const dispatch = useAppDispatch();
   const redirectToLogin = useLoginRedirect();
-  const disabled = useAppSelector((state) => getBookmarkDisabled(state, offerId));
+  const disabled = useAppSelector((state) =>
+    getBookmarkDisabled(state, offerId));
   const authorized = useAppSelector(getAuthorized);
 
   const bookmarkClickHandler = () => {
@@ -30,7 +31,6 @@ function Bookmark({
       redirectToLogin();
     }
   };
-
 
   return (
     <button

@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router';
 import { AppRoute } from '../../constants';
+import { MainSearchParam } from '../../store/main-page-slice/constants';
 import RandomCity from './random-city';
 
 describe('Component: RandomCity', () => {
@@ -21,6 +22,6 @@ describe('Component: RandomCity', () => {
     userEvent.click(link);
 
     expect(history.location.pathname).toEqual(AppRoute.Main);
-    expect(history.location.search).toContain('tab');
+    expect(history.location.search).toContain(MainSearchParam.Tab);
   });
 });

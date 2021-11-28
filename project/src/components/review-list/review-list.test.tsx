@@ -17,7 +17,7 @@ describe('Component: ReviewList', () => {
 
     const commentElements = [];
     const userElements = [];
-    reviews.forEach(({ comment, user: { name }, date }) => {
+    reviews.forEach(({ comment, user: { name } }) => {
       commentElements.push(screen.getByText(comment));
       userElements.push(screen.getByText(name));
     });

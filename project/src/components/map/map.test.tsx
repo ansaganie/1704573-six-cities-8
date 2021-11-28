@@ -11,7 +11,11 @@ describe('Component: Map', () => {
     const location = offer.city.location;
 
     const { getByText } = render(
-      <Map offerInFocusId={offer.id} locationInFocus={location} offers={offers} />,
+      <Map
+        offerInFocusId={offer.id}
+        locationInFocus={location}
+        offers={offers}
+      />,
     );
 
     expect(getByText(tileLayer)).toBeInTheDocument();

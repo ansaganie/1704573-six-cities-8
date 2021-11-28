@@ -1,8 +1,6 @@
-import React from 'react';
 import thunk from 'redux-thunk';
 import { render } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { Action } from 'redux';
@@ -28,13 +26,11 @@ describe('Component: Bookmark', () => {
     const store = mockStore(INITIAL_STATE);
 
     const { getByRole } = render(
-      <StrictMode>
-        <Provider store={store}>
-          <Router history={history}>
-            <Bookmark offerId={offerId} isFavorite={false} big/>
-          </Router>
-        </Provider>
-      </StrictMode>,
+      <Provider store={store}>
+        <Router history={history}>
+          <Bookmark offerId={offerId} isFavorite big/>
+        </Router>
+      </Provider>,
     );
 
     const buttonElement = getByRole('button');

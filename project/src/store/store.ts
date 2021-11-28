@@ -10,6 +10,7 @@ import reviewReducer from './review-slice/review-slice';
 import mainPageReducer from './main-page-slice/main-page-slice';
 
 const TOKEN_KEY = 'six-cities-8';
+const TOKEN_HEADER_NAME = 'x-token';
 const BACKEND_URL = 'https://8.react.pages.academy/six-cities';
 const TIMEOUT = 5000;
 
@@ -42,7 +43,7 @@ api.interceptors.request.use(
     const token = tokenKeeper.getToken();
 
     if (token) {
-      request.headers['x-token'] = token;
+      request.headers[TOKEN_HEADER_NAME] = token;
     }
 
     return request;

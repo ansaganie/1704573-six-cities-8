@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { AccommodationType, AppRoute } from '../../constants';
 import IOffer from '../../models/IOffer';
-import combineClasses from '../../utils/combine-class';
+import combineClasses from '../../utils/combine-classes';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingType } from '../rating/rating';
