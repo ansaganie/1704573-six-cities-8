@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Ansagan Islamgali](https://up.htmlacademy.ru/react/8/user/1704573).
-* Наставник: `Неизвестно`.
+* Студент: [Ansagan Islamgali](https://htmlacademy.ru/profile/islamgaliev).
+* Наставник: [Максим Кузнецов](https://htmlacademy.ru/profile/knenkne).
 
 ---
 
