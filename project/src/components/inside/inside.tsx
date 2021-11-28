@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NumberStringObject } from '../../models/IOffer';
 
 type InsideProps = {
@@ -20,4 +20,4 @@ function Inside({ inside }: InsideProps): JSX.Element {
   );
 }
 
-export default Inside;
+export default memo(Inside);

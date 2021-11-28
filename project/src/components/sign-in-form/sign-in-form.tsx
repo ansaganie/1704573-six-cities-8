@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
 import styles from './sign-in-form.module.css';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import combineClasses from '../../utils/combine-class';
 import { LoginState } from '../../types/login-state';
 import { login } from '../../store/app-slice/app-thunk';
 import { AppRoute } from '../../constants';
 import ILoginForm from '../../models/ILoginForm';
+import { getAuthorized } from '../../store/app-slice/app-selector';
 
 const MIN_PASSWORD_VALUE = 2;
 const PASSWORD_PATTERN = /^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i;
@@ -27,6 +28,7 @@ function SignInForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const location = useLocation();
+  const authorized = useAppSelector(getAuthorized);
 
   const validation = useMemo(() => Yup.object({
     email: Yup.string()
@@ -46,6 +48,11 @@ function SignInForm(): JSX.Element {
         history.replace(from);
       });
   };
+
+  if (authorized) {
+    const from = (location.state as LoginState)?.from || AppRoute.Main;
+    return <Redirect to={from}/>;
+  }
 
   return (
     <section className="login">

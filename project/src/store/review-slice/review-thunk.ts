@@ -44,10 +44,13 @@ const postReview = (offerId: OfferId, reviewForm: IReviewForm): AsyncAction =>
         offerId,
         reviews: data,
       }));
+
       appToast.success(REVIEW_POST_SUCCESS);
     } catch (error) {
-      appToast.info(REVIEW_POST_FAIL);
+      appToast.error(REVIEW_POST_FAIL);
       appToast.error((error as AxiosError).message);
+
+      return Promise.reject();
     }
   };
 

@@ -28,7 +28,7 @@ function OfferScreen():JSX.Element {
     getNearbyOffersById(state, offerId));
   const loadingNearby = useAppSelector(getNearbyOffersLoading);
 
-  useTitleUpdate(`${OFFER_PAGE_TITLE}${offer?.title}`);
+  useTitleUpdate(`${OFFER_PAGE_TITLE}${offer?.title ? offer.title : 'Not Found'}`);
 
   useScrollToTop(offerId);
 

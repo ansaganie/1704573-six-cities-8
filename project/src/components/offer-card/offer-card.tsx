@@ -43,6 +43,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
     rating,
     type: roomType,
     location,
+    city,
     isFavorite,
   } = offer;
   const dispatch = useAppDispatch();
@@ -50,6 +51,11 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
   const mouseOverHandler = () => {
     dispatch(setLocationInFocus(location));
     dispatch(setOfferInFocusId(id));
+  };
+
+  const mouseLeaveHandler = () => {
+    dispatch(setLocationInFocus(city.location));
+    dispatch(setOfferInFocusId(''));
   };
 
   return (
@@ -61,6 +67,7 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
         'favorites__card': type === OfferCardType.FavoritesPage,
       })}
       onMouseOver={mouseOverHandler}
+      onMouseLeave={mouseLeaveHandler}
     >
       {
         isPremium && (

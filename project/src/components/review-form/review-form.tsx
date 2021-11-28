@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { useCallback, Fragment, useState, useRef, useEffect } from 'react';
 import { Field, Form, Formik, FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../hooks/redux';
@@ -14,7 +14,7 @@ const MIN_COMMENT_VALUE = 50;
 const MAX_COMMENT_VALUE = 300;
 
 const initialValues = {
-  rating: 1,
+  rating: 0,
   comment: '',
 };
 
@@ -24,6 +24,17 @@ type ReviewFormProps = {
 
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const starsRef = useRef<HTMLDivElement | null>(null);
+  const [ isRested, setIsRested ] = useState(false);
+
+  useEffect(() => {
+    if (starsRef?.current && isRested) {
+      const inputs = starsRef.current.querySelectorAll('input');
+      inputs.forEach((input) => input.checked = false);
+
+      setIsRested(false);
+    }
+  }, [ isRested ]);
 
   const validation = useCallback(() => Yup.object({
     rating: Yup.number()
@@ -40,8 +51,14 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     values: IReviewForm,
     formikHelpers: FormikHelpers<IReviewForm>,
   ) => {
-    dispatch(postReview(offerId, values));
-    formikHelpers.resetForm();
+    dispatch(postReview(offerId, values))
+      .then(() => {
+        formikHelpers.resetForm();
+        setIsRested(true);
+      })
+      .catch(() => {
+        formikHelpers.setSubmitting(false);
+      });
   }, [ dispatch, offerId ]);
 
   return (
@@ -50,12 +67,15 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       onSubmit={formSubmitHandler}
       validationSchema={validation}
     >
-      {({ isValid, isSubmitting, handleChange }: FormikProps<IReviewForm>) => (
+      {({ isValid, isSubmitting, handleChange, dirty }: FormikProps<IReviewForm>) => (
         <Form className="reviews__form form">
           <label className="reviews__label form__label" htmlFor="comment">
             Your review
           </label>
-          <div className="reviews__rating-form form__rating">
+          <div
+            className="reviews__rating-form form__rating"
+            ref={starsRef}
+          >
             {STAR_VALUES.map((value) => (
               <Fragment key={value}>
                 <input
@@ -96,7 +116,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
             <button
               className="reviews__submit form__submit button"
               type="submit"
-              disabled={!isValid || isSubmitting}
+              disabled={!dirty || isSubmitting || !isValid}
             >
               Submit
             </button>

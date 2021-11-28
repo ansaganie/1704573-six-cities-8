@@ -4,7 +4,11 @@ import ReviewList from './review-list';
 
 describe('Component: ReviewList', () => {
   it('should render correctly', async () => {
-    const reviews = getFakeReviews();
+    const maxCount = 10;
+    const count = 15;
+    const reviews = getFakeReviews(count)
+      .slice(0, maxCount)
+      .sort((a, b) => b.date.getTime() - a.date.getTime());
     const expectedLength = reviews.length;
 
     render(
