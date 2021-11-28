@@ -5,7 +5,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { getFakeOffers } from '../../utils/fake-data';
 import Leaflet from './leaflet';
 
-describe('Component: Nearby', () => {
+describe('Component: Leaflet', () => {
   it('should render correctly', async () => {
     const testId = 'leaflet-marker';
     const offers = getFakeOffers();
