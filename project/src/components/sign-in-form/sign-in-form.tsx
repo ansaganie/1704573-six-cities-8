@@ -43,7 +43,7 @@ function SignInForm(): JSX.Element {
       .matches(PASSWORD_PATTERN, PASSWORD_MATCH),
   }), []);
 
-  const formSubmitHandler = (values: ILoginForm) => {
+  const onFormSubmit = (values: ILoginForm) => {
     const from = (location.state as LoginState)?.from || AppRoute.Main;
 
     dispatch(login(values))
@@ -62,7 +62,7 @@ function SignInForm(): JSX.Element {
       <h1 className="login__title">Sign in</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={formSubmitHandler}
+        onSubmit={onFormSubmit}
         validationSchema={validation}
       >
         {

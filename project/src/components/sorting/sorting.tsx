@@ -7,11 +7,11 @@ function Sorting(): JSX.Element {
   const [ sort, setSort ] = useQueryParam(MainSearchParam.Sort, StringParam);
   const [ isSelectOpen, setIsSelectOpen ] = useState(false);
 
-  const selectClickHandler = () => {
+  const handleSelectClick = () => {
     setIsSelectOpen((prev) => !prev);
   };
 
-  const optionClickHandler = (sortType: SortType) => () => {
+  const handleOptionClick = (sortType: SortType) => () => {
     setSort(sortType);
     setIsSelectOpen(false);
   };
@@ -27,7 +27,7 @@ function Sorting(): JSX.Element {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={selectClickHandler}
+        onClick={handleSelectClick}
       >
         {sort}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -49,7 +49,7 @@ function Sorting(): JSX.Element {
                 'places__option--active': value === sort,
               })}
               tabIndex={0}
-              onClick={optionClickHandler(value)}
+              onClick={handleOptionClick(value)}
             >
               {value}
             </li>

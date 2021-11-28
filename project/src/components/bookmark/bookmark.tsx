@@ -24,7 +24,7 @@ function Bookmark({
     getBookmarkDisabled(state, offerId));
   const authorized = useAppSelector(getAuthorized);
 
-  const bookmarkClickHandler = () => {
+  const handleBookmarkClick = () => {
     if (authorized) {
       dispatch(changeIsFavorite(offerId, !isFavorite));
     } else {
@@ -42,7 +42,7 @@ function Bookmark({
       })}
       type="button"
       disabled={disabled}
-      onClick={bookmarkClickHandler}
+      onClick={handleBookmarkClick}
     >
       <svg
         className={combineClasses({

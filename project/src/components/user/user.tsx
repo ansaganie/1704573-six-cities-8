@@ -16,13 +16,13 @@ function User({ authorized, email, avatarUrl }: UserProps): JSX.Element {
   const location = useLocation();
   const redirectToLogin = useLoginRedirect();
 
-  const loginClickHandler = (evt: MouseEvent) => {
+  const handleLoginClick = (evt: MouseEvent) => {
     evt.preventDefault();
 
     redirectToLogin();
   };
 
-  const signOutClickHandler = (evt: MouseEvent) => {
+  const handleSignOutClick = (evt: MouseEvent) => {
     evt.preventDefault();
 
     dispatch(logout());
@@ -37,7 +37,7 @@ function User({ authorized, email, avatarUrl }: UserProps): JSX.Element {
               <li className="header__nav-item user">
                 <a
                   className="header__nav-link header__nav-link--profile"
-                  onClick={loginClickHandler}
+                  onClick={handleLoginClick}
                   href={LINK_CAP}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -69,7 +69,7 @@ function User({ authorized, email, avatarUrl }: UserProps): JSX.Element {
               </li>
               <li className="header__nav-item">
                 <a
-                  onClick={signOutClickHandler}
+                  onClick={handleSignOutClick}
                   className="header__nav-link"
                   href={LINK_CAP}
                 >

@@ -6,7 +6,7 @@ import TabsItem from '../tabs-item/tabs-item';
 function Tabs(): JSX.Element {
   const [ tab, setTab ] = useQueryParam(MainSearchParam.Tab, StringParam);
 
-  const tabClickHandler = useCallback((cityName: Cities) => {
+  const onTabClick = useCallback((cityName: Cities) => {
     setTab(cityName);
   }, [ setTab ]);
 
@@ -20,7 +20,7 @@ function Tabs(): JSX.Element {
                 key={name}
                 name={name}
                 active={tab === name}
-                onClick={tabClickHandler}
+                onClick={onTabClick}
               />
             ))
           }

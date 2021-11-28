@@ -48,12 +48,12 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
   } = offer;
   const dispatch = useAppDispatch();
 
-  const mouseOverHandler = () => {
+  const handleMouseOver = () => {
     dispatch(setLocationInFocus(location));
     dispatch(setOfferInFocusId(id));
   };
 
-  const mouseLeaveHandler = () => {
+  const handleMouseLeave = () => {
     dispatch(setLocationInFocus(city.location));
     dispatch(setOfferInFocusId(''));
   };
@@ -66,8 +66,8 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
         'near-places__card': type === OfferCardType.OfferPage,
         'favorites__card': type === OfferCardType.FavoritesPage,
       })}
-      onMouseOver={mouseOverHandler}
-      onMouseLeave={mouseLeaveHandler}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
     >
       {
         isPremium && (

@@ -47,7 +47,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       .max(MAX_COMMENT_VALUE),
   }), []);
 
-  const formSubmitHandler = useCallback((
+  const onFormSubmit = useCallback((
     values: IReviewForm,
     formikHelpers: FormikHelpers<IReviewForm>,
   ) => {
@@ -64,7 +64,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={formSubmitHandler}
+      onSubmit={onFormSubmit}
       validationSchema={validation}
     >
       {({ isValid, isSubmitting, handleChange, dirty }: FormikProps<IReviewForm>) => (

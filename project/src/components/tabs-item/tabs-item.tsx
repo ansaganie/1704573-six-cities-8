@@ -10,7 +10,7 @@ type TabsItemProps = {
 }
 
 function TabsItem({ name, active, onClick }: TabsItemProps): JSX.Element {
-  const tabClickHandler = (evt: React.MouseEvent) => {
+  const handleTabClick = (evt: React.MouseEvent) => {
     evt.preventDefault();
 
     onClick(name);
@@ -19,7 +19,7 @@ function TabsItem({ name, active, onClick }: TabsItemProps): JSX.Element {
   return (
     <li className="locations__item">
       <a
-        onClick={tabClickHandler}
+        onClick={handleTabClick}
         className={combineClasses({
           'locations__item-link tabs__item': true,
           'tabs__item--active': active,

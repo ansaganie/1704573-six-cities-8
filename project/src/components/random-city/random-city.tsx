@@ -10,7 +10,7 @@ function RandomCity(): JSX.Element {
   const cityName = shuffleArray(Object.values(Cities))[INDEX];
   const history = useHistory();
 
-  const cityClickHandler = (evt: MouseEvent) => {
+  const handleCityClick = (evt: MouseEvent) => {
     evt.preventDefault();
 
     history.push(`${AppRoute.Main}?${MainSearchParam.Tab}=${cityName}`);
@@ -22,7 +22,7 @@ function RandomCity(): JSX.Element {
         <a
           className="locations__item-link"
           href={LINK_CAP}
-          onClick={cityClickHandler}
+          onClick={handleCityClick}
         >
           <span>{cityName}</span>
         </a>
