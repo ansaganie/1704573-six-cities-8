@@ -9,7 +9,7 @@ import PrivateRoute from './private-route';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { api, AsyncDispatch, RootState } from '../../store/store';
 import { Action } from '@reduxjs/toolkit';
-import { INITIAL_STATE } from '../../setupTests';
+import { deepClone, INITIAL_STATE } from '../../setupTests';
 import { AuthStatus } from '../../store/app-slice/constants';
 
 const middleware = [ thunk.withExtraArgument(api) ];
@@ -26,7 +26,7 @@ describe('Component: private route', () => {
     const signInPage = 'sign in page';
     const privatePage = 'private page';
 
-    const state: RootState = JSON.parse(JSON.stringify(INITIAL_STATE));
+    const state: RootState = deepClone(INITIAL_STATE);
     state.app.authStatus = AuthStatus.NoAuth;
     const store = mockStore(state);
     history.push(AppRoute.Favorites);

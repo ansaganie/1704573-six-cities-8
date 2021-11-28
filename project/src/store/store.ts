@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Action, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { Action, combineReducers, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import appReducer, { setAuthStatus, setServerNotWorking } from './app-slice/app-slice';
 import { SlicesNamespace } from './types';
 import { AuthStatus } from './app-slice/constants';
@@ -20,6 +20,23 @@ const api = axios.create({
   timeout: TIMEOUT,
 });
 
+const rootReducer = combineReducers({
+  [SlicesNamespace.App]: appReducer,
+  [SlicesNamespace.Offer]: offerReducer,
+  [SlicesNamespace.Review]: reviewReducer,
+  [SlicesNamespace.MainPage]: mainPageReducer,
+});
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
+});
+
 api.interceptors.request.use(
   (request): AxiosRequestConfig => {
     const token = tokenKeeper.getToken();
@@ -31,21 +48,6 @@ api.interceptors.request.use(
     return request;
   },
 );
-
-const store = configureStore({
-  reducer: {
-    [SlicesNamespace.App]: appReducer,
-    [SlicesNamespace.Offer]: offerReducer,
-    [SlicesNamespace.Review]: reviewReducer,
-    [SlicesNamespace.MainPage]: mainPageReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: api,
-      },
-    }),
-});
 
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
@@ -77,6 +79,7 @@ export type AsyncDispatch = ThunkDispatch<RootState, AxiosInstance, Action>;
 
 export {
   api,
-  tokenKeeper
+  tokenKeeper,
+  rootReducer
 };
 export default store;

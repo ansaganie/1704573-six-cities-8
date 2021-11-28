@@ -2,7 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import { Action } from '@reduxjs/toolkit';
+import { AnyAction } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
 import { AuthStatus } from './store/app-slice/constants';
 import { Cities, CityLocation, SortType } from './store/main-page-slice/constants';
@@ -12,9 +12,10 @@ import { getFakeOffers, getFakeUser } from './utils/fake-data';
 
 const OFFERS_COUNT = 30;
 
+const deepClone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
+
 const offers = getFakeOffers(OFFERS_COUNT);
 const offer = offers[0];
-
 offer.city.name = Cities.Paris;
 
 const INITIAL_STATE: RootState = {
@@ -49,13 +50,14 @@ const INITIAL_STATE: RootState = {
 
 const scrollTo = jest.fn();
 
-const unknownAction = (): Action => ({ type: 'UNKNOWN_ACTION'} as Action);
+const unknownAction = (): AnyAction => ({ type: 'UNKNOWN_ACTION'} as AnyAction);
 
 window.scrollTo = scrollTo;
 
 export {
   INITIAL_STATE,
   scrollTo,
-  unknownAction
+  unknownAction,
+  deepClone
 };
 

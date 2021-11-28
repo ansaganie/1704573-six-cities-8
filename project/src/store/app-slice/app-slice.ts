@@ -65,4 +65,6 @@ export const {
 
 export type AppActions = typeof appSlice.actions;
 
-export default appSlice.reducer;
+const appReducer = appSlice.reducer;
+
+export default appReducer;

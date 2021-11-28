@@ -6,7 +6,7 @@ import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { Action } from 'redux';
-import { INITIAL_STATE } from '../../setupTests';
+import { deepClone, INITIAL_STATE } from '../../setupTests';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import { AuthStatus } from '../../store/app-slice/constants';
@@ -47,7 +47,7 @@ describe('Component: Header', () => {
   it('should render correctly when authorized = false', () => {
     const userAvatarsAltText = 'User\'s avatar';
     const signInText = 'Sign in';
-    const state: RootState = JSON.parse(JSON.stringify(INITIAL_STATE));
+    const state: RootState = deepClone(INITIAL_STATE);
     state.app.authStatus = AuthStatus.NoAuth;
 
     const store = mockStore(state);

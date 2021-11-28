@@ -8,7 +8,7 @@ import { Action } from 'redux';
 import { createMemoryHistory } from 'history';
 import { QueryParamProvider } from 'use-query-params';
 import { api, AsyncDispatch, RootState } from '../../store/store';
-import { INITIAL_STATE } from '../../setupTests';
+import { deepClone, INITIAL_STATE } from '../../setupTests';
 import { Cities } from '../../store/main-page-slice/constants';
 import { AuthStatus } from '../../store/app-slice/constants';
 import { AppRoute } from '../../constants';
@@ -53,7 +53,7 @@ describe('Component: App', () => {
     const chosenOption = 'Amsterdam';
     const expectedLength = 2;
 
-    const state: RootState = JSON.parse(JSON.stringify(INITIAL_STATE));
+    const state: RootState = deepClone(INITIAL_STATE);
     state.app.authStatus = AuthStatus.NoAuth;
     state.app.user = null;
     const store = mockStore(state);

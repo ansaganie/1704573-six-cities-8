@@ -111,5 +111,6 @@ export {
   getFakeUser,
   getFakeReview,
   getRandomElement,
-  getFakeReviews
+  getFakeReviews,
+  getFakeLocation
 };
