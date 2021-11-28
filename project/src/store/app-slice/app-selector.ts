@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
 import { RootState } from '../store';
-import { AuthStatus, CityOffersType } from './types';
+import { AuthStatus } from './constants';
+import { CityOffersType } from './types';
 
 const getAuthStatus = (state: RootState): AuthStatus => state.app.authStatus;
 const getUser = (state: RootState): IUser | null => state.app.user;

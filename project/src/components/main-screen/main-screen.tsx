@@ -3,7 +3,7 @@ import { StringParam, useQueryParam } from 'use-query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import combineClasses from '../../utils/combine-class';
 import { setCurrentSort, setCurrentTab, setLocationInFocus } from '../../store/main-page-slice/main-page-slice';
-import { Cities, CityLocation, SortingType } from '../../store/main-page-slice/constants';
+import { Cities, CityLocation, SortType } from '../../store/main-page-slice/constants';
 import { getFilteredOffers, getOffersLoading } from '../../store/offer-slice/offer-selector';
 import { getLocationInFocus, getOfferInFocusId } from '../../store/main-page-slice/main-page-selector';
 import Catalog from '../catalog/catalog';
@@ -38,9 +38,9 @@ function MainScreen(): JSX.Element {
 
   useEffect(() => {
     if (sort) {
-      dispatch(setCurrentSort(sort as SortingType));
+      dispatch(setCurrentSort(sort as SortType));
     } else {
-      setSort(SortingType.Popular);
+      setSort(SortType.Popular);
     }
   }, [dispatch, setSort, sort]);
 

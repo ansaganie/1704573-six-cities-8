@@ -10,7 +10,6 @@ import {
   setReviewsLoading
 } from './review-slice';
 
-const REVIEWS_FETCH_FAIL = 'Could get reviews, please try again later';
 const REVIEW_POST_FAIL = 'Could post your review, please try again later';
 const REVIEW_POST_SUCCESS = 'Thank you for your review';
 
@@ -28,7 +27,6 @@ const fetchReviews = (offerId: OfferId): AsyncAction =>
         reviews: data,
       }));
     } catch (error) {
-      appToast.info(REVIEWS_FETCH_FAIL);
       appToast.error((error as AxiosError).message);
     } finally {
       dispatch(setReviewsLoading(false));

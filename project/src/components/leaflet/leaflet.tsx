@@ -30,6 +30,7 @@ function Leaflet(props: LeafletProps): JSX.Element {
         offers.map(({ id, location }) => (
           <Marker
             key={id}
+            alt="leaflet-marker"
             icon={
               new L.Icon({
                 iconUrl: id === offerInFocusId ? activePin : pin,

@@ -99,7 +99,6 @@ const fetchNearbyOffers =  (offerId: OfferId): AsyncAction =>
       }));
     } catch (error) {
       appToast.error((error as AxiosError).message);
-      dispatch(setServerNotWorking());
     } finally {
       dispatch(setNearbyOffersLoading(false));
     }

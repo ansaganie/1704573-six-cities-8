@@ -45,7 +45,7 @@ const offerSlice = createSlice({
       state.disabledBookmarkId = action.payload;
     },
     setNotFoundOfferId: (state, action: PayloadAction<OfferId>) => {
-      state.disabledBookmarkId = action.payload;
+      state.notFoundOfferId = action.payload;
     },
     setNearbyOffers: (state, action: PayloadAction<NearbyOffersPayloadType>) => {
       const { offerId, offers } = action.payload;

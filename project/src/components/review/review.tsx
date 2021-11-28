@@ -22,7 +22,7 @@ function Review({ offerId }: ReviewProps): JSX.Element {
     if (reviews.length === 0) {
       dispatch(fetchReviews(offerId));
     }
-  }, [dispatch, offerId, reviews.length]);
+  }, [ dispatch, offerId, reviews ]);
 
   return (
     <section className="property__reviews reviews">

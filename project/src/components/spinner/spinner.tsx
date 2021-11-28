@@ -3,7 +3,7 @@ import styles from './spinner.module.css';
 
 function Spinner(): JSX.Element {
   return (
-    <div className={styles.loader}>Loading...</div>
+    <div data-testid="spinner" className={styles.loader}>Loading...</div>
   );
 }
 

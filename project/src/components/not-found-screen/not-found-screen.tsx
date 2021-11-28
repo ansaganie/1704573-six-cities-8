@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import Header from '../header/header';
 
-function NotFoundScreen():JSX.Element {
+function NotFoundScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header/>

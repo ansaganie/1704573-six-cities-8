@@ -5,7 +5,7 @@ import combineClasses from '../../utils/combine-class';
 import { getBookmarkDisabled } from '../../store/offer-slice/offer-selector';
 import { changeIsFavorite } from '../../store/offer-slice/offer-thunk';
 import { getAuthorized } from '../../store/app-slice/app-selector';
-import { useLoginRedirect } from '../../hooks/use-login-link';
+import { useLoginRedirect } from '../../hooks/use-login-redirect';
 
 type BookmarkProps = {
   offerId: OfferId,

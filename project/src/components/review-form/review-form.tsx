@@ -7,6 +7,7 @@ import { postReview } from '../../store/review-slice/review-thunk';
 import IReviewForm from '../../models/IReviewForm';
 
 const STAR_VALUES = [ 5, 4, 3, 2, 1 ];
+const RATING_TITLES = [ 'terribly', 'badly', 'not bad', 'good', 'perfect' ];
 const MIN_RATING_VALUE = 1;
 const MAX_RATING_VALUE = 5;
 const MIN_COMMENT_VALUE = 50;
@@ -69,7 +70,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
                 <label
                   htmlFor={`${value}-stars`}
                   className="reviews__rating-label form__rating-label"
-                  title="perfect"
+                  title={RATING_TITLES[value-1]}
                 >
                   <svg className="form__star-image" width="37" height="33">
                     <use xlinkHref="#icon-star"/>

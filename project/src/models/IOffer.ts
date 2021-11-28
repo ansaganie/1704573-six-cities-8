@@ -3,7 +3,9 @@ import ICity from './ICity';
 import ILocation from './ILocation';
 
 export type OfferId = string;
-export type NumberStringObject = { [key: number]: string };
+export type NumberStringObject = {
+  [key: number]: string,
+};
 
 interface IOffer {
   id: OfferId;

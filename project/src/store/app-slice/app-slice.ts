@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthStatus } from './types';
+import { AuthStatus } from './constants';
 import IOffer from '../../models/IOffer';
 import IUser from '../../models/IUser';
-import IAppState from './IAppState';
+import IAppState from './types';
 import { SlicesNamespace } from '../types';
 
 type UpdatesFavoriteOffersPayload = {
@@ -65,4 +65,6 @@ export const {
 
 export type AppActions = typeof appSlice.actions;
 
-export default appSlice.reducer;
+const appReducer = appSlice.reducer;
+
+export default appReducer;

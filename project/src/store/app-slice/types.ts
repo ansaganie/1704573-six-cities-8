@@ -1,15 +1,18 @@
 import IOffer from '../../models/IOffer';
+import IUser from '../../models/IUser';
+import { AuthStatus } from './constants';
 
-enum AuthStatus {
-  Auth = 'auth',
-  NoAuth = 'no-auth',
-  Unknown = 'unknown'
+interface IAppState {
+  authStatus: AuthStatus;
+  user: IUser | null;
+  initialized: boolean;
+  serverNotWorking: boolean;
+  favoriteOffers: IOffer[];
+  favoriteOffersLoading: boolean;
 }
 
 export type CityOffersType = {
   [ cityName: string ]: IOffer[],
 }
 
-export {
-  AuthStatus
-};
+export default IAppState;

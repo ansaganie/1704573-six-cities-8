@@ -2,7 +2,7 @@ import React from 'react';
 import combineClasses from '../../utils/combine-class';
 import { getRatingInPercentage } from '../../utils/offer';
 
-export enum RatingStarsType {
+export enum RatingType {
   OfferCard = 'offer-card',
   ReviewItem = 'review-item',
   OfferPage = 'offer-page',
@@ -10,7 +10,7 @@ export enum RatingStarsType {
 
 type RatingProps = {
   rating: number,
-  type: RatingStarsType,
+  type: RatingType,
 }
 
 function Rating({ rating, type }: RatingProps): JSX.Element {
@@ -18,17 +18,17 @@ function Rating({ rating, type }: RatingProps): JSX.Element {
     <div
       className={combineClasses({
         'rating__stars': true,
-        'place-card__stars': type === RatingStarsType.OfferCard,
-        'reviews__stars': type === RatingStarsType.ReviewItem,
-        'property__stars': type === RatingStarsType.OfferPage,
+        'place-card__stars': type === RatingType.OfferCard,
+        'reviews__stars': type === RatingType.ReviewItem,
+        'property__stars': type === RatingType.OfferPage,
       })}
     >
       <span
         style={{
           width: getRatingInPercentage(rating),
         }}
-      >
-      </span>
+        data-testid="rating__stars"
+      />
       <span className="visually-hidden">Rating</span>
     </div>
   );
