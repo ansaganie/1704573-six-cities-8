@@ -2,7 +2,7 @@ import React, { memo, MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, LINK_CAP } from '../../constants';
 import { useAppDispatch } from '../../hooks/redux';
-import { useLoginRedirect } from '../../hooks/use-login-link';
+import { useLoginRedirect } from '../../hooks/use-login-redirect';
 import { logout } from '../../store/app-slice/app-thunk';
 
 type UserProps = {

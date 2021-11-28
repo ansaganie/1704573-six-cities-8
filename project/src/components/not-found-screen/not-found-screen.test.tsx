@@ -19,7 +19,7 @@ const mockStore = configureMockStore<
 
 const history = createMemoryHistory();
 
-describe('Screen: Offer', () => {
+describe('Screen: NotFound', () => {
   it('should render correctly', () => {
     const notFoundTitle = /Not Found/;
     const notFoundCode = /404/;
