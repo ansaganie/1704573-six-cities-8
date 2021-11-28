@@ -48,61 +48,64 @@ function SignInForm(): JSX.Element {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={formSubmitHandler}
-      validationSchema={validation}
-    >
-      {
-        ({ errors, isSubmitting }: FormikProps<ILoginForm>) => (
-          <Form
-            className="login__form form"
-          >
-            <div
-              className="login__input-wrapper form__input-wrapper"
+    <section className="login">
+      <h1 className="login__title">Sign in</h1>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={formSubmitHandler}
+        validationSchema={validation}
+      >
+        {
+          ({ errors, isSubmitting }: FormikProps<ILoginForm>) => (
+            <Form
+              className="login__form form"
             >
-              <label className="visually-hidden">E-mail</label>
-              <div className={styles.error}>
-                <ErrorMessage name="email" className={styles.error}/>
+              <div
+                className="login__input-wrapper form__input-wrapper"
+              >
+                <label className="visually-hidden">E-mail</label>
+                <div className={styles.error}>
+                  <ErrorMessage name="email" className={styles.error}/>
+                </div>
+                <Field
+                  placeholder="Email"
+                  className={combineClasses({
+                    'login__input form__input': true,
+                    [styles.errorBorder]: !!errors.email,
+                  })}
+                  type="email"
+                  name="email"
+                  required
+                />
               </div>
-              <Field
-                placeholder="Email"
-                className={combineClasses({
-                  'login__input form__input': true,
-                  [styles.errorBorder]: !!errors.email,
-                })}
-                type="email"
-                name="email"
-                required
-              />
-            </div>
-            <div className="login__input-wrapper form__input-wrapper">
-              <label className="visually-hidden">Password</label>
-              <div className={styles.error}>
-                <ErrorMessage name="password"/>
+              <div className="login__input-wrapper form__input-wrapper">
+                <label className="visually-hidden">Password</label>
+                <div className={styles.error}>
+                  <ErrorMessage name="password"/>
+                </div>
+                <Field
+                  className={combineClasses({
+                    'login__input form__input': true,
+                    [styles.errorBorder]: !!errors.password,
+                  })}
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
               </div>
-              <Field
-                className={combineClasses({
-                  'login__input form__input': true,
-                  [styles.errorBorder]: !!errors.password,
-                })}
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-              />
-            </div>
-            <button
-              className="login__submit form__submit button"
-              type="submit"
-              disabled={isSubmitting}
-            >
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                disabled={isSubmitting}
+              >
               Sign in
-            </button>
-          </Form>
-        )
-      }
-    </Formik>
+              </button>
+            </Form>
+          )
+        }
+      </Formik>
+    </section>
   );
 }
 
