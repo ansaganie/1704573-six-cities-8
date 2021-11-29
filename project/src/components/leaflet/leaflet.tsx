@@ -1,28 +1,37 @@
 import React, { useEffect } from 'react';
-import L, { LatLng } from 'leaflet';
+import { LatLng, Icon, Point } from 'leaflet';
 import { Marker, useMap } from 'react-leaflet';
 import pin from '../../assets/pin.svg';
 import activePin from '../../assets/pin-active.svg';
 import IOffer, { OfferId } from '../../models/IOffer';
+import ILocation from '../../models/ILocation';
 
 const ICON_SIZE_X = 40;
 const ICON_SIZE_Y = 50;
 const ICON_ANCHOR_X = 40;
 const ICON_ANCHOR_Y = 25;
+const MAP_FLY_OPTION = {
+  duration: 1,
+};
 
 type LeafletProps = {
   offers: IOffer[],
   offerInFocusId: OfferId,
-  position: LatLng,
+  locationInFocus: ILocation,
 }
 
 function Leaflet(props: LeafletProps): JSX.Element {
-  const { offers, offerInFocusId, position } = props;
+  const { offers, offerInFocusId, locationInFocus  } = props;
   const map = useMap();
 
   useEffect(() => {
-    map.flyTo(position);
-  }, [ map, position, offerInFocusId ]);
+    const position = new LatLng(
+      locationInFocus.latitude,
+      locationInFocus.longitude,
+    );
+
+    map.flyTo(position, locationInFocus.zoom, MAP_FLY_OPTION);
+  }, [ locationInFocus, map ]);
 
   return (
     <>
@@ -32,15 +41,15 @@ function Leaflet(props: LeafletProps): JSX.Element {
             key={id}
             alt="leaflet-marker"
             icon={
-              new L.Icon({
+              new Icon({
                 iconUrl: id === offerInFocusId ? activePin : pin,
-                iconSize: new L.Point(ICON_SIZE_X, ICON_SIZE_Y),
-                iconAnchor: new L.Point(ICON_ANCHOR_X, ICON_ANCHOR_Y),
+                iconSize: new Point(ICON_SIZE_X, ICON_SIZE_Y),
+                iconAnchor: new Point(ICON_ANCHOR_X, ICON_ANCHOR_Y),
                 zoom: location.zoom,
               })
             }
             position={
-              new L.LatLng(
+              new LatLng(
                 location.latitude,
                 location.longitude,
               )

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { AccommodationType, AppRoute } from '../../constants';
@@ -7,6 +7,8 @@ import combineClasses from '../../utils/combine-classes';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingType } from '../rating/rating';
+
+const TIMEOUT = 1000;
 
 export enum OfferCardType {
   MainPage = 'main-page',
@@ -43,19 +45,26 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
     rating,
     type: roomType,
     location,
-    city,
     isFavorite,
   } = offer;
   const dispatch = useAppDispatch();
+  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout>>();
 
   const handleMouseOver = () => {
-    dispatch(setLocationInFocus(location));
-    dispatch(setOfferInFocusId(id));
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    setTimeoutId(setTimeout(() => {
+      dispatch(setLocationInFocus(location));
+      dispatch(setOfferInFocusId(id));
+    }, TIMEOUT));
   };
 
   const handleMouseLeave = () => {
-    dispatch(setLocationInFocus(city.location));
-    dispatch(setOfferInFocusId(''));
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
   };
 
   return (

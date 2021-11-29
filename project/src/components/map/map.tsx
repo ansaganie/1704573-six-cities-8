@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './map.module.css';
-import L from 'leaflet';
+import { LatLng } from 'leaflet';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import IOffer, { OfferId } from '../../models/IOffer';
 import ILocation from '../../models/ILocation';
@@ -19,7 +19,7 @@ function Map({
   locationInFocus,
   offers,
 }: MapProps): JSX.Element | null {
-  const position = new L.LatLng(
+  const position = new LatLng(
     locationInFocus.latitude,
     locationInFocus.longitude,
   );
@@ -43,7 +43,7 @@ function Map({
       <Leaflet
         offers={offers}
         offerInFocusId={offerInFocusId}
-        position={position}
+        locationInFocus={locationInFocus}
       />
     </MapContainer>
   );
