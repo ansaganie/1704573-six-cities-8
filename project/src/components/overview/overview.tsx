@@ -1,6 +1,8 @@
 import React from 'react';
 import { AccommodationType } from '../../constants';
+import { useAppSelector } from '../../hooks/redux';
 import IOffer from '../../models/IOffer';
+import { getIsFavorite } from '../../store/app-slice/app-selector';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingType } from '../rating/rating';
 
@@ -13,13 +15,13 @@ function Overview({ offer }: OverviewProps): JSX.Element {
     id,
     isPremium,
     title,
-    isFavorite,
     rating,
     type,
     bedrooms,
     maxAdults,
     price,
   } = offer;
+  const isFavorite = useAppSelector(getIsFavorite(id));
 
   return (
     <>

@@ -30,13 +30,6 @@ const offerSlice = createSlice({
         { ...state.offers },
       );
     },
-    updateIsFavorite: (
-      state,
-      action: PayloadAction<{offerId: OfferId, status: boolean}>,
-    ) => {
-      const { offerId, status } = action.payload;
-      state.offers[offerId].isFavorite = status;
-    },
     setOffersLoading: (state, action: PayloadAction<boolean>) => {
       state.offersLoading = action.payload;
     },
@@ -65,7 +58,6 @@ export const {
   setOffers,
   addOffer,
   addOffers,
-  updateIsFavorite,
   setOffersLoading,
   setOfferLoading,
   setDisabledBookmarkId,

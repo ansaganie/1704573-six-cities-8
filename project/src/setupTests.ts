@@ -25,7 +25,7 @@ const INITIAL_STATE: RootState = {
     user: getFakeUser(),
     initialized: true,
     serverNotWorking: false,
-    favoriteOffers: offers.map(({ id }) => id),
+    favoriteOfferIds: offers.map(({ id }) => id),
     favoriteOffersLoading: false,
   },
   [SlicesNamespace.Offer]: {

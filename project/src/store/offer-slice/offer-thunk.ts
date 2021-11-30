@@ -14,8 +14,7 @@ import {
   setNotFoundOfferId,
   setOfferLoading,
   setOffers,
-  setOffersLoading,
-  updateIsFavorite
+  setOffersLoading
 } from './offer-slice';
 
 const OFFERS_FETCH_FAILS = 'Could get offers, please try again later';
@@ -67,11 +66,6 @@ const changeIsFavorite = (offerId: OfferId, status: boolean): AsyncAction =>
       );
 
       const adapted = adaptOffer(data);
-
-      dispatch(updateIsFavorite({
-        offerId,
-        status: adapted.isFavorite,
-      }));
 
       dispatch(updateFavoriteOffers({
         offerId: adapted.id,

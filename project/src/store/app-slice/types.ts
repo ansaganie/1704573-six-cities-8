@@ -7,7 +7,7 @@ interface IAppState {
   user: IUser | null;
   initialized: boolean;
   serverNotWorking: boolean;
-  favoriteOffers: OfferId[];
+  favoriteOfferIds: OfferId[];
   favoriteOffersLoading: boolean;
 }
 

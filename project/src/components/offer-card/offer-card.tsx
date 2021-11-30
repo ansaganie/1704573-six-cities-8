@@ -1,12 +1,13 @@
 import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { AccommodationType, AppRoute } from '../../constants';
 import IOffer from '../../models/IOffer';
 import combineClasses from '../../utils/combine-classes';
 import { setLocationInFocus, setOfferInFocusId } from '../../store/main-page-slice/main-page-slice';
 import Bookmark from '../bookmark/bookmark';
 import Rating, { RatingType } from '../rating/rating';
+import { getIsFavorite } from '../../store/app-slice/app-selector';
 
 const TIMEOUT = 1000;
 
@@ -45,10 +46,10 @@ function OfferCard({ offer, type }: OfferCardProps): JSX.Element {
     rating,
     type: roomType,
     location,
-    isFavorite,
   } = offer;
   const dispatch = useAppDispatch();
-  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout>>();
+  const isFavorite = useAppSelector(getIsFavorite(id));
+  const [ timeoutId, setTimeoutId ] = useState<ReturnType<typeof setTimeout>>();
 
   const handleMouseOver = () => {
     if (timeoutId) {

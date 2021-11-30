@@ -10,12 +10,12 @@ const getAuthStatus = (state: RootState): AuthStatus => state.app.authStatus;
 const getUser = (state: RootState): IUser | null => state.app.user;
 const getInitialized = (state: RootState): boolean => state.app.initialized;
 const getServerNotWorking = (state: RootState): boolean => state.app.serverNotWorking;
-const getFavoriteOffersIds = (state: RootState): OfferId[] => state.app.favoriteOffers;
+const getFavoriteOfferIds = (state: RootState): OfferId[] => state.app.favoriteOfferIds;
 const getFavoriteOffersLoading = (state: RootState): boolean => state.app.favoriteOffersLoading;
 
 const getFavoriteOffers = createSelector(
   getOffers,
-  getFavoriteOffersIds,
+  getFavoriteOfferIds,
   (offers, ids) => {
     const favoriteOffers = ids.map((id) => offers[id]);
 
@@ -36,11 +36,15 @@ const getAuthorized = createSelector(
   (authStatus) => authStatus === AuthStatus.Auth,
 );
 
+const getIsFavorite = (offerId: OfferId) => (state: RootState): boolean =>
+  state.app.favoriteOfferIds.includes(offerId);
+
 export {
-  getAuthorized,
   getUser,
   getInitialized,
   getServerNotWorking,
   getFavoriteOffersLoading,
+  getIsFavorite,
+  getAuthorized,
   getFavoriteOffers
 };

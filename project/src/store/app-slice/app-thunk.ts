@@ -7,7 +7,6 @@ import IUser from '../../models/IUser';
 import { BackendRoute } from '../../constants';
 import { AuthStatus } from './constants';
 import { adaptOffers, adaptUser } from '../../services/adapter';
-import { fetchOffers } from '../offer-slice/offer-thunk';
 import {
   setAuthStatus,
   setFavoriteOffers,
@@ -28,6 +27,7 @@ const initializeApp = (): AsyncAction =>
 
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
+      await dispatch(fetchFavorites());
     } finally {
       dispatch(setInitialized());
     }
@@ -38,14 +38,16 @@ const login = (loginForm: ILoginForm): AsyncAction =>
     try {
       const { data } = await api.post<IUser>(BackendRoute.Login, loginForm);
 
+      tokenKeeper.setToken(data.token);
       dispatch(setAuthStatus(AuthStatus.Auth));
       dispatch(setUser(adaptUser(data)));
-      tokenKeeper.setToken(data.token);
+      await dispatch(fetchFavorites());
 
-      await dispatch(fetchOffers());
-      dispatch(setFavoriteOffers([]));
+      return Promise.resolve();
     } catch (error) {
       appToast.error((error as AxiosError).message);
+
+      return Promise.reject();
     }
   };
 
@@ -54,13 +56,12 @@ const logout = (): AsyncAction =>
     try {
       await api.delete(BackendRoute.Logout);
 
+      tokenKeeper.dropToken();
       dispatch(setAuthStatus(AuthStatus.NoAuth));
       dispatch(setUser(null));
+      dispatch(setFavoriteOffers([]));
 
-      tokenKeeper.dropToken();
       appToast.success(LOGOUT_SUCCESS_MESSAGE);
-
-      await dispatch(fetchOffers());
     } catch (error) {
       appToast.info(LOGOUT_FAIL_MESSAGE);
       appToast.error((error as AxiosError).message);

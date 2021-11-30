@@ -15,7 +15,7 @@ const initialState: IAppState = {
   user: null,
   initialized: false,
   serverNotWorking: false,
-  favoriteOffers: [],
+  favoriteOfferIds: [],
   favoriteOffersLoading: false,
 };
 
@@ -36,15 +36,15 @@ const appSlice = createSlice({
       state.serverNotWorking = true;
     },
     setFavoriteOffers: (state, action: PayloadAction<IOffer[]>) => {
-      state.favoriteOffers = action.payload.map(({ id }) => id);
+      state.favoriteOfferIds = action.payload.map(({ id }) => id);
     },
     updateFavoriteOffers: (state, action: PayloadAction<UpdatesFavoriteOffersPayload>) => {
       const { offerId, status } = action.payload;
 
       if (status) {
-        state.favoriteOffers.push(offerId);
+        state.favoriteOfferIds.push(offerId);
       } else {
-        state.favoriteOffers = state.favoriteOffers.filter((id) => id !== offerId);
+        state.favoriteOfferIds = state.favoriteOfferIds.filter((id) => id !== offerId);
       }
     },
     setFavoriteOffersLoading: (state, action: PayloadAction<boolean>) => {

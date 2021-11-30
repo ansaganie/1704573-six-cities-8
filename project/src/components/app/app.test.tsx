@@ -83,7 +83,7 @@ describe('Component: App', () => {
   it('should render Favorites Page', () => {
     const favoriteOffers: IOffer[] = [];
     const offers = { ...INITIAL_STATE.offer.offers };
-    INITIAL_STATE.app.favoriteOffers.forEach((id) => {
+    INITIAL_STATE.app.favoriteOfferIds.forEach((id) => {
       if (offers[id].city.name === Cities.Paris) {
         favoriteOffers.push(offers[id]);
       }
