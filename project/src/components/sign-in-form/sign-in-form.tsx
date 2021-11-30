@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styles from './sign-in-form.module.css';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import combineClasses from '../../utils/combine-classes';
@@ -43,12 +43,18 @@ function SignInForm(): JSX.Element {
       .matches(PASSWORD_PATTERN, PASSWORD_MATCH),
   }), []);
 
-  const onFormSubmit = (values: ILoginForm) => {
+  const onFormSubmit = (
+    values: ILoginForm,
+    formikHelpers: FormikHelpers<ILoginForm>,
+  ) => {
     const from = (location.state as LoginState)?.from || AppRoute.Main;
 
     dispatch(login(values))
       .then(() => {
         history.replace(from);
+      })
+      .finally(() => {
+        formikHelpers.setSubmitting(false);
       });
   };
 

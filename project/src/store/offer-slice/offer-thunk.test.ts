@@ -13,8 +13,7 @@ import {
   setNearbyOffersLoading,
   setOfferLoading,
   setOffers,
-  setOffersLoading,
-  updateIsFavorite
+  setOffersLoading
 } from './offer-slice';
 import {
   changeIsFavorite,
@@ -87,10 +86,6 @@ describe('Thunk: Offer', () => {
 
     expect(store.getActions()).toEqual([
       setDisabledBookmarkId(changedOffer.id),
-      updateIsFavorite({
-        offerId: changedOffer.id,
-        status: changedOffer.isFavorite,
-      }),
       updateFavoriteOffers({
         offerId: changedOffer.id,
         status: changedOffer.isFavorite,

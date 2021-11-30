@@ -7,7 +7,7 @@ import { getFakeOffers, getFakeUser } from '../../utils/fake-data';
 import { BackendRoute } from '../../constants';
 import { AuthStatus } from './constants';
 import ILoginForm from '../../models/ILoginForm';
-import { addOffers, setOffers, setOffersLoading } from '../offer-slice/offer-slice';
+import { addOffers } from '../offer-slice/offer-slice';
 import {
   initializeApp,
   login,
@@ -39,9 +39,12 @@ describe('Thunk: AppThunk', () => {
 
   it('should initialize app', async () => {
     const user = getFakeUser();
+    const offers = getFakeOffers();
 
     axios.onGet(BackendRoute.Login)
       .reply(200, user);
+    axios.onGet(BackendRoute.Favorite)
+      .reply(200, offers);
 
     const store = mockStore();
 
@@ -50,6 +53,10 @@ describe('Thunk: AppThunk', () => {
     expect(store.getActions()).toEqual([
       setAuthStatus(AuthStatus.Auth),
       setUser((user)),
+      setFavoriteOffersLoading(true),
+      addOffers(offers),
+      setFavoriteOffers(offers),
+      setFavoriteOffersLoading(false),
       setInitialized(),
     ]);
   });
@@ -67,7 +74,7 @@ describe('Thunk: AppThunk', () => {
 
     axios.onPost(BackendRoute.Login)
       .reply(200, user);
-    axios.onGet(BackendRoute.Offers)
+    axios.onGet(BackendRoute.Favorite)
       .reply(200, offers);
 
     const store = mockStore();
@@ -78,10 +85,10 @@ describe('Thunk: AppThunk', () => {
     expect(store.getActions()).toEqual([
       setAuthStatus(AuthStatus.Auth),
       setUser((user)),
-      setOffersLoading(true),
-      setOffers(offers),
-      setOffersLoading(false),
-      setFavoriteOffers([]),
+      setFavoriteOffersLoading(true),
+      addOffers(offers),
+      setFavoriteOffers(offers),
+      setFavoriteOffersLoading(false),
     ]);
 
     expect(setItem).toBeCalledTimes(1);
@@ -106,9 +113,7 @@ describe('Thunk: AppThunk', () => {
     expect(store.getActions()).toEqual([
       setAuthStatus(AuthStatus.NoAuth),
       setUser(null),
-      setOffersLoading(true),
-      setOffers(offers),
-      setOffersLoading(false),
+      setFavoriteOffers([]),
     ]);
 
     expect(removeItem).toBeCalledTimes(1);

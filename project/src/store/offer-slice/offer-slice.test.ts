@@ -3,7 +3,6 @@ import appReducer, {
   setOffers,
   addOffer,
   addOffers,
-  updateIsFavorite,
   setOffersLoading,
   setOfferLoading,
   setDisabledBookmarkId,
@@ -50,26 +49,6 @@ describe('Reducer: Offer', () => {
     };
 
     expect(appReducer(offerState, addOffers(offers))).toEqual(expected);
-  });
-
-  it('should update isFavorite', () => {
-    const offerIndex = 5;
-    const offers = getFakeOffers();
-    const offer = offers[offerIndex];
-    const initial = {
-      offers: offers.reduce(reduceOffers, {}),
-    };
-    initial.offers[offer.id].isFavorite = false;
-
-    const expected = deepClone(initial);
-    expected.offers[offer.id].isFavorite = true;
-
-    const payload = {
-      offerId: offer.id,
-      status: true,
-    };
-
-    expect(appReducer(initial as IOfferState, updateIsFavorite(payload))).toEqual(expected);
   });
 
   it('should set offers are loading', () => {

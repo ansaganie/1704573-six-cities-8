@@ -23,7 +23,7 @@ describe('Component: Leaflet', () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Leaflet offerInFocusId={offer.id} position={position} offers={offers}/>
+        <Leaflet offerInFocusId={offer.id} locationInFocus={location} offers={offers}/>
       </MapContainer>,
     );
 

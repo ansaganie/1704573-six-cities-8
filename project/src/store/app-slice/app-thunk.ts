@@ -45,7 +45,7 @@ const login = (loginForm: ILoginForm): AsyncAction =>
 
       return Promise.resolve();
     } catch (error) {
-      appToast.error((error as AxiosError).message);
+      appToast.error((error as AxiosError).response?.data.error);
 
       return Promise.reject();
     }
